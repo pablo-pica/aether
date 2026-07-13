@@ -67,7 +67,7 @@ Traditional international remittance networks impose significant overhead throug
 ## 🎬 Live Demo & Presentation
 
 * 🌐 **Live Application**: [Aethyr on Vercel](https://aethyr-pica.vercel.app/)
-* 🎥 **Video Walkthrough**: [Aethyr Walkthrough Video (YouTube)](https://www.youtube.com/watch?v=F_bBEHbHh0A)
+* 🎥 **Video Walkthrough**: [Aethyr Walkthrough Video (YouTube)](https://www.youtube.com/watch?v=F_bBEHbHh0A) | [Local Walkthrough Video (MP4)](./docs/assets/video_demo.mp4)
 
 ---
 
@@ -293,7 +293,7 @@ Each belt section below maps **1:1** against the [Belt Requirements](./docs/BELT
 | **Milestone Activity timeline** — tracking status of released/pending milestones with transaction hashes | <img src="docs/assets/screen7.png" width="220" alt="Milestones Activity Timeline"> |
 | **GitHub Actions CI/CD** — green/passing build and test runs dashboard | <img src="docs/assets/screen8.png" width="220" alt="GitHub Actions CI/CD"> |
 | **Test suite output** — 11 Rust contract tests and 59 Vitest frontend tests passing in terminal | <img src="docs/assets/screen9.png" width="220" alt="Test Suite Output"> |
-| **Video walkthrough** | [Aethyr Walkthrough Video (YouTube)](https://www.youtube.com/watch?v=F_bBEHbHh0A) |
+| **Video walkthrough** | [Aethyr Walkthrough Video (YouTube)](https://www.youtube.com/watch?v=F_bBEHbHh0A) or [Local Walkthrough Video (MP4)](./docs/assets/video_demo.mp4) |
 
 </details>
 
