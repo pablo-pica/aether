@@ -72,9 +72,9 @@ Status: "Audit Passed"
 - [ ] Submit Orange Belt on Rise In dashboard `[YOU]`
 
 ### 💡 Phase 4: Idea Submission
-- [ ] Draft Problem Statement & Why Stellar sections `[AI]`
-- [ ] Draft Target Audience & Architecture sections `[AI]`
-- [ ] Draft Complexity & Roadmap sections `[AI]`
+- [x] Draft Problem Statement & Why Stellar sections `[AI]`
+- [x] Draft Target Audience & Architecture sections `[AI]`
+- [x] Draft Complexity & Roadmap sections `[AI]`
 - [ ] Review and edit the complete draft `[AI→YOU]`
 - [ ] Submit Idea Submission on Rise In dashboard `[YOU]`
 
