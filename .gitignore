@@ -34,3 +34,6 @@ Cargo.lock
 # Playwright test results
 test-results/
 
+
+# Local subagent transcripts and review artifacts
+.pi-subagents/

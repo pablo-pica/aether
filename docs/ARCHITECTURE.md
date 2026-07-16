@@ -1,12 +1,58 @@
 # 🏗️ Aethyr — System Architecture (ARCHITECTURE.md)
 
-This document details the software architecture, smart contract interfaces, path-finding design, and data flows for the **Aethyr** payment routing platform.
+This document separates the **implemented Level 3 foundation** from the **planned Level 4 Aethyr Aid architecture** approved in [`IDEA-SUBMISSION.md`](./IDEA-SUBMISSION.md). Planned components are not implementation claims; their final interfaces must be defined and tested during Phase 5 in [`PROGRESS.md`](./PROGRESS.md).
 
 ---
 
-## 🗺️ System Overview
+## 🎯 Planned Level 4 Architecture: Aethyr Aid
 
-Aethyr is a client-side dApp (PWA) that interacts directly with the Stellar Network and Soroban RPC nodes. Smart contracts are used to securely handle currency routing and escrow locks.
+### MVP Boundary
+
+The Green Belt MVP traces one donation through campaign funding, voucher issuance, approved-merchant redemption, evidence submission, verifier/admin decision, and payout or dispute. It supports operational wallets for donors, NGO/admin users, merchants or cooperatives, and verifiers. Beneficiary households use case IDs and are not required to manage wallets.
+
+```mermaid
+flowchart LR
+    Donor[Donor wallet] --> Campaign[Campaign escrow]
+    Admin[NGO / admin wallet] --> Case[Beneficiary case ID]
+    Admin --> Registry[Approved merchant registry]
+    Campaign --> Voucher[Purpose-bound voucher]
+    Case --> Voucher
+    Merchant[Merchant wallet] -->|redeems + submits evidence hash| Voucher
+    Voucher --> Review[Verifier / admin review]
+    Verifier[Verifier wallet] --> Review
+    Review -->|approve| Payout[Merchant payout]
+    Review -->|reject| Rejected[Rejected claim]
+    Review -->|freeze| Dispute[Frozen dispute]
+```
+
+### Planned Domain Records
+
+The implementation specification must define the exact fields and state transitions for:
+
+- Campaign escrow and available allocation.
+- Approved merchant or cooperative registration and suspension.
+- Beneficiary case ID with no personal data stored on-chain.
+- Purpose-bound voucher and redemption status.
+- Evidence hash and off-chain evidence reference policy.
+- Verifier/admin attestation and decision.
+- Payout, rejection, freeze, refund, and dispute outcomes.
+
+### Privacy and Trust Boundary
+
+- Personal beneficiary information, merchant identity documents, and raw delivery evidence remain off-chain.
+- Only case identifiers, hashes, states, attestations, and payout records are candidates for on-chain storage.
+- A hash proves that referenced evidence has not changed; it does not prove that the underlying evidence is true. Authorization and review policy remain required.
+- Production and Mainnet promotion are separate gates. Level 4 targets Testnet contracts plus a production-hosted application; Mainnet is deferred until Level 6 security and pilot criteria are met.
+
+### Reuse from the Level 3 Foundation
+
+The Level 4 plan should evaluate reuse of the existing wallet integration, fee-sponsorship route, escrow authorization patterns, transaction status UI, tests, CI/CD pipeline, and Vercel deployment. Router/pathfinding and AI features are not automatically part of the voucher MVP.
+
+---
+
+## 🗺️ Implemented Level 3 System Overview
+
+The current Aethyr application is a client-side dApp (PWA) that interacts with Stellar Testnet and Soroban RPC. Its existing Router and Escrow contracts provide the implementation foundation described below.
 
 ```
        +---------------------------------------------+
@@ -50,7 +96,7 @@ Aethyr is a client-side dApp (PWA) that interacts directly with the Stellar Netw
 
 ---
 
-## 🔀 Hybrid Path-Finding & Routing Engine
+## 🔀 Existing Routing Prototype
 
 Stellar features a built-in decentralized exchange (DEX) with orderbooks and native/Soroban automated market makers (AMMs) or liquidity pools. Aethyr's key differentiator is resolving the most cost-effective path by dynamically scanning both orderbooks and AMM pools.
 
@@ -71,7 +117,7 @@ Aethyr compares the computed path against traditional rails:
 
 ## 📝 Smart Contract Layout
 
-Aethyr uses two core Soroban smart contracts written in Rust:
+The implemented Level 3 foundation contains two Soroban smart contracts written in Rust:
 
 ### 1. `aethyr-router` (Payment Router)
 Handles multi-token routing operations, converting asset A to asset B via intermediate pools or orderbooks. It validates the output against the client-side slippage tolerance and routes the payment.
@@ -212,15 +258,13 @@ Security is enforced using Soroban's native auth framework:
 
 ---
 
-## 🏦 Stellar Ecosystem Integration (SEPs)
+## 🏦 Planned Cash-In / Cash-Out Integration
 
-For real-world cash-in and cash-out operations, Aethyr integrates with the Stellar Anchor network via standard protocols:
-1. **SEP-24 (Hosted Deposit and Withdrawal)**: Embeds anchor-hosted web views for KYC verification and interactive bank/cash deposit or withdrawal.
-2. **SEP-38 (Anchor Quotes)**: Requests firm currency conversion quotes between on-chain assets (e.g. USDC) and off-chain local currencies (e.g. PHP via GCash, NGN via bank transfer) to display exact fiat-equivalent values in the dApp interface.
+The current codebase does not claim a production anchor integration. A regulated cash-out path is deferred beyond Level 4. Candidate future standards must be selected against an actual partner's supported flow rather than documented as already implemented.
 
 ---
 
-## 📱 Progressive Web App (PWA) Design & Navigation
+## 📱 Implemented Level 3 PWA Design & Navigation
 
 To fulfill the mobile-first UX requirement, Aethyr is structured as an installable PWA resembling a native app. The interface uses a single-screen layout with an dynamic App Shell:
 
@@ -252,7 +296,7 @@ The top app header is persistent across all views:
 
 ---
 
-## 🔄 Data Flows & State Changes
+## 🔄 Implemented Level 3 Data Flows & State Changes
 
 ### Wallet Connection Flow
 ```

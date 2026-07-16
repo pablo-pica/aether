@@ -1,6 +1,6 @@
 # 🏆 Aethyr — JTM Belt Requirements Reference (BELT-REQUIREMENTS.md)
 
-This file contains the verbatim requirements checklists for the **Stellar Journey to Mastery** challenges. The **Belt Checker** subagent reads this file to audit the project status before any submission.
+This file contains working audit checklists for the **Stellar Journey to Mastery** challenges. Levels 4–6 are transcribed from [`LEVELS-4-7-REQUIREMENTS.md`](./LEVELS-4-7-REQUIREMENTS.md); the **Belt Checker** subagent reads this file before any submission.
 
 ---
 
@@ -81,10 +81,88 @@ This file contains the verbatim requirements checklists for the **Stellar Journe
 
 ## 💡 Idea Submission Requirements (Gate to Green Belt)
 
-### Document Sections
-- [ ] **Problem Statement**: What friction/problem are you solving in the cross-border remittance/payment sector?
-- [ ] **Why Stellar?**: Explain why Stellar is the ideal blockchain layer for Aethyr (DEX, low fees, native assets, anchors).
-- [ ] **Target Audience**: Who will benefit from Aethyr (remote workers, small businesses, diaspora)?
-- [ ] **Technical Architecture**: Detailed summary of frontend, contracts, routing algorithms, and API integrations.
-- [ ] **Complexity & Scale**: Identify the technical challenges (pathfinding algorithms, liquidity, inter-contract states).
-- [ ] **Product Roadmap**: Clear milestones for Green Belt (MVP), Blue Belt (Growth), Black Belt (Mainnet launch).
+**Status:** Approved. The accepted direction is preserved in [`IDEA-SUBMISSION.md`](./IDEA-SUBMISSION.md).
+
+### Approved Document Sections
+- [x] **Problem Statement**: Last-mile accountability and delay in typhoon-relief delivery in Bicol, Philippines.
+- [x] **Why Stellar?**: Low-cost payments, Soroban controls, and a future path to regulated cash-in/cash-out rails.
+- [x] **Target Users**: Donors, NGOs, barangay/community verifiers, volunteers, cooperatives, approved merchants, and beneficiary households.
+- [x] **Technical Architecture**: Campaign escrow, beneficiary case IDs, vouchers, merchant redemption, evidence hashes, verifier decisions, payouts, and disputes.
+- [x] **Complexity Evaluation**: Verification quality, merchant controls, privacy boundaries, and dispute handling.
+- [x] **Product Roadmap**: Green Belt voucher MVP, Blue Belt verification and traceability, and Black Belt security/pilot/Mainnet readiness.
+
+---
+
+## 🟢 Green Belt Requirements (Level 4)
+
+### Production MVP
+- [ ] Fully functional production-ready MVP.
+- [ ] Stable frontend and smart-contract architecture.
+- [ ] Mobile-responsive UI.
+- [ ] Proper loading states and error handling.
+
+### User Onboarding
+- [ ] At least **10 real users** onboarded.
+- [ ] Proof of wallet interactions.
+- [ ] Basic user-feedback collection.
+
+### Product Quality and Technical Standards
+- [ ] Production deployment.
+- [ ] Monitoring and analytics integration.
+- [ ] Optimized user experience.
+- [ ] Proper project structure and documentation.
+- [ ] Smart contracts deployed on Stellar Testnet.
+- [ ] At least **15 meaningful commits**.
+- [ ] Public GitHub repository.
+
+### Demo and Submission Evidence
+- [ ] Live demo video showing complete functionality.
+- [ ] Team review covers technical complexity, product quality, architecture quality, and real-world usefulness.
+- [ ] README with complete documentation.
+- [ ] Live application link and contract deployment addresses.
+- [ ] Screenshots of the product UI, mobile layout, and analytics or monitoring setup.
+- [ ] Proof of 10+ user wallet interactions.
+- [ ] Basic user-feedback summary.
+
+---
+
+## 🔵 Blue Belt Requirements (Level 5)
+
+### Growth and Product Iteration
+- [ ] At least **50 Testnet users** onboarded.
+- [ ] Real transaction activity and active-usage proof.
+- [ ] Features added from user feedback.
+- [ ] UX/UI, stability, and onboarding improved.
+
+### Presentation and Technical Standards
+- [ ] Professional pitch deck covering the problem, solution, market, architecture, growth strategy, and roadmap.
+- [ ] Full product walkthrough showing real user flows and use cases.
+- [ ] At least **20 meaningful commits**.
+- [ ] Updated documentation.
+
+### User Evidence and Submission
+- [ ] Collect wallet address, email, name, and product feedback using the program-required form.
+- [ ] Export responses to a spreadsheet and link it from the README using privacy-appropriate access controls.
+- [ ] Explain feedback-driven improvements in the README and link the corresponding commits.
+- [ ] Provide the public repository, live app, pitch deck, demo, proof of 50+ users, analytics or transaction screenshots, and iteration summary.
+
+---
+
+## ⚫ Black Belt Requirements (Level 6)
+
+### Mainnet, Adoption, and Security
+- [ ] Smart contracts deployed on Stellar Mainnet.
+- [ ] Public production application live.
+- [ ] At least **20 verified Mainnet users** with real on-chain transaction activity.
+- [ ] Smart-contract audit or mentor/team-approved security review.
+
+### Launch and Ecosystem Contribution
+- [ ] Twitter/X launch post or thread and demo/showcase content.
+- [ ] Complete a technical blog, workshop, tutorial, open-source contribution, or community session.
+- [ ] At least **30 meaningful commits**.
+- [ ] Full technical, production, and user documentation.
+
+### User Evidence and Advanced Feature
+- [ ] Collect and export the program-required user details and feedback, link the sheet from the README, and document feedback-driven improvements with commit links.
+- [ ] Implement at least one qualifying advanced feature: fee sponsorship, SEP-24/SEP-31 cross-border flow, multi-signature logic, or account abstraction.
+- [ ] Provide Mainnet addresses, user and transaction proof, security-review proof, launch/demo links, and the ecosystem-contribution link.

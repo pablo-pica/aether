@@ -5,24 +5,26 @@ This is a living document updated autonomously by agents at the end of each task
 ## ⚡ Active Task
 
 ```yaml
-Current Task: "Audit: Orange Belt Compliance (Tests, Git, Playwright Verification)"
-Assigned Agent: Checker
-Status: "Audit Passed"
+Current Task: "Prepare the Level 4 implementation plan"
+Assigned Agent: Planner / Architect
+Status: "Documentation alignment complete; planning not started"
+Next Gate: "Level 4 implementation plan approved"
 ```
 
 ---
 
-## 📈 Pace Tracker
+## 📈 Level 4 Delivery Target
 
-| Metric | Value | Target | Status |
-|--------|-------|--------|--------|
-| **Coding Days Done** | 1 | 14 (Orange) | 🟢 ON TRACK |
-| **Pace Ratio** | 0.07 | 1.00 | |
-| **Calendar Days Left** | 22 | | |
-| **Finals Days Buffer** | 7 | | |
-| **Available Coding Days**| 15 | 14 | |
+| Milestone | Target | Status |
+|-----------|--------|--------|
+| **Idea submission gate** | Approved | ✅ Complete |
+| **Implementation plan and acceptance criteria** | August 6, 2026 | ⏳ Next |
+| **Feature-complete Green Belt MVP** | August 20, 2026 | 📋 Planned |
+| **Production validation and 10-user evidence** | August 27, 2026 | 📋 Planned |
+| **Level 4 submission** | August 28, 2026 | 📋 Planned |
+| **Review buffer / approval target** | August 29–31, 2026 | 📋 Planned |
 
-*Current Project Health: 🟢 ON TRACK. Orange Belt features fully developed and tested locally.*
+*Primary goal: submit early enough to leave a three-day review buffer and obtain Level 4 approval by August 31, 2026. Approval timing is controlled by the program reviewers, so August 28 is the internal submission deadline.*
 
 ---
 
@@ -71,12 +73,69 @@ Status: "Audit Passed"
 - [x] Deploy production release to Vercel `[YOU]`
 - [ ] Submit Orange Belt on Rise In dashboard `[YOU]`
 
-### 💡 Phase 4: Idea Submission
+### 💡 Phase 4: Idea Submission Gate
 - [x] Draft Problem Statement & Why Stellar sections `[AI]`
 - [x] Draft Target Audience & Architecture sections `[AI]`
 - [x] Draft Complexity & Roadmap sections `[AI]`
-- [ ] Review and edit the complete draft `[AI→YOU]`
-- [ ] Submit Idea Submission on Rise In dashboard `[YOU]`
+- [x] Review and edit the complete draft `[AI→YOU]`
+- [x] Submit Idea Submission on Rise In dashboard `[YOU]`
+- [x] Receive approval to proceed to Levels 4–6 `[YOU]`
+- [x] Preserve the approved proposal in [`IDEA-SUBMISSION.md`](./IDEA-SUBMISSION.md) `[AI]`
+
+### 🟢 Phase 5: Green Belt Definition & Validation Plan (August 3–6)
+- [ ] Convert the approved proposal into a Level 4 implementation specification and acceptance tests `[AI→YOU]`
+- [ ] Define the campaign, merchant, beneficiary-case, voucher, evidence, verification, payout, and dispute state models `[AI→YOU]`
+- [ ] Decide which existing Router/Escrow capabilities are reused, adapted, or retired `[AI→YOU]`
+- [ ] Define privacy boundaries: beneficiary personal data stays off-chain; only case identifiers, hashes, states, and attestations may be recorded on-chain `[AI→YOU]`
+- [ ] Map the required 10 real wallet users to operational roles such as donors, NGO/admin operators, merchants/cooperatives, and verifiers; beneficiaries do not need wallets for the MVP `[AI→YOU]`
+- [ ] Define testnet evidence, analytics, monitoring, feedback, screenshots, and demo artifacts before implementation starts `[AI→YOU]`
+
+### 🟢 Phase 6: Green Belt Contracts & Test Coverage (August 7–14)
+- [ ] Write failing contract tests for the approved clean-delivery and disputed-delivery flows `[AI]`
+- [ ] Implement campaign escrow and voucher lifecycle on Stellar Testnet `[AI]`
+- [ ] Implement approved merchant/cooperative registry and beneficiary case IDs `[AI]`
+- [ ] Implement evidence-hash submission and verifier/admin approve, reject, and freeze decisions `[AI]`
+- [ ] Enforce authorization, replay protection, state-transition guards, refund behavior, and payout invariants `[AI]`
+- [ ] Deploy the Level 4 contracts to Testnet and record contract addresses and representative transaction hashes `[AI→YOU]`
+
+### 🟢 Phase 7: Green Belt Product Flow (August 15–20)
+- [ ] Build the mobile-first campaign funding and voucher administration flows `[AI]`
+- [ ] Build merchant redemption and evidence submission flows `[AI]`
+- [ ] Build verifier/admin review, payout, rejection, freeze, and dispute views `[AI]`
+- [ ] Demonstrate one clean delivery and one disputed delivery end to end `[AI]`
+- [ ] Add explicit loading, empty, success, rejection, and recoverable error states `[AI]`
+- [ ] Complete frontend, contract, integration, and production-build verification `[AI]`
+
+### 🟢 Phase 8: Green Belt Production Validation (August 21–27)
+- [ ] Deploy the feature-complete MVP to production `[AI→YOU]`
+- [ ] Integrate privacy-conscious analytics and error monitoring `[AI]`
+- [ ] Onboard at least 10 real operational users and collect proof of wallet interactions `[YOU]`
+- [ ] Collect basic user feedback without publishing unnecessary personal data `[YOU]`
+- [ ] Fix blocking usability, stability, and onboarding issues found during validation `[AI]`
+- [ ] Update README, architecture, deployment, user guidance, screenshots, and evidence links `[AI]`
+- [ ] Record a live demo showing the complete clean and disputed delivery flows `[YOU]`
+
+### 🟢 Phase 9: Green Belt Submission & Approval Buffer (August 28–31)
+- [ ] Run the complete Level 4 checklist in [`BELT-REQUIREMENTS.md`](./BELT-REQUIREMENTS.md) `[AI]`
+- [ ] Verify 15+ meaningful commits, public repository, production URL, Testnet contracts, analytics/monitoring evidence, 10-user proof, and feedback summary `[AI→YOU]`
+- [ ] Submit Level 4 by August 28 `[YOU]`
+- [ ] Reserve August 29–31 for reviewer questions or required corrections `[AI→YOU]`
+- [ ] Record the final reviewer decision and evidence links here `[AI]`
+
+### 🔵 Phase 10: Blue Belt Growth (Post-Level 4, High-Level)
+- [ ] Seek mentor feedback before scaling onboarding and record any resulting decisions `[YOU]`
+- [ ] Grow to at least 50 Testnet users with real transaction and active-usage evidence `[YOU]`
+- [ ] Add multi-party verification thresholds, donor traceability, merchant pricing checks, and a non-transferable Verified Delivery Receipt based on user feedback `[AI]`
+- [ ] Improve onboarding, UX, stability, documentation, pitch deck, and full product demo `[AI→YOU]`
+- [ ] Publish the required feedback sheet and iteration summary with appropriate privacy controls `[AI→YOU]`
+
+### ⚫ Phase 11: Black Belt Mainnet Readiness (Post-Level 5, High-Level)
+- [ ] Seek mentor feedback and choose a local NGO, cooperative, or volunteer pilot partner `[YOU]`
+- [ ] Complete a smart-contract audit or mentor/team-approved security review before Mainnet `[AI→YOU]`
+- [ ] Deploy the production application and contracts to Mainnet only after the verification workflow passes pilot validation `[AI→YOU]`
+- [ ] Onboard at least 20 verified Mainnet users and capture real on-chain activity `[YOU]`
+- [ ] Ship at least one qualifying advanced feature; multi-signature verification is the proposal-aligned default `[AI]`
+- [ ] Complete public launch, user documentation, feedback evidence, and an ecosystem contribution `[AI→YOU]`
 
 ---
 
@@ -87,6 +146,10 @@ Status: "Audit Passed"
 ---
 
 ## 📜 Audit Logs
+
+### 2026-08-03
+- **Planner / Architect**: Aligned the public project documentation with the approved Aethyr Aid proposal. Added detailed Level 4 phases with an August 28 submission deadline and August 31 approval target, plus high-level Level 5–6 phases. Updated the public README, master plan, target architecture, belt requirements, deployment scope, and viewable Markdown proposal while preserving the implemented Level 3 foundation as current-state documentation.
+- **Docs Guard**: Cross-checked Level 4–6 rewards and submission criteria against `docs/LEVELS-4-7-REQUIREMENTS.md`, verified current-versus-planned labeling, resolved the stale escrow initialization command and unsupported mentor-checkpoint requirement, checked internal links, and completed an independent review with no remaining must-fix or should-fix findings.
 
 ### 2026-07-10
 - **Builder**: Implemented client-side `localStorage` caching for manually created escrows in `page.tsx`. This prevents newly created escrows from vanishing from the UI when users switch wallets (e.g. from Client Alice to Freelancer Bob) or refresh the page, enabling fully integrated flow testing in client-only Sandbox environments.

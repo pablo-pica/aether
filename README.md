@@ -5,7 +5,7 @@
 
 <h1 align="center">🌌 Aethyr</h1>
 <p align="center">
-  <strong>Intelligent, Intent-Based Cross-Border Payment Routing on Stellar</strong>
+  <strong>Aethyr Aid — Verified Typhoon Relief Payments on Stellar</strong>
 </p>
 
 <p align="center">
@@ -15,23 +15,31 @@
   <img src="https://img.shields.io/badge/Tailwind-v4-38bdf8?style=flat-square&logo=tailwindcss" alt="Styling">
   <img src="https://img.shields.io/badge/Rust%20Tests-11%2F11%20Passed-green?style=flat-square&logo=rust" alt="Rust Tests">
   <img src="https://img.shields.io/badge/Vitest-59%2F59%20Passed-green?style=flat-square&logo=vitest" alt="Vitest Tests">
-  <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License">
 </p>
 
 ---
 
-## 💡 Value Proposition
+## 💡 Approved Product Direction
 
-Aethyr is an intent-based, cross-border payment router built on the Stellar network. By combining natural language artificial intelligence and decentralized exchange (DEX) liquidity, Aethyr optimizes multi-currency transaction paths in real-time to minimize fee footprints and slippage.
+Aethyr Aid addresses the last-mile accountability gap in typhoon relief. The Level 4 MVP will let donors fund campaign escrows, NGO/admin operators issue purpose-bound vouchers to beneficiary case IDs, approved local merchants submit delivery evidence, and verifiers approve, reject, or freeze payouts. Beneficiaries will not need crypto wallets; sensitive personal data and raw evidence will remain off-chain.
 
-Traditional international remittance networks impose significant overhead through high flat fees, wide conversion spreads, and settlement delays. Aethyr addresses these issues through three main pillars:
-* **AI-Driven Intent Parsing**: Users specify transactions in plain language (e.g., *"Send 50 USD equivalent in PHP to Bob for completing Milestone 1"*). Aethyr translates these inputs into structured transaction payloads.
-* **DEX Pathfinding**: Aethyr calculates the most cost-effective path across Classic DEX orderbooks, automated market makers (AMMs), and Soroban liquidity pools (e.g., `PHP ➔ USDC ➔ XLM ➔ NGN`), maximizing the recipient's payout.
-* **Non-Custodial Milestone Escrows**: Funds are secured inside modular Soroban milestone escrow contracts, releasing capital incrementally as milestones are completed and verified by trust anchors, with built-in dispute resolution and time-locked auto-release.
+The approved scope is documented in [`docs/IDEA-SUBMISSION.md`](./docs/IDEA-SUBMISSION.md). The detailed delivery gates and August target are tracked in [`docs/PROGRESS.md`](./docs/PROGRESS.md).
+
+> **Status:** The disaster-relief workflow is planned, not yet implemented. The repository currently contains the completed Level 3 wallet, routing, escrow, relayer, testing, and deployment foundation described below. The internal Level 4 submission deadline is **August 28, 2026**, with approval targeted by **August 31, 2026**.
+
+### Green Belt MVP Scope
+
+- Campaign escrow and donation allocation.
+- Approved merchant/cooperative registry.
+- Beneficiary case IDs without on-chain personal data.
+- Purpose-bound voucher issuance and merchant redemption.
+- Evidence-hash submission and verifier/admin approval, rejection, or freeze.
+- One end-to-end clean delivery and one disputed delivery in the demo.
+- Production deployment, monitoring/analytics, 10 real operational wallet users, and basic feedback evidence.
 
 ---
 
-## 🏆 Core Achievements
+## 🏆 Implemented Level 3 Foundation
 
 ### Smart Contract System (Soroban / Rust)
 * 🔐 **Aethyr Router Contract** — Multi-hop DEX routing with atomic swaps and direct escrow funding.
@@ -71,9 +79,9 @@ Traditional international remittance networks impose significant overhead throug
 
 ---
 
-## 🏗️ System Architecture
+## 🏗️ Current Level 3 System Architecture
 
-Aethyr connects users, AI models, and Stellar smart contracts into a unified payment loop:
+The currently implemented application connects users, the optional AI parser, and the existing Stellar contracts. The planned voucher architecture is documented separately in [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md).
 
 ```mermaid
 graph TD
@@ -117,10 +125,11 @@ aethyr/
 │       └── Cargo.toml           # Workspace manifest
 ├── docs/                    # Design documentation, architecture files, and submission assets
 │   ├── assets/              # Interface screenshots and project banners
-│   ├── ARCHITECTURE.md      # Core system architecture and contract specs
-│   ├── BELT-REQUIREMENTS.md # JTM belt submission checklists
-│   ├── PROGRESS.md          # Real-time living development progress tracker
-│   └── MASTERPLAN.md        # JTM milestones timeline and strategy plan
+│   ├── IDEA-SUBMISSION.md   # Approved Aethyr Aid product direction
+│   ├── ARCHITECTURE.md      # Implemented foundation + planned voucher architecture
+│   ├── BELT-REQUIREMENTS.md # JTM belt submission checklists through Level 6
+│   ├── PROGRESS.md          # Living progress tracker and August Level 4 gates
+│   └── MASTERPLAN.md        # Product strategy, scope, and belt roadmap
 ├── scripts/
 │   └── pre-commit.sh        # Git compliance hook (secret scanning + test runner)
 ├── src/
@@ -373,28 +382,22 @@ npm run lint
 
 ## 🗺️ Product Roadmap
 
-```mermaid
-gantt
-    title Aethyr Development Roadmap
-    dateFormat  YYYY-MM-DD
-    section Completed
-    White Belt :done, 2026-07-01, 2026-07-07
-    Yellow Belt :done, 2026-07-08, 2026-07-09
-    Orange Belt :done, 2026-07-09, 2026-07-15
-    section Planned
-    Green Belt (SEP Standards) :active, 2026-07-16, 2026-07-30
-    Blue Belt (DEX Auto Routing) :2026-08-01, 2026-08-15
-```
+| Gate | Target | Outcome | Status |
+|:-----|:-------|:--------|:------:|
+| ⚪–🟠 Levels 1–3 | July 2026 | Wallet, contracts, PWA, tests, CI/CD, relayer, and demo foundation | ✅ Complete |
+| 💡 Idea gate | July 2026 | Aethyr Aid direction approved | ✅ Complete |
+| 🟢 Level 4 definition | Aug 3–6 | Domain model, implementation specification, acceptance criteria, and evidence plan | ⏳ Next |
+| 🟢 Level 4 contracts | Aug 7–14 | Tested campaign, voucher, registry, evidence, verification, and dispute logic on Testnet | 📋 Planned |
+| 🟢 Level 4 product | Aug 15–20 | Complete donor/admin, merchant, and verifier workflows | 📋 Planned |
+| 🟢 Level 4 validation | Aug 21–27 | Production deployment, monitoring/analytics, 10-user proof, feedback, and demo | 📋 Planned |
+| 🟢 Level 4 submission | Aug 28 | Green Belt package submitted with Aug 29–31 review buffer | 🎯 Target |
+| 🔵 Level 5 | After Level 4 | 50 Testnet users, feedback-led improvements, verification thresholds, donor traceability, pricing checks, receipt, pitch, and demo | Future |
+| ⚫ Level 6 | After Level 5 | Security review, local pilot, Mainnet, 20 verified users, public launch, and ecosystem contribution | Future |
 
-| Belt | Focus | Status |
-|:-----|:------|:------:|
-| ⚪ White | Wallet connect, XLM transfers, PWA layout | ✅ Complete |
-| 🟡 Yellow | Soroban contracts, multi-wallet, error handling | ✅ Complete |
-| 🟠 Orange | Inter-contract calls, CI/CD, tests, gasless relayer | ✅ Complete |
-| 🟢 Green | SEP-24/38 anchor integration, fiat on-ramps | 📋 Planned |
-| 🔵 Blue | DEX pathfinding engine, multi-hop routing | 📋 Planned |
+See [`docs/PROGRESS.md`](./docs/PROGRESS.md) for the acceptance checklist and [`docs/BELT-REQUIREMENTS.md`](./docs/BELT-REQUIREMENTS.md) for the program requirements.
 
 ---
 
 ## 📄 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+No license file is currently included in this repository.

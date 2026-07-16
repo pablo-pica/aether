@@ -1,6 +1,21 @@
 # 🚀 Aethyr — Deployment & Setup Guide (DEPLOYMENT.md)
 
-This document provides step-by-step instructions for deploying the **Aethyr** contracts and frontend application to the Stellar Testnet and Vercel hosting.
+This document describes the **currently implemented Level 3** contract and frontend deployment to Stellar Testnet and Vercel. The approved Aethyr Aid voucher contracts are planned Level 4 work; their deployment commands and configuration must be added only after the interfaces exist and the commands have been verified.
+
+---
+
+## 🎯 Level 4 Deployment Evidence Gate
+
+Before the Green Belt submission, this guide must be extended with verified instructions for the implemented campaign, voucher, merchant-registry, evidence, verification, and dispute components. The release must also record:
+
+- Testnet contract addresses and representative transaction hashes.
+- Production application URL.
+- Monitoring and analytics setup without beneficiary personal data.
+- One clean-delivery trace and one disputed-delivery trace.
+- Proof of wallet interactions from at least 10 real operational users.
+- Rollback or redeployment steps for a failed contract or frontend release.
+
+Mainnet deployment is outside Level 4 scope and remains blocked on the Level 6 pilot and security-review gates.
 
 ---
 
@@ -54,26 +69,17 @@ stellar contract deploy \
   --network testnet \
   --alias aethyr-escrow
 
-# 4. Initialize aethyr-router
-stellar contract invoke \
-  --id aethyr-router \
-  --source-account dev \
-  --network testnet \
-  -- \
-  initialize \
-  --admin dev
-
-# 5. Initialize aethyr-escrow
+# 4. Initialize aethyr-escrow with its validator address
+# The router contract has no initialize function.
 stellar contract invoke \
   --id aethyr-escrow \
   --source-account dev \
   --network testnet \
   -- \
   initialize \
-  --admin dev \
-  --router aethyr-router
+  --validator dev
 
-# 6. Generate typescript bindings for integration
+# 5. Generate TypeScript bindings for integration
 stellar contract bindings typescript \
   --network testnet \
   --contract-id aethyr-router \

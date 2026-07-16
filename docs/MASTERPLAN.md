@@ -1,14 +1,20 @@
 # 🌌 Aethyr — JTM Master Plan
 
-> *"Your money, transmitted through the Aethyr."*
+> *Verified typhoon-relief delivery, from donation to local payout.*
 
-**Project**: Aethyr — AI-Augmented Cross-Border Payment Routing on Stellar  
-**Track**: Builder Track  
-**Program**: Stellar Journey to Mastery ($20K/month prize pool)  
-**Program Window**: May 31 – August 31, 2026  
-**Coding Start**: July 7, 2026  
-**Approach**: Vibe-coded with strict quality verification  
-**Models**: Gemini Flash 3.5 (medium) · Claude Opus (planning)  
+**Project**: Aethyr Aid — Verified Typhoon Relief Payments on Stellar
+
+**Track**: Builder Track
+
+**Program**: Stellar Journey to Mastery
+
+**Approved Direction**: [`IDEA-SUBMISSION.md`](./IDEA-SUBMISSION.md)
+
+**Level 4 Approval Target**: August 31, 2026
+
+**Internal Submission Deadline**: August 28, 2026
+
+**Implementation Rule**: Keep future capabilities labeled as planned until source code and evidence exist.
 
 ---
 
@@ -26,23 +32,23 @@
 | No repeat rewards | Once rewarded for a level, must advance for future eligibility |
 | Team = 1 prize | Prize per project, not per person |
 | Earlier = reviewed first | Submit early to be reviewed before the rush |
-| Mentor Checkpoint | Must get feedback on technical/market fit before onboarding users (for Levels 5 & 6) |
+| Mentor feedback | Recommended before scaling Levels 5–6; record it if program reviewers provide a checkpoint |
 
 ### Reward Table
 
 | Belt | Level | Reward | Status |
 |------|-------|--------|--------|
-| ⚪ White | 1 | No stated reward | Unlocked |
-| 🟡 Yellow | 2 | **$10** / winner | Unlocked |
-| 🟠 Orange | 3 | **$50** / winner | Unlocked |
-| 💡 Idea Submission | Gate | None (unlocks 4-7) | Unlocked |
-| 🟢 Green | 4 | Unknown (likely $100+) | 🔒 |
-| 🔵 Blue | 5 | Unknown (likely $200+) | 🔒 |
-| ⚫ Black | 6 | Unknown (likely $300+) | 🔒 |
-| 🏆 Master | 7 | Unknown (recurring) | 🔒 |
+| ⚪ White | 1 | No stated reward | Complete |
+| 🟡 Yellow | 2 | **$10** / selected winner | Complete |
+| 🟠 Orange | 3 | **$50** / selected winner | Complete; submission status tracked in `PROGRESS.md` |
+| 💡 Idea Submission | Gate | None | ✅ Approved |
+| 🟢 Green | 4 | **$100** / selected winner | 🎯 Target: approval by Aug 31 |
+| 🔵 Blue | 5 | **$150** / selected winner | Planned after Level 4 |
+| ⚫ Black | 6 | **$200** / selected winner | Planned after Level 5 |
+| 🏆 Master | 7 | See current program rules | Out of current scope |
 
 > [!IMPORTANT]
-> The $20K pool is **weighted toward higher belts**. Getting past Orange into Green+ in August is where the real money is.
+> Level 4 is the current objective. Build only the approved voucher MVP, satisfy every Green Belt evidence requirement, and submit by August 28 to preserve a review buffer through August 31.
 
 ### 🏆 Insider Tips
 
@@ -56,20 +62,20 @@
 
 ### Elevator Pitch
 
-> Aethyr is an intelligent cross-border payment routing platform built on Stellar. It analyzes DEX orderbooks and AMM liquidity pools in real-time to find the cheapest multi-hop path for your money, routing funds through secure, milestone-based Soroban escrows with an optional Gemini AI assist that parses plain-language payment commands.
+> Aethyr Aid is a milestone-gated typhoon-relief protocol on Stellar. Donations fund campaign escrows, approved local merchants redeem purpose-bound vouchers, and payouts occur only after evidence and verifier decisions are recorded, creating an attributable trail without forcing beneficiaries to manage wallets.
 
-### 🌟 JTM Stand-out Strategy & Competitiveness
-To differentiate Aethyr from other entries and traditional fintech apps, we focus on three core pillars:
-1. **Hybrid Cost Efficiency**: Unlike standard wallets that perform direct swaps or single-hop swaps, Aethyr combines Stellar Classic AMMs, DEX orderbooks, and Soroban AMMs to find multi-hop routes (e.g. PHP ➔ USDC ➔ XLM ➔ NGN) that minimize slippage for large transfers.
-2. **Milestone-Based Security**: Many remittance platforms suffer from payment disputes. Aethyr implements a Soroban-based milestone escrow contract, allowing funds to be safely locked on-chain and disbursed incrementally as work is verified by trusted validators/oracles.
-3. **AI-Driven UX**: Rather than requiring users to manually configure complex token conversions and contract calls, users can speak/type their intentions natively (e.g. *"Pay Bob 500 pesos for completing step 2"*), and Aethyr's Gemini layer structures the transaction automatically.
+### 🌟 Product Strategy
+Aethyr Aid focuses on three constraints that the approved proposal identifies:
+1. **Last-mile accountability**: Trace a donation through campaign allocation, beneficiary case, voucher purpose, merchant redemption, evidence, verification, and payout or dispute.
+2. **Verification before payout**: Merchant approval, evidence hashes, explicit state transitions, and dispute controls reduce the opportunity to hide duplicate, unsupported, or suspicious claims.
+3. **Low-friction beneficiary experience**: NGOs, approved merchants, donors, and verifiers use wallets in the MVP; beneficiary households are represented by privacy-preserving case IDs rather than being required to operate crypto wallets.
 
-### 🏦 Target Corridors & Liquidity Sourcing
-Aethyr targets corridors with high remittance friction:
-* **US/Europe to Southeast Asia**: USD ➔ PHP (targeting GCash and bank anchors).
-* **US to Africa**: USD ➔ NGN (targeting local bank transfer anchors like Cowrie).
-* **Inter-LatAm Corridor**: USD ➔ BRL / ARS (targeting Anclap and local banking APIs).
-* **Integration**: In production, these corridors utilize Stellar Anchors via **SEP-24** for fiat deposits/withdrawals and **SEP-38** for anchor exchange rate quoting.
+### 📍 Initial Pilot Boundary
+- **Geography**: Naga City and nearby Bicol communities.
+- **Relief categories**: Food, medicine, shelter materials, and other purpose-bound voucher aid.
+- **On-chain data**: Case identifiers, hashes, states, attestations, and payout records only.
+- **Off-chain data**: Personal beneficiary information and raw evidence.
+- **Deferred beyond Level 4**: Beneficiary app, SMS, QR/PIN redemption, GCash/Maya integration, full identity platform, and Mainnet deployment.
 
 ### Feature Progression
 
@@ -78,9 +84,9 @@ Aethyr targets corridors with high remittance friction:
 | Wallet + Balance + Send | ⚪ White | Connect Freighter, show XLM balance, send transaction |
 | Contract + Multi-wallet + Events | 🟡 Yellow | Payment routing contract, 3 error types, tx status |
 | Full dApp + AI + Tests + CI/CD | 🟠 Orange | Production PWA, inter-contract calls, test suite, pipeline |
-| Production MVP + 10 Users | 🟢 Green | Full routing engine, testnet user onboarding |
-| Scale + Pitch + 50 Users | 🔵 Blue | Feedback-driven features, pitch deck, demo |
-| Mainnet + Audit + Real Users | ⚫ Black | Production launch with security review |
+| Voucher MVP + 10 Users | 🟢 Green | Campaign escrow, merchant registry, beneficiary case IDs, voucher redemption, evidence hashes, verifier decisions, clean/disputed demos, production validation |
+| Verification Scale + 50 Users | 🔵 Blue | Multi-party thresholds, donor trace page, pricing checks, Verified Delivery Receipt, feedback-driven iteration, pitch and demo |
+| Pilot + Security + Mainnet | ⚫ Black | Security review, local pilot partner, regulated cash-out path, Mainnet launch only after workflow validation |
 
 ### Tech Stack
 
@@ -116,31 +122,26 @@ Aethyr targets corridors with high remittance friction:
 
 ### Phase Overview
 
-| Phase | Coding Days | What Gets Done | Deliverable |
-|-------|-------------|----------------|-------------|
+| Phase | Window | What Gets Done | Deliverable |
+|-------|--------|----------------|-------------|
 | **0: Setup** | 1-2 | Environment, tooling, crash course | Dev environment ready |
 | **1: White Belt** | 1-2 | Wallet, balance, transaction, PWA shell | White Belt submitted |
 | **2: Yellow Belt** | 2-3 | Smart contract, multi-wallet, events | Yellow Belt submitted |
 | **3: Orange Belt** | 5-7 | Full dApp, tests, CI/CD, demo video | Orange Belt submitted |
-| **4: README + Submit** | 1-2 | Award-winning README, final polish | Orange submission polished |
-| **5: Idea Submission** | 2-3 | Idea document, revisions | Idea submitted |
-| **Buffer** | 2-4 | Catch-up or Green Belt pre-work | Flexibility |
-| **6: August Sprint** | ~20 | Green → Blue Belt | Highest belt possible |
+| **4: Idea Gate** | Complete | Approved Aethyr Aid proposal | Levels 4–6 unlocked |
+| **5: L4 Definition** | Aug 3–6 | Domain model, scope decisions, acceptance criteria, evidence plan | Implementation-ready specification |
+| **6: L4 Contracts** | Aug 7–14 | Campaign, voucher, registry, evidence, verification, dispute logic and tests | Testnet contract release |
+| **7: L4 Product Flow** | Aug 15–20 | Donor/admin, merchant, and verifier flows | Feature-complete MVP |
+| **8: L4 Validation** | Aug 21–27 | Production deploy, monitoring, analytics, 10 users, feedback, demo | Submission evidence complete |
+| **9: L4 Submit** | Aug 28 | Final compliance audit and submission | Green Belt submitted |
+| **Review Buffer** | Aug 29–31 | Respond to reviewer questions or corrections | Approval target |
+| **10: L5 Growth** | Post-L4 | 50 Testnet users, feedback-led iteration, traceability features, pitch | Blue Belt candidate |
+| **11: L6 Launch** | Post-L5 | Security review, pilot, Mainnet, 20 verified users, ecosystem contribution | Black Belt candidate |
 
-**Total coding days to Orange Belt + Idea**: **12-19 coding days**
-
-### Known Dead Zone
+### Scope Control
 
 > [!WARNING]
-> **Finals Period: ~July 15-21** (approximate). Expect 0-2 coding days during this window. The timeline automatically absorbs this — you just track coding days, not calendar days.
-
-### Three Scenarios
-
-| Scenario | Finals Impact | Orange Belt Done | Idea Submitted | Notes |
-|----------|--------------|-----------------|----------------|-------|
-| 🟢 Best | Finals light (2 lost days) | ~Coding Day 12 | ~Coding Day 15 | Full buffer for August |
-| 🟡 Realistic | Finals moderate (5 lost days) | ~Jul 25-27 | ~Jul 28-30 | Tight but achievable |
-| 🔴 Worst | Finals heavy (7 lost days) | ~Jul 30-31 | ~Aug 1-3 | Orange reward at risk if deadline missed |
+> The August deadline does not support building every roadmap feature. Level 4 excludes multi-party thresholds, the Verified Delivery Receipt, anchor integrations, beneficiary wallets, SMS, QR/PIN redemption, and Mainnet. Those remain later-level work unless a Green Belt acceptance criterion requires otherwise.
 
 ---
 
@@ -148,22 +149,25 @@ Aethyr targets corridors with high remittance friction:
 
 ### How It Works
 
-```
-CODING_DAYS_DONE    = count of days you coded 4+ hours
-CODING_DAYS_NEEDED  = 14 (for Orange Belt) or 17 (Orange + Idea)
-CALENDAR_DAYS_LEFT  = July 31 - today
-AVAILABLE_CODING_DAYS = CALENDAR_DAYS_LEFT - FINALS_DAYS - REST_DAYS
-```
+Track completion by evidence-bearing gates rather than hours coded:
+
+1. Specification and acceptance criteria approved.
+2. Contract tests demonstrate both clean and disputed delivery paths.
+3. Production UI completes each operational role's flow.
+4. Monitoring, analytics, deployment, and documentation are verifiable.
+5. Ten real users complete wallet interactions and provide basic feedback.
+6. Submission package passes the Belt Checker audit.
 
 ### Milestone Checkpoints
 
-| After Coding Day | Should Be At | If Behind |
-|-----------------|-------------|-----------|
-| **Day 4** | White Belt submitted | Compress Phase 1+2 overlap |
-| **Day 7** | Yellow Belt submitted | Cut scope: skip event listener polish |
-| **Day 10** | Orange Belt 50% done (contracts + tests) | Cut AI Assist to post-submission enhancement |
-| **Day 14** | Orange Belt submitted | Rush README; submit what you have |
-| **Day 17** | Idea Submission done | Submit Idea even if imperfect; iterate |
+| Date | Required State | If Behind |
+|------|----------------|-----------|
+| **Aug 6** | Specification and test plan approved | Freeze nonessential UX and reuse proven Level 3 components |
+| **Aug 14** | Contracts tested and deployed to Testnet | Remove optional fields and preserve only the approved voucher lifecycle |
+| **Aug 20** | End-to-end clean and disputed flows complete | Stop visual polish; prioritize correctness and evidence |
+| **Aug 24** | Production deployment and demo ready | Begin user onboarding on the stable subset; log known limitations |
+| **Aug 27** | 10-user and feedback evidence complete | Escalate missing evidence immediately; do not fabricate user proof |
+| **Aug 28** | Submission sent | Use Aug 29–31 only for reviewer-requested corrections |
 
 ---
 
@@ -201,9 +205,9 @@ AVAILABLE_CODING_DAYS = CALENDAR_DAYS_LEFT - FINALS_DAYS - REST_DAYS
 
 | Risk | Impact | Prob. | Mitigation |
 |------|--------|-------|------------|
-| Rust/Soroban learning curve | 1-2 day slip | HIGH | AI generates contracts; focus on understanding |
-| **Finals (Jul 15-21)** | **5-7 lost days** | **HIGH** | **Built into timeline as dead zone; milestone-based tracking absorbs it** |
-| Rate limits exhausted | Lost coding day | MED | 2 accounts; batch requests; offline work when limited |
-| Idea Submission slow review | August blocked | MED | Submit by Coding Day 17; follow up in Discord |
-| Orange not selected as winner | No $50 | MED | Quality README + PWA + strict compliance |
-| CI/CD complications | Orange checklist gap | LOW | Simple Actions template; set up Day 1 |
+| Voucher-domain redesign exceeds August window | Missed Level 4 deadline | HIGH | Freeze the approved Green Belt scope; defer all Blue/Black features |
+| Ten real wallet users unavailable | Submission requirement fails | HIGH | Recruit operational pilot users early; do not depend on beneficiary wallets |
+| Sensitive beneficiary or feedback data is exposed | Privacy and trust harm | HIGH | Keep personal data and raw evidence off-chain; publish only minimized or access-controlled evidence |
+| Contract authorization or state transitions are unsafe | Invalid payouts or frozen funds | HIGH | Test-first implementation, explicit role checks, replay guards, and independent security review |
+| Reviewer turnaround exceeds three days | Approval arrives after Aug 31 | MED | Submit by Aug 28 and communicate promptly through the official review channel |
+| Existing remittance UI creates scope drag | Delayed MVP | MED | Reuse only stable wallet, relayer, escrow, testing, and deployment foundations |
