@@ -1,0 +1,417 @@
+{
+  "/home/pablo-pica/Documents/programming/aethyr/tsconfig.json": {
+    "mtime": 1783410523.0496874,
+    "ast_hash": "a80e217419a3d09938685afecdc2deb8",
+    "semantic_hash": "a80e217419a3d09938685afecdc2deb8"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/next.config.ts": {
+    "mtime": 1783410506.457725,
+    "ast_hash": "76e566a241e351a4e1d7bed03152872f",
+    "semantic_hash": "76e566a241e351a4e1d7bed03152872f"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/postcss.config.mjs": {
+    "mtime": 1783410512.1177123,
+    "ast_hash": "239f3ebf717465dc636818a1a619398d",
+    "semantic_hash": "239f3ebf717465dc636818a1a619398d"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/eslint.config.mjs": {
+    "mtime": 1783605869.823777,
+    "ast_hash": "6c6de512e567a8cc893addab9036c6b5",
+    "semantic_hash": "6c6de512e567a8cc893addab9036c6b5"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/next-env.d.ts": {
+    "mtime": 1783845691.7288888,
+    "ast_hash": "2a74d3909800ca5467fa83b0ab4a4890",
+    "semantic_hash": "2a74d3909800ca5467fa83b0ab4a4890"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/package.json": {
+    "mtime": 1783653631.3764653,
+    "ast_hash": "ea70f0081866a1cb6a2ca1a8135ff88a",
+    "semantic_hash": "ea70f0081866a1cb6a2ca1a8135ff88a"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/vitest.config.ts": {
+    "mtime": 1783653631.3785584,
+    "ast_hash": "7903b64ee69493f6c25bfcd646137d70",
+    "semantic_hash": "7903b64ee69493f6c25bfcd646137d70"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/public/manifest.json": {
+    "mtime": 1783410451.8798485,
+    "ast_hash": "a752e978fd5bdca254cd6b705dcc00c3",
+    "semantic_hash": "a752e978fd5bdca254cd6b705dcc00c3"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/app/layout.tsx": {
+    "mtime": 1783416973.6233132,
+    "ast_hash": "a12798f8a52ee06589c623081f2523eb",
+    "semantic_hash": "a12798f8a52ee06589c623081f2523eb"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/app/page.test.tsx": {
+    "mtime": 1783653631.3764653,
+    "ast_hash": "8eced9637a76217fe851aebf94b37f03",
+    "semantic_hash": "8eced9637a76217fe851aebf94b37f03"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/app/page.tsx": {
+    "mtime": 1785331102.152579,
+    "ast_hash": "fb95989d5322364188dbcd847b23a2b9",
+    "semantic_hash": "fb95989d5322364188dbcd847b23a2b9"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/app/api/sponsor/route.test.ts": {
+    "mtime": 1785331102.1523452,
+    "ast_hash": "58e6ee6f782f95ec7097a35098608a90",
+    "semantic_hash": "58e6ee6f782f95ec7097a35098608a90"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/app/api/sponsor/route.ts": {
+    "mtime": 1785331102.1524496,
+    "ast_hash": "4ee723316f9419ac40a9e4c47ddde059",
+    "semantic_hash": "4ee723316f9419ac40a9e4c47ddde059"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/hooks/useFreighter.ts": {
+    "mtime": 1783581313.0229425,
+    "ast_hash": "255e39ba3678b4d9a4d04d792aa3fc54",
+    "semantic_hash": "255e39ba3678b4d9a4d04d792aa3fc54"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/hooks/useStellarWallet.ts": {
+    "mtime": 1785331102.153346,
+    "ast_hash": "d3e8816517306aabe55336202cee3baf",
+    "semantic_hash": "d3e8816517306aabe55336202cee3baf"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/BottomNav.tsx": {
+    "mtime": 1783653631.3772287,
+    "ast_hash": "f0bfa83f1460845e76066f8aa00c8a92",
+    "semantic_hash": "f0bfa83f1460845e76066f8aa00c8a92"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/MilestoneBuilder.test.tsx": {
+    "mtime": 1783653631.3773913,
+    "ast_hash": "a5283d68e7e4a32f59d1fc13d231e417",
+    "semantic_hash": "a5283d68e7e4a32f59d1fc13d231e417"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ProfileDrawer.test.tsx": {
+    "mtime": 1783653631.3773913,
+    "ast_hash": "4ad572f5101f708c38351644576aaa39",
+    "semantic_hash": "4ad572f5101f708c38351644576aaa39"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ProfileDrawer.tsx": {
+    "mtime": 1783653631.3773913,
+    "ast_hash": "c3df1b7439c2a36641a5499acb2c3eb5",
+    "semantic_hash": "c3df1b7439c2a36641a5499acb2c3eb5"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/SendTab.test.tsx": {
+    "mtime": 1783653631.3773913,
+    "ast_hash": "e2dc274ade689f2ddcb029741516948e",
+    "semantic_hash": "e2dc274ade689f2ddcb029741516948e"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/SendTab.tsx": {
+    "mtime": 1783653631.378136,
+    "ast_hash": "d7f74524c4f305bb54906b53bc0fcc0f",
+    "semantic_hash": "d7f74524c4f305bb54906b53bc0fcc0f"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/SettingsTab.test.tsx": {
+    "mtime": 1783653631.378136,
+    "ast_hash": "368d45535d774622f6143738a0e9dc3e",
+    "semantic_hash": "368d45535d774622f6143738a0e9dc3e"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/SettingsTab.tsx": {
+    "mtime": 1783653631.378136,
+    "ast_hash": "dbee9790e4b63a9bbafb832caf4dcbc7",
+    "semantic_hash": "dbee9790e4b63a9bbafb832caf4dcbc7"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/WalletConnect.tsx": {
+    "mtime": 1783653631.378136,
+    "ast_hash": "0623bee4d91b2662469bbe1984588c0b",
+    "semantic_hash": "0623bee4d91b2662469bbe1984588c0b"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/WalletPickerBottomSheet.test.tsx": {
+    "mtime": 1783653631.378136,
+    "ast_hash": "3f91446cd94fe7ba92c525a83b0c531f",
+    "semantic_hash": "3f91446cd94fe7ba92c525a83b0c531f"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/WalletPickerBottomSheet.tsx": {
+    "mtime": 1783653631.378136,
+    "ast_hash": "6eb8a9eeda75d22e79040da950a77040",
+    "semantic_hash": "6eb8a9eeda75d22e79040da950a77040"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ActivityTab.test.tsx": {
+    "mtime": 1785331102.152579,
+    "ast_hash": "198813b31ff03904a795e55a1ce10628",
+    "semantic_hash": "198813b31ff03904a795e55a1ce10628"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ActivityTab.tsx": {
+    "mtime": 1785331102.1528451,
+    "ast_hash": "d14cc95ac02fc084fa1bae3618cdf61a",
+    "semantic_hash": "d14cc95ac02fc084fa1bae3618cdf61a"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/EscrowTab.test.tsx": {
+    "mtime": 1785331102.1528451,
+    "ast_hash": "5cb07a1e6de4fd6dea40b529abe135ff",
+    "semantic_hash": "5cb07a1e6de4fd6dea40b529abe135ff"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/EscrowTab.tsx": {
+    "mtime": 1785331102.1530612,
+    "ast_hash": "e1a8699e6e60802672366af882231ecf",
+    "semantic_hash": "e1a8699e6e60802672366af882231ecf"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/MilestoneBuilder.tsx": {
+    "mtime": 1785331102.1530612,
+    "ast_hash": "a17a0456c5ad18472f7dbf60d7babc06",
+    "semantic_hash": "a17a0456c5ad18472f7dbf60d7babc06"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ui/BottomSheet.test.tsx": {
+    "mtime": 1783653631.378136,
+    "ast_hash": "13875de35159e7c03aad8576f10a45f6",
+    "semantic_hash": "13875de35159e7c03aad8576f10a45f6"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ui/BottomSheet.tsx": {
+    "mtime": 1783653631.3785584,
+    "ast_hash": "cd49749c6295b665664b0239d32ca9c6",
+    "semantic_hash": "cd49749c6295b665664b0239d32ca9c6"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ui/ConfirmationDialog.test.tsx": {
+    "mtime": 1783653631.3785584,
+    "ast_hash": "15f00b6a7ad22cf954da48449b794dcc",
+    "semantic_hash": "15f00b6a7ad22cf954da48449b794dcc"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ui/ConfirmationDialog.tsx": {
+    "mtime": 1783653631.3785584,
+    "ast_hash": "58a14fedf34ad4f7d36fac507b3e3703",
+    "semantic_hash": "58a14fedf34ad4f7d36fac507b3e3703"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ui/CustomNumberInput.test.tsx": {
+    "mtime": 1783653631.3785584,
+    "ast_hash": "b03fb75745f6e2ada0201895a227e111",
+    "semantic_hash": "b03fb75745f6e2ada0201895a227e111"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ui/CustomNumberInput.tsx": {
+    "mtime": 1783653631.3785584,
+    "ast_hash": "4f5a496e5a8fb542b5d3a69a6388ce28",
+    "semantic_hash": "4f5a496e5a8fb542b5d3a69a6388ce28"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ui/InfoTooltip.test.tsx": {
+    "mtime": 1783653631.3785584,
+    "ast_hash": "cd97e639576251568c504f6e24d4fab4",
+    "semantic_hash": "cd97e639576251568c504f6e24d4fab4"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ui/InfoTooltip.tsx": {
+    "mtime": 1783653631.3785584,
+    "ast_hash": "bc802e56e3aa025273385fdc81c86b47",
+    "semantic_hash": "bc802e56e3aa025273385fdc81c86b47"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ui/SegmentedControl.test.tsx": {
+    "mtime": 1783653631.3785584,
+    "ast_hash": "6b7a2e592d86252f7173a52d394fd52e",
+    "semantic_hash": "6b7a2e592d86252f7173a52d394fd52e"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ui/SegmentedControl.tsx": {
+    "mtime": 1783653631.3785584,
+    "ast_hash": "7fdd554e786680408230d831f547ea22",
+    "semantic_hash": "7fdd554e786680408230d831f547ea22"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ui/Toast.test.tsx": {
+    "mtime": 1783653631.3785584,
+    "ast_hash": "084e7b532fe978aac376607b2cdaab46",
+    "semantic_hash": "084e7b532fe978aac376607b2cdaab46"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/ui/Toast.tsx": {
+    "mtime": 1783653631.3785584,
+    "ast_hash": "da6f44c8a5d42cb9473e86740eb58166",
+    "semantic_hash": "da6f44c8a5d42cb9473e86740eb58166"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/lib/aiParser.test.ts": {
+    "mtime": 1783587956.7695308,
+    "ast_hash": "5e68a54c3c748539c59340295e1b98ca",
+    "semantic_hash": "5e68a54c3c748539c59340295e1b98ca"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/lib/aiParser.ts": {
+    "mtime": 1783587956.7697053,
+    "ast_hash": "1a9f25b442d696ec3e91f13d69d48f97",
+    "semantic_hash": "1a9f25b442d696ec3e91f13d69d48f97"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/lib/utils.test.ts": {
+    "mtime": 1785331102.153346,
+    "ast_hash": "37c93223170ae24ef408435970d51857",
+    "semantic_hash": "37c93223170ae24ef408435970d51857"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/lib/utils.ts": {
+    "mtime": 1785331102.153346,
+    "ast_hash": "f487563d913c2ec9097205128117b08c",
+    "semantic_hash": "f487563d913c2ec9097205128117b08c"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/scripts/pre-commit.sh": {
+    "mtime": 1783416275.2196124,
+    "ast_hash": "9d360e46a89bf447f8f37e1ca5827ddc",
+    "semantic_hash": "9d360e46a89bf447f8f37e1ca5827ddc"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/scripts/audit-hover-scale.spec.ts": {
+    "mtime": 1783653631.3764653,
+    "ast_hash": "384f2959c83c1b846f26218f783d4af3",
+    "semantic_hash": "384f2959c83c1b846f26218f783d4af3"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/scripts/ui.spec.ts": {
+    "mtime": 1783653631.3764653,
+    "ast_hash": "f7b4fd6bc58cfe1b1978f785f97a9aa9",
+    "semantic_hash": "f7b4fd6bc58cfe1b1978f785f97a9aa9"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/contracts/aethyr-router/contracts/aethyr-router/src/lib.rs": {
+    "mtime": 1785331102.1095774,
+    "ast_hash": "2d26afc83493f3152f3e62f314818caf",
+    "semantic_hash": "2d26afc83493f3152f3e62f314818caf"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/contracts/aethyr-router/contracts/aethyr-router/src/test.rs": {
+    "mtime": 1785331102.1095774,
+    "ast_hash": "350e709d63216f1398e6cec15f7f6571",
+    "semantic_hash": "350e709d63216f1398e6cec15f7f6571"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/contracts/aethyr-router/contracts/aethyr-escrow/src/lib.rs": {
+    "mtime": 1785331102.1069517,
+    "ast_hash": "a4471010b6090969540809e0cd49e6a0",
+    "semantic_hash": "a4471010b6090969540809e0cd49e6a0"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/contracts/aethyr-router/contracts/aethyr-escrow/src/test.rs": {
+    "mtime": 1785331102.1069517,
+    "ast_hash": "956107ee8541b39460a0deb0a775f5b8",
+    "semantic_hash": "956107ee8541b39460a0deb0a775f5b8"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/README.md": {
+    "mtime": 1785777761.1614747,
+    "ast_hash": "af20e2151cd3f9abceb91ba273c0965c",
+    "semantic_hash": "af20e2151cd3f9abceb91ba273c0965c"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/MASTERPLAN.md": {
+    "mtime": 1785777724.4280698,
+    "ast_hash": "a01ab89d5febb708a1189cd54aca0bbe",
+    "semantic_hash": "a01ab89d5febb708a1189cd54aca0bbe"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/BELT-REQUIREMENTS.md": {
+    "mtime": 1785778211.6341963,
+    "ast_hash": "52d1f56fb459fa963b89989470ed7756",
+    "semantic_hash": "52d1f56fb459fa963b89989470ed7756"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/DEPLOYMENT.md": {
+    "mtime": 1785777739.5136755,
+    "ast_hash": "2a66b17358f73b9aa6f6627c358fcdee",
+    "semantic_hash": "2a66b17358f73b9aa6f6627c358fcdee"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/README-TEMPLATE.md": {
+    "mtime": 1783430707.9162138,
+    "ast_hash": "6b682842b2ee6c235ce1842d5b6e5a13",
+    "semantic_hash": "6b682842b2ee6c235ce1842d5b6e5a13"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/STYLE-GUIDE.md": {
+    "mtime": 1783430707.9163873,
+    "ast_hash": "d49ad57f6ff868ba07e7249e1ebbfb4c",
+    "semantic_hash": "d49ad57f6ff868ba07e7249e1ebbfb4c"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/ARCHITECTURE.md": {
+    "mtime": 1785777472.3484979,
+    "ast_hash": "6081be711ed8e05d5f508fd7545e50f3",
+    "semantic_hash": "6081be711ed8e05d5f508fd7545e50f3"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/AGENTS.md": {
+    "mtime": 1783653631.374968,
+    "ast_hash": "5c1eb9690b8e938db9fadd930a8fc9b7",
+    "semantic_hash": "5c1eb9690b8e938db9fadd930a8fc9b7"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/REDESIGN_PLAN.md": {
+    "mtime": 1783653631.375209,
+    "ast_hash": "44b3567af9b6fe7266b5498951390cc8",
+    "semantic_hash": "44b3567af9b6fe7266b5498951390cc8"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/IDEA-SUBMISSION.md": {
+    "mtime": 1785777767.4205663,
+    "ast_hash": "1a1e99de37c86eb2e4c1cdd3f4b1cd54",
+    "semantic_hash": "1a1e99de37c86eb2e4c1cdd3f4b1cd54"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/IDEA-SUBMISSION.txt": {
+    "mtime": 1785333957.808217,
+    "ast_hash": "27fb850104a45787a07407ecd684ba21",
+    "semantic_hash": "27fb850104a45787a07407ecd684ba21"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/PROGRESS.md": {
+    "mtime": 1785778217.951172,
+    "ast_hash": "6b5ce90a088b3670053271c9c21deabc",
+    "semantic_hash": "6b5ce90a088b3670053271c9c21deabc"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/LEVELS-4-7-REQUIREMENTS.md": {
+    "mtime": 1785778249.9269602,
+    "ast_hash": "646d4ced791b30d8faa9765e5381849d",
+    "semantic_hash": "646d4ced791b30d8faa9765e5381849d"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/contracts/aethyr-router/README.md": {
+    "mtime": 1783416275.2186222,
+    "ast_hash": "daefca25a2c4c14af41a9509732a2707",
+    "semantic_hash": "daefca25a2c4c14af41a9509732a2707"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/.github/workflows/ci.yml": {
+    "mtime": 1783605869.8232324,
+    "ast_hash": "85eaa617bea47d265b8fe82e37dc45f7",
+    "semantic_hash": "85eaa617bea47d265b8fe82e37dc45f7"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/assets/activeescrows.png": {
+    "mtime": 1785331102.1105776,
+    "ast_hash": "ebff797c7ba48cf8f58d06836c05481f",
+    "semantic_hash": "ebff797c7ba48cf8f58d06836c05481f"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/assets/banner.png": {
+    "mtime": 1785331102.112239,
+    "ast_hash": "c507b0cc28bbd1283719313084c2ed4b",
+    "semantic_hash": "c507b0cc28bbd1283719313084c2ed4b"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/assets/configuremilestones.png": {
+    "mtime": 1785331102.1125097,
+    "ast_hash": "f1a850fec7123b93850323976a11348f",
+    "semantic_hash": "f1a850fec7123b93850323976a11348f"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/assets/createescrow.png": {
+    "mtime": 1785331102.1128325,
+    "ast_hash": "b2c5c4e5f937056cb5654131c4b956bd",
+    "semantic_hash": "b2c5c4e5f937056cb5654131c4b956bd"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/assets/screen1.png": {
+    "mtime": 1785331102.113082,
+    "ast_hash": "09d73440a46f4868d765683dcb674cc4",
+    "semantic_hash": "09d73440a46f4868d765683dcb674cc4"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/assets/screen2.png": {
+    "mtime": 1785331102.1134262,
+    "ast_hash": "b2929abf5f1dd3fdd830e860f79bea11",
+    "semantic_hash": "b2929abf5f1dd3fdd830e860f79bea11"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/assets/screen3.png": {
+    "mtime": 1785331102.1136007,
+    "ast_hash": "0dfea942996a77279797e991abc6db7d",
+    "semantic_hash": "0dfea942996a77279797e991abc6db7d"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/assets/screen4.png": {
+    "mtime": 1785331102.1139665,
+    "ast_hash": "ddbde8cbcf2b3a2bb7cab01745a1184d",
+    "semantic_hash": "ddbde8cbcf2b3a2bb7cab01745a1184d"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/assets/screen5.png": {
+    "mtime": 1785331102.1142657,
+    "ast_hash": "10b4a92135cd6bc805d7f5aeebf90813",
+    "semantic_hash": "10b4a92135cd6bc805d7f5aeebf90813"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/assets/screen6.png": {
+    "mtime": 1785331102.1147346,
+    "ast_hash": "5684c7afe70d781e41dd79e155f6e334",
+    "semantic_hash": "5684c7afe70d781e41dd79e155f6e334"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/assets/screen7.png": {
+    "mtime": 1785331102.1150694,
+    "ast_hash": "9fd9c491c49102b2d925233c77efaf95",
+    "semantic_hash": "9fd9c491c49102b2d925233c77efaf95"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/assets/screen8.png": {
+    "mtime": 1785331102.1159968,
+    "ast_hash": "21ce8c92d91f49cf63ab82a9847a8646",
+    "semantic_hash": "21ce8c92d91f49cf63ab82a9847a8646"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/assets/screen9.png": {
+    "mtime": 1785331102.1196537,
+    "ast_hash": "19609fbeac79d221c4833429e0f5f2a6",
+    "semantic_hash": "19609fbeac79d221c4833429e0f5f2a6"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/assets/settingstab.png": {
+    "mtime": 1785331102.120074,
+    "ast_hash": "e1c6041f965a56755f3a465ee04d7a99",
+    "semantic_hash": "e1c6041f965a56755f3a465ee04d7a99"
+  }
+}

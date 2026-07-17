@@ -1,0 +1,20 @@
+# Dependency, build, and generated artifacts.
+node_modules/**
+.next/**
+out/**
+target/**
+graphify-out/**
+.playwright-mcp/**
+test-results/**
+.pi-subagents/**
+.agents/**
+
+# Local and sensitive configuration.
+.env*
+*.pem
+
+# Large demo media is not needed for the codebase graph.
+docs/assets/video_demo.mp4
+
+# Generated Soroban snapshots overwhelm communities with repeated ledger fields.
+**/test_snapshots/**
