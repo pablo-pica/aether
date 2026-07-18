@@ -21,9 +21,9 @@
 
 ## 💡 Approved Product Direction
 
-Aethyr Aid addresses the last-mile accountability gap in typhoon relief. The Level 4 MVP will let donors fund campaign escrows, NGO/admin operators issue purpose-bound vouchers to beneficiary case IDs, approved local merchants submit delivery evidence, and verifiers approve, reject, or freeze payouts. Beneficiaries will not need crypto wallets; sensitive personal data and raw evidence will remain off-chain.
+Aethyr Aid addresses the last-mile accountability gap in typhoon relief. The Level 4 MVP will let donors fund campaign escrows, NGO/admin operators issue purpose-bound vouchers to beneficiary case IDs, approved local merchants submit delivery evidence, admins emergency-freeze disputed claims, and independent verifiers approve or reject payouts and resolve frozen claims. Beneficiaries will not need crypto wallets; sensitive personal data and raw evidence will remain off-chain.
 
-The approved scope is documented in [`docs/IDEA-SUBMISSION.md`](./docs/IDEA-SUBMISSION.md). The detailed delivery gates and August target are tracked in [`docs/PROGRESS.md`](./docs/PROGRESS.md).
+The approved scope is documented in [`docs/IDEA-SUBMISSION.md`](./docs/IDEA-SUBMISSION.md), and the implementation-ready domain model and acceptance scenarios are defined in [`docs/LEVEL-4-IMPLEMENTATION-SPEC.md`](./docs/LEVEL-4-IMPLEMENTATION-SPEC.md). Delivery gates and the August target are tracked in [`docs/PROGRESS.md`](./docs/PROGRESS.md).
 
 > **Status:** The disaster-relief workflow is planned, not yet implemented. The repository currently contains the completed Level 3 wallet, routing, escrow, relayer, testing, and deployment foundation described below. The internal Level 4 submission deadline is **August 28, 2026**, with approval targeted by **August 31, 2026**.
 
@@ -33,7 +33,7 @@ The approved scope is documented in [`docs/IDEA-SUBMISSION.md`](./docs/IDEA-SUBM
 - Approved merchant/cooperative registry.
 - Beneficiary case IDs without on-chain personal data.
 - Purpose-bound voucher issuance and merchant redemption.
-- Evidence-hash submission and verifier/admin approval, rejection, or freeze.
+- Evidence digest plus opaque-ID submission, admin emergency freeze, and verifier-only approval, rejection, and frozen-claim resolution.
 - One end-to-end clean delivery and one disputed delivery in the demo.
 - Production deployment, monitoring/analytics, 10 real operational wallet users, and basic feedback evidence.
 
@@ -126,7 +126,8 @@ aethyr/
 ├── docs/                    # Design documentation, architecture files, and submission assets
 │   ├── assets/              # Interface screenshots and project banners
 │   ├── IDEA-SUBMISSION.md   # Approved Aethyr Aid product direction
-│   ├── ARCHITECTURE.md      # Implemented foundation + planned voucher architecture
+│   ├── ARCHITECTURE.md      # Implemented foundation + specified voucher architecture
+│   ├── LEVEL-4-IMPLEMENTATION-SPEC.md # Domain model, invariants, tests, evidence plan
 │   ├── BELT-REQUIREMENTS.md # JTM belt submission checklists through Level 6
 │   ├── PROGRESS.md          # Living progress tracker and August Level 4 gates
 │   └── MASTERPLAN.md        # Product strategy, scope, and belt roadmap
@@ -386,7 +387,7 @@ npm run lint
 |:-----|:-------|:--------|:------:|
 | ⚪–🟠 Levels 1–3 | July 2026 | Wallet, contracts, PWA, tests, CI/CD, relayer, and demo foundation | ✅ Complete |
 | 💡 Idea gate | July 2026 | Aethyr Aid direction approved | ✅ Complete |
-| 🟢 Level 4 definition | Aug 3–6 | Domain model, implementation specification, acceptance criteria, and evidence plan | ⏳ Next |
+| 🟢 Level 4 definition | Aug 3–6 | Domain model, implementation specification, acceptance criteria, and evidence plan | ✅ Complete |
 | 🟢 Level 4 contracts | Aug 7–14 | Tested campaign, voucher, registry, evidence, verification, and dispute logic on Testnet | 📋 Planned |
 | 🟢 Level 4 product | Aug 15–20 | Complete donor/admin, merchant, and verifier workflows | 📋 Planned |
 | 🟢 Level 4 validation | Aug 21–27 | Production deployment, monitoring/analytics, 10-user proof, feedback, and demo | 📋 Planned |

@@ -77,6 +77,16 @@ Aethyr Aid focuses on three constraints that the approved proposal identifies:
 - **Off-chain data**: Personal beneficiary information and raw evidence.
 - **Deferred beyond Level 4**: Beneficiary app, SMS, QR/PIN redemption, GCash/Maya integration, full identity platform, and Mainnet deployment.
 
+### Approved Green Belt Implementation Boundary
+
+Phase 5 decisions are normative in [`LEVEL-4-IMPLEMENTATION-SPEC.md`](./LEVEL-4-IMPLEMENTATION-SPEC.md):
+
+- One new `aethyr-aid` Soroban contract owns campaign custody and the voucher domain; the Level 3 Router/Escrow remain unchanged and outside the aid transaction path.
+- Voucher issuance reserves pooled campaign funds. Rejection, cancellation, and expiration release the reservation; freeze retains it until verifier resolution.
+- Admin and verifier roles are separate. Admins may emergency-freeze, but only verifiers may approve, reject, and authorize payout.
+- Evidence uses an immutable digest plus a non-sensitive opaque ID. One append-only evidence revision is allowed while frozen; raw evidence and personal data remain access-controlled off-chain.
+- The ten-user validation cohort is 3 donors, 2 NGO/admin operators, 2 merchants/cooperatives, and 3 independent verifiers.
+
 ### Feature Progression
 
 | Feature | Belt | Description |
@@ -151,8 +161,8 @@ Aethyr Aid focuses on three constraints that the approved proposal identifies:
 
 Track completion by evidence-bearing gates rather than hours coded:
 
-1. Specification and acceptance criteria approved.
-2. Contract tests demonstrate both clean and disputed delivery paths.
+1. Specification and acceptance criteria approved in [`LEVEL-4-IMPLEMENTATION-SPEC.md`](./LEVEL-4-IMPLEMENTATION-SPEC.md).
+2. Contract tests demonstrate both clean and disputed delivery paths, including reservation accounting and no automatic payout.
 3. Production UI completes each operational role's flow.
 4. Monitoring, analytics, deployment, and documentation are verifiable.
 5. Ten real users complete wallet interactions and provide basic feedback.
@@ -206,7 +216,7 @@ Track completion by evidence-bearing gates rather than hours coded:
 | Risk | Impact | Prob. | Mitigation |
 |------|--------|-------|------------|
 | Voucher-domain redesign exceeds August window | Missed Level 4 deadline | HIGH | Freeze the approved Green Belt scope; defer all Blue/Black features |
-| Ten real wallet users unavailable | Submission requirement fails | HIGH | Recruit operational pilot users early; do not depend on beneficiary wallets |
+| Ten real wallet users unavailable | Submission requirement fails | HIGH | Recruit the approved cohort early: 3 donors, 2 admins, 2 merchants, and 3 verifiers; do not depend on beneficiary wallets |
 | Sensitive beneficiary or feedback data is exposed | Privacy and trust harm | HIGH | Keep personal data and raw evidence off-chain; publish only minimized or access-controlled evidence |
 | Contract authorization or state transitions are unsafe | Invalid payouts or frozen funds | HIGH | Test-first implementation, explicit role checks, replay guards, and independent security review |
 | Reviewer turnaround exceeds three days | Approval arrives after Aug 31 | MED | Submit by Aug 28 and communicate promptly through the official review channel |

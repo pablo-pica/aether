@@ -1,6 +1,6 @@
 # 🏗️ Aethyr — System Architecture (ARCHITECTURE.md)
 
-This document separates the **implemented Level 3 foundation** from the **planned Level 4 Aethyr Aid architecture** approved in [`IDEA-SUBMISSION.md`](./IDEA-SUBMISSION.md). Planned components are not implementation claims; their final interfaces must be defined and tested during Phase 5 in [`PROGRESS.md`](./PROGRESS.md).
+This document separates the **implemented Level 3 foundation** from the **specified Level 4 Aethyr Aid architecture** approved in [`IDEA-SUBMISSION.md`](./IDEA-SUBMISSION.md). Planned components are not implementation claims. Their Phase 5 domain model, interfaces, invariants, acceptance scenarios, and evidence plan are defined in [`LEVEL-4-IMPLEMENTATION-SPEC.md`](./LEVEL-4-IMPLEMENTATION-SPEC.md).
 
 ---
 
@@ -8,7 +8,7 @@ This document separates the **implemented Level 3 foundation** from the **planne
 
 ### MVP Boundary
 
-The Green Belt MVP traces one donation through campaign funding, voucher issuance, approved-merchant redemption, evidence submission, verifier/admin decision, and payout or dispute. It supports operational wallets for donors, NGO/admin users, merchants or cooperatives, and verifiers. Beneficiary households use case IDs and are not required to manage wallets.
+The Green Belt MVP traces one donation through campaign funding, voucher issuance, approved-merchant redemption, evidence submission, independent verifier decision, and payout or dispute. It supports operational wallets for donors, NGO/admin users, merchants or cooperatives, and verifiers. Admins may emergency-freeze claims but cannot authorize payout. Beneficiary households use case IDs and are not required to manage wallets.
 
 ```mermaid
 flowchart LR
@@ -18,35 +18,40 @@ flowchart LR
     Campaign --> Voucher[Purpose-bound voucher]
     Case --> Voucher
     Merchant[Merchant wallet] -->|redeems + submits evidence hash| Voucher
-    Voucher --> Review[Verifier / admin review]
+    Voucher --> Review[Independent verifier review]
     Verifier[Verifier wallet] --> Review
-    Review -->|approve| Payout[Merchant payout]
-    Review -->|reject| Rejected[Rejected claim]
-    Review -->|freeze| Dispute[Frozen dispute]
+    Admin -->|emergency freeze only| Dispute[Reservation retained]
+    Review -->|approve| Payout[Atomic merchant payout]
+    Review -->|reject| Rejected[Reservation released]
+    Dispute -->|one evidence revision| Review
 ```
 
-### Planned Domain Records
+### Approved Contract Boundary
 
-The implementation specification must define the exact fields and state transitions for:
+Level 4 adds one new Soroban contract, provisionally named `aethyr-aid`. It owns campaign custody, the merchant registry, beneficiary case IDs, voucher reservations, evidence attestations, verifier decisions, payout, closure, and refunds.
 
-- Campaign escrow and available allocation.
-- Approved merchant or cooperative registration and suspension.
-- Beneficiary case ID with no personal data stored on-chain.
-- Purpose-bound voucher and redemption status.
-- Evidence hash and off-chain evidence reference policy.
-- Verifier/admin attestation and decision.
-- Payout, rejection, freeze, refund, and dispute outcomes.
+The Level 3 Router and Escrow remain deployed and unchanged for compatibility, but neither participates in the voucher lifecycle. In particular, aid funding does not use the Router's simulated swap behavior, and vouchers do not inherit the old Escrow's milestone auto-release semantics. The implementation may reuse proven wallet integration, Soroban authorization/event patterns, transaction status UI, fee sponsorship where compatible, tests, CI/CD, and Vercel deployment.
+
+### Approved State and Accounting Model
+
+- Campaign: `Open → Closed`; voucher issuance moves available funds to reserved funds, and closure requires no remaining reservation.
+- Merchant: `Approved ↔ Suspended`.
+- Beneficiary case: `Active → Closed`.
+- Voucher: `Issued → Redeemed → Paid | Rejected | Frozen`, with `Issued → Cancelled | Expired` and `Frozen → Paid | Rejected`.
+- Rejected, cancelled, and expired vouchers release their reservation. Frozen vouchers retain it until an independent verifier resolves the claim.
+- An assigned merchant may append one immutable evidence revision while frozen; earlier evidence remains unchanged.
+- Verifier approval and merchant payout are atomic. No automatic or time-based payout exists.
+- Campaign accounting must preserve `total_funded = available + reserved + paid + refundable + refunded`.
+
+Exact records, authorization rules, transitions, refund calculations, replay guards, and tests are normative in [`LEVEL-4-IMPLEMENTATION-SPEC.md`](./LEVEL-4-IMPLEMENTATION-SPEC.md).
 
 ### Privacy and Trust Boundary
 
-- Personal beneficiary information, merchant identity documents, and raw delivery evidence remain off-chain.
-- Only case identifiers, hashes, states, attestations, and payout records are candidates for on-chain storage.
-- A hash proves that referenced evidence has not changed; it does not prove that the underlying evidence is true. Authorization and review policy remain required.
+- Personal beneficiary information, merchant identity documents, raw delivery evidence, evidence URLs, and free-text decision reasons remain off-chain in access-controlled systems.
+- On-chain evidence contains a 32-byte content digest plus a random, non-sensitive 32-byte opaque evidence-record ID. The opaque ID is not a URI and must not encode personal data.
+- Random case, campaign, and voucher IDs; fixed-width digests; states; operational wallet addresses; attestations; amounts; timestamps; and payout records may be on-chain.
+- A digest proves that referenced evidence has not changed; it does not prove that the evidence is true. Role separation and review policy remain required.
 - Production and Mainnet promotion are separate gates. Level 4 targets Testnet contracts plus a production-hosted application; Mainnet is deferred until Level 6 security and pilot criteria are met.
-
-### Reuse from the Level 3 Foundation
-
-The Level 4 plan should evaluate reuse of the existing wallet integration, fee-sponsorship route, escrow authorization patterns, transaction status UI, tests, CI/CD pipeline, and Vercel deployment. Router/pathfinding and AI features are not automatically part of the voucher MVP.
 
 ---
 
@@ -199,6 +204,7 @@ pub trait AethyrEscrowTrait {
     fn create_escrow(
         env: Env,
         sender: Address,
+        funding_src: Address,
         receiver: Address,
         token: Address,
         amount: i128,
@@ -252,9 +258,9 @@ pub trait AethyrEscrowTrait {
 
 ### 3. Soroban Security & Authorization Flow
 Security is enforced using Soroban's native auth framework:
-- **Sender Verification**: Both `route_payment` and `create_escrow` invoke `sender.require_auth()` to ensure the caller owns the funds being routed or locked.
-- **Oracle / Validator Verification**: The `release_milestone` function invokes `auth_party.require_auth()` to prevent unauthorized release of funds.
-- **Token Transfer Authorization**: The contracts utilize `token_client.transfer_from` requiring the user to have approved the contract address to transfer up to `amount_in` tokens.
+- **Sender Verification**: Both `route_payment` and `create_escrow` invoke `sender.require_auth()`. The Escrow also requires `funding_src` authorization when it differs from `sender`.
+- **Oracle / Validator Verification**: The `release_milestone` function invokes `auth_party.require_auth()` and then checks that the party is the escrow sender or configured validator.
+- **Token Transfer Authorization**: The implemented contracts call the Soroban token client's `transfer`; Router-to-Escrow inter-contract funding uses `authorize_as_current_contract` for the nested transfer.
 
 ---
 

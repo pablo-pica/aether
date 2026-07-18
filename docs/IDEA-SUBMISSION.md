@@ -5,6 +5,8 @@
 > Question 1 [Essay]: What is your idea?
 >
 > **Status: Approved — gate to Levels 4–6 passed.**
+>
+> **Phase 5 implementation clarification:** This file preserves the approved proposal wording. The normative Level 4 runtime roles and lifecycle are in [`LEVEL-4-IMPLEMENTATION-SPEC.md`](./LEVEL-4-IMPLEMENTATION-SPEC.md): admins may emergency-freeze claims, while independent verifiers alone approve, reject, and resolve frozen claims.
 
 ---
 

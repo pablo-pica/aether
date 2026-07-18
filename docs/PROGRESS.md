@@ -5,10 +5,10 @@ This is a living document updated autonomously by agents at the end of each task
 ## ⚡ Active Task
 
 ```yaml
-Current Task: "Prepare the Level 4 implementation plan"
-Assigned Agent: Planner / Architect
-Status: "Documentation alignment complete; planning not started"
-Next Gate: "Level 4 implementation plan approved"
+Current Task: "Begin Phase 6 with failing Aethyr Aid contract tests"
+Assigned Agent: Builder
+Status: "Phase 5 specification and validation plan approved"
+Next Gate: "Clean and disputed lifecycle tests fail for the expected unimplemented behavior"
 ```
 
 ---
@@ -18,7 +18,7 @@ Next Gate: "Level 4 implementation plan approved"
 | Milestone | Target | Status |
 |-----------|--------|--------|
 | **Idea submission gate** | Approved | ✅ Complete |
-| **Implementation plan and acceptance criteria** | August 6, 2026 | ⏳ Next |
+| **Implementation plan and acceptance criteria** | August 6, 2026 | ✅ Complete |
 | **Feature-complete Green Belt MVP** | August 20, 2026 | 📋 Planned |
 | **Production validation and 10-user evidence** | August 27, 2026 | 📋 Planned |
 | **Level 4 submission** | August 28, 2026 | 📋 Planned |
@@ -83,25 +83,25 @@ Next Gate: "Level 4 implementation plan approved"
 - [x] Preserve the approved proposal in [`IDEA-SUBMISSION.md`](./IDEA-SUBMISSION.md) `[AI]`
 
 ### 🟢 Phase 5: Green Belt Definition & Validation Plan (August 3–6)
-- [ ] Convert the approved proposal into a Level 4 implementation specification and acceptance tests `[AI→YOU]`
-- [ ] Define the campaign, merchant, beneficiary-case, voucher, evidence, verification, payout, and dispute state models `[AI→YOU]`
-- [ ] Decide which existing Router/Escrow capabilities are reused, adapted, or retired `[AI→YOU]`
-- [ ] Define privacy boundaries: beneficiary personal data stays off-chain; only case identifiers, hashes, states, and attestations may be recorded on-chain `[AI→YOU]`
-- [ ] Map the required 10 real wallet users to operational roles such as donors, NGO/admin operators, merchants/cooperatives, and verifiers; beneficiaries do not need wallets for the MVP `[AI→YOU]`
-- [ ] Define testnet evidence, analytics, monitoring, feedback, screenshots, and demo artifacts before implementation starts `[AI→YOU]`
+- [x] Convert the approved proposal into a Level 4 implementation specification and acceptance tests in [`LEVEL-4-IMPLEMENTATION-SPEC.md`](./LEVEL-4-IMPLEMENTATION-SPEC.md) `[AI→YOU]`
+- [x] Define the campaign, merchant, beneficiary-case, voucher, evidence, verification, payout, and dispute state models `[AI→YOU]`
+- [x] Add one `aethyr-aid` contract; keep the Level 3 Router/Escrow unchanged and outside the aid lifecycle `[AI→YOU]`
+- [x] Define privacy boundaries: raw evidence and personal data stay access-controlled off-chain; only random IDs, fixed-width digests, states, operational addresses, and attestations are recorded on-chain `[AI→YOU]`
+- [x] Map 10 real wallets to 3 donors, 2 NGO/admin operators, 2 merchants/cooperatives, and 3 independent verifiers; beneficiaries do not need wallets `[AI→YOU]`
+- [x] Define Testnet evidence, privacy-conscious analytics and monitoring, feedback, screenshots, and clean/disputed demo artifacts `[AI→YOU]`
 
 ### 🟢 Phase 6: Green Belt Contracts & Test Coverage (August 7–14)
 - [ ] Write failing contract tests for the approved clean-delivery and disputed-delivery flows `[AI]`
 - [ ] Implement campaign escrow and voucher lifecycle on Stellar Testnet `[AI]`
 - [ ] Implement approved merchant/cooperative registry and beneficiary case IDs `[AI]`
-- [ ] Implement evidence-hash submission and verifier/admin approve, reject, and freeze decisions `[AI]`
+- [ ] Implement evidence digest plus opaque-ID submission, admin-only emergency freeze, and verifier-only approve, reject, and frozen-claim resolution decisions `[AI]`
 - [ ] Enforce authorization, replay protection, state-transition guards, refund behavior, and payout invariants `[AI]`
 - [ ] Deploy the Level 4 contracts to Testnet and record contract addresses and representative transaction hashes `[AI→YOU]`
 
 ### 🟢 Phase 7: Green Belt Product Flow (August 15–20)
 - [ ] Build the mobile-first campaign funding and voucher administration flows `[AI]`
 - [ ] Build merchant redemption and evidence submission flows `[AI]`
-- [ ] Build verifier/admin review, payout, rejection, freeze, and dispute views `[AI]`
+- [ ] Build separated admin emergency-freeze and verifier review, payout, rejection, and dispute-resolution views `[AI]`
 - [ ] Demonstrate one clean delivery and one disputed delivery end to end `[AI]`
 - [ ] Add explicit loading, empty, success, rejection, and recoverable error states `[AI]`
 - [ ] Complete frontend, contract, integration, and production-build verification `[AI]`
@@ -146,6 +146,10 @@ Next Gate: "Level 4 implementation plan approved"
 ---
 
 ## 📜 Audit Logs
+
+### 2026-08-04
+- **Planner / Architect**: Completed Phase 5 and received user approval for the Level 4 architecture. Added [`LEVEL-4-IMPLEMENTATION-SPEC.md`](./LEVEL-4-IMPLEMENTATION-SPEC.md) with the `aethyr-aid` contract boundary, role authorization matrix, campaign/merchant/case/voucher/evidence state models, pooled reservation accounting, refund behavior, replay and privacy guards, and Phase 6 acceptance scenarios. Approved one new aid contract while retaining the Level 3 Router/Escrow unchanged; reserve-on-issue accounting; digest plus opaque evidence ID; separated admin/verifier roles; admin emergency freeze; verifier-only resolution; one append-only evidence revision; and a 3-donor/2-admin/2-merchant/3-verifier validation cohort.
+- **Planner / Architect**: Defined the Testnet transaction register, privacy-conscious analytics and monitoring boundaries, feedback handling, screenshots, ten-wallet proof, and clean/disputed demo evidence required before production validation.
 
 ### 2026-08-03
 - **Planner / Architect**: Aligned the public project documentation with the approved Aethyr Aid proposal. Added detailed Level 4 phases with an August 28 submission deadline and August 31 approval target, plus high-level Level 5–6 phases. Updated the public README, master plan, target architecture, belt requirements, deployment scope, and viewable Markdown proposal while preserving the implemented Level 3 foundation as current-state documentation.
