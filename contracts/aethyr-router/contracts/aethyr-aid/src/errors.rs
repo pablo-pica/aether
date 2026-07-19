@@ -1,0 +1,42 @@
+use soroban_sdk::contracterror;
+
+#[contracterror]
+#[derive(Copy, Clone, Debug, Eq, PartialEq, PartialOrd, Ord)]
+#[repr(u32)]
+pub enum AidError {
+    NotImplemented = 1,
+    AlreadyInitialized = 2,
+    NotInitialized = 3,
+    NotAdmin = 10,
+    NotVerifier = 11,
+    RoleOverlap = 12,
+    LastAdmin = 13,
+    RoleAlreadyExists = 14,
+    RoleNotFound = 15,
+    DuplicateCampaign = 20,
+    CampaignNotFound = 21,
+    CampaignNotOpen = 22,
+    CampaignNotClosed = 23,
+    ReservedFundsExist = 24,
+    DuplicateCase = 30,
+    CaseNotFound = 31,
+    CaseNotActive = 32,
+    CaseCampaignMismatch = 33,
+    MerchantNotFound = 40,
+    MerchantNotApproved = 41,
+    DuplicateVoucher = 50,
+    VoucherNotFound = 51,
+    InvalidVoucherState = 52,
+    VoucherExpired = 53,
+    VoucherNotExpired = 54,
+    WrongMerchant = 55,
+    MissingEvidence = 60,
+    DuplicateEvidence = 61,
+    EvidenceRevisionLimit = 62,
+    InvalidDecision = 63,
+    InvalidAmount = 70,
+    InsufficientAvailable = 71,
+    NoContribution = 72,
+    RefundAlreadyClaimed = 73,
+    ArithmeticError = 74,
+}
