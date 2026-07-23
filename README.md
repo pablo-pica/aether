@@ -42,19 +42,23 @@ The approved scope is documented in [`docs/IDEA-SUBMISSION.md`](./docs/IDEA-SUBM
 ## 🏆 Implemented Level 3 Foundation
 
 ### Smart Contract System (Soroban / Rust)
+* 🔐 **Aethyr Aid Contract** — Purpose-bound aid delivery, merchant registry, opaque beneficiary cases, vouchers, evidence digests, admin emergency freeze, and verifier resolution.
+  * **Address**: [`CDERJSFS75XYBXJOZYOJA62T4GFHSJZAM34D4OAXNSPOFSAUPWEQ3BST`](https://stellar.expert/explorer/testnet/contract/CDERJSFS75XYBXJOZYOJA62T4GFHSJZAM34D4OAXNSPOFSAUPWEQ3BST)
+  * **Deployment Tx**: [`0b48000a46b3a6...`](https://stellar.expert/explorer/testnet/tx/0b48000a46b3a63465f7eaaecd49915bd13aa095d6981f59e2107a875ba93593)
+  * **Initialization Tx**: [`831184035d160a...`](https://stellar.expert/explorer/testnet/tx/831184035d160a9cf88a1532c59fa28a4ca661890d254b159efa65db7b811828)
 * 🔐 **Aethyr Router Contract** — Multi-hop DEX routing with atomic swaps and direct escrow funding.
   * **Address**: [`CA5ZEROS4VGIOZ2MIDVV7C7W4DFKWE76P4KBG455KO26RPKD2W3TC6MM`](https://stellar.expert/explorer/testnet/contract/CA5ZEROS4VGIOZ2MIDVV7C7W4DFKWE76P4KBG455KO26RPKD2W3TC6MM)
   * **Deployment Tx**: [`8ffea29ec2c445...`](https://stellar.expert/explorer/testnet/tx/8ffea29ec2c44577cfbc00a4c34b251a5e20a72c063a1ebf28dc0512cb78c01d)
 * 🔐 **Aethyr Escrow Contract** — Milestone escrow contract invoked by Router.
   * **Address**: [`CD734V7PATOR7NW7APYQLUNEON2GZ7EUBM27MFQO3WDQZGCPKIWB6NOT`](https://stellar.expert/explorer/testnet/contract/CD734V7PATOR7NW7APYQLUNEON2GZ7EUBM27MFQO3WDQZGCPKIWB6NOT)
   * **Deployment Tx**: [`0362bad15f575c...`](https://stellar.expert/explorer/testnet/tx/0362bad15f575ce70d9ce291dd937ef39f2c7da2aaaaa07928bbf7ef8a8cd961)
-* 🔐 **Aethyr Escrow Contract** — Freelancer milestone escrows with:
+* 🔐 **Aethyr Escrow Contract Features**:
   * **Milestone submission** by freelancers with on-chain timestamp tracking.
   * **Client dispute** flags that block auto-release.
   * **7-day auto-release** timer for uncontested submitted milestones.
   * **30-day refund lock** to protect against dispute-bypassing refund attacks.
   * **Dust-truncation protection**: Final milestone payouts use the remaining locked balance instead of basis-point division to prevent token dust loss.
-  * **11 passing Rust tests** covering happy paths, edge cases, and panic guards.
+  * **18 passing Rust contract tests** covering happy paths, edge cases, aid delivery, and panic guards.
 
 ### Gasless Fee Sponsorship Relayer
 * ⛽ **`/api/sponsor` Endpoint** — Server-side fee-bump transaction relayer that pays Soroban gas fees on behalf of users:

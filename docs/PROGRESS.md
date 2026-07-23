@@ -5,10 +5,10 @@ This is a living document updated autonomously by agents at the end of each task
 ## ⚡ Active Task
 
 ```yaml
-Current Task: "Workspace Belt Audit & Test Verification"
-Assigned Agent: Checker
-Status: "Audit Passed — All 18 contract tests, 59 frontend tests, production build, 161 commits, and Playwright UI verification passed"
-Next Gate: "Deploy Level 4 contracts (aethyr-aid) to Stellar Testnet and record contract addresses and transaction evidence"
+Current Task: "Deploy Level 4 contracts (aethyr-aid) to Stellar Testnet"
+Assigned Agent: Builder
+Status: "Completed — Built WASM, deployed aethyr-aid (CDERJSFS75XYBXJOZYOJA62T4GFHSJZAM34D4OAXNSPOFSAUPWEQ3BST) to Stellar Testnet, initialized contract, updated envs/docs, and verified all 18 cargo tests and 59 Vitest tests pass cleanly"
+Next Gate: "Build Green Belt mobile-first campaign funding and voucher administration flows"
 ```
 
 ---
@@ -96,7 +96,7 @@ Next Gate: "Deploy Level 4 contracts (aethyr-aid) to Stellar Testnet and record 
 - [x] Implement approved merchant/cooperative registry and beneficiary case IDs `[AI]`
 - [x] Implement evidence digest plus opaque-ID submission, admin-only emergency freeze, and verifier-only approve, reject, and frozen-claim resolution decisions `[AI]`
 - [x] Enforce authorization, replay protection, state-transition guards, refund behavior, payout invariants, and TTL extension `[AI]`
-- [ ] Deploy the Level 4 contracts to Testnet and record contract addresses and representative transaction hashes `[AI→YOU]`
+- [x] Deploy the Level 4 contracts to Testnet and record contract addresses and representative transaction hashes `[AI→YOU]`
 
 ### 🟢 Phase 7: Green Belt Product Flow (August 15–20)
 - [ ] Build the mobile-first campaign funding and voucher administration flows `[AI]`
@@ -148,6 +148,7 @@ Next Gate: "Deploy Level 4 contracts (aethyr-aid) to Stellar Testnet and record 
 ## 📜 Audit Logs
 
 ### 2026-08-04
+- **Builder**: Compiled and deployed the Level 4 `aethyr-aid` Soroban smart contract to Stellar Testnet (`CDERJSFS75XYBXJOZYOJA62T4GFHSJZAM34D4OAXNSPOFSAUPWEQ3BST`) using deployer key `GDIOBU6KL3WY5UMWVLRAQJRCZOAAK2HWWPFENKKDFZUH55DBVCWSKZC6`. Recorded WASM upload tx `91136c9764ce8eb5e4159d7d9f6a8c687766fad74dc543a2b8246a518757b58d`, contract creation tx `0b48000a46b3a63465f7eaaecd49915bd13aa095d6981f59e2107a875ba93593`, and contract initialization tx `831184035d160a9cf88a1532c59fa28a4ca661890d254b159efa65db7b811828`. Verified `is_admin` read call returns `true`. Updated contract IDs in `.env.example`, `.env.local`, `docs/DEPLOYMENT.md`, `README.md`, `docs/PROGRESS.md`, and whitelisted the aid contract in `/api/sponsor` fee relayer. Verified all 18 cargo contract tests and 59 frontend Vitest tests pass cleanly.
 - **Checker**: Completed workspace audit against `docs/BELT-REQUIREMENTS.md`. Verified all 18 Soroban Rust contract tests (`cargo test`) pass cleanly (7 in `aethyr-aid`, 7 in `aethyr-escrow`, 4 in `aethyr-router`). Verified all 59 frontend Vitest unit/integration tests (`npm run test`) pass cleanly. Verified Next.js production build (`npm run build`) compiles cleanly without errors. Confirmed git repository contains 161 commits (exceeding White, Yellow, Orange, Green, Blue, and Black belt requirement thresholds). Executed Playwright UI verification on local dev server `http://localhost:3000` with 390x844 mobile viewport, confirming header rendering, active navigation tabs (Send, Activity, Settings), and wallet connect buttons are visible and functional. Saved validation screenshot to `test-results/screenshots/audit_mobile_390x844.png`. CI/CD configuration (`.github/workflows/ci.yml`) is valid. Active Task status updated to 'Audit Passed'.
 - **Builder**: Added the isolated `aethyr-aid` Soroban contract alongside the unchanged Level 3 Router/Escrow contracts. The new contract implements direct campaign token funding, pooled reservation accounting, merchant approval/suspension, opaque beneficiary-case IDs, vouchers, immutable evidence digest/opaque-ID submissions, admin-only emergency freezes, verifier-only approve/reject decisions, atomic payouts, cancellation/expiration, proportional closure refunds with final-claimant dust handling, replay/state guards, privacy-safe events, and instance/persistent TTL extension. Added failing-first acceptance tests for clean delivery, disputed delivery, frozen approval after revision, cancellation/expiration/refunds, authorization boundaries, and TTL behavior. `cargo test` passes across the workspace (18 tests); release build for `aethyr-aid` passes. Testnet deployment remains pending.
 - **Planner / Architect**: Completed Phase 5 and received user approval for the Level 4 architecture. Added [`LEVEL-4-IMPLEMENTATION-SPEC.md`](./LEVEL-4-IMPLEMENTATION-SPEC.md) with the `aethyr-aid` contract boundary, role authorization matrix, campaign/merchant/case/voucher/evidence state models, pooled reservation accounting, refund behavior, replay and privacy guards, and Phase 6 acceptance scenarios. Approved one new aid contract while retaining the Level 3 Router/Escrow unchanged; reserve-on-issue accounting; digest plus opaque evidence ID; separated admin/verifier roles; admin emergency freeze; verifier-only resolution; one append-only evidence revision; and a 3-donor/2-admin/2-merchant/3-verifier validation cohort.
