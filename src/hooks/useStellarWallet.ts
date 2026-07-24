@@ -260,9 +260,23 @@ export function useStellarWallet() {
 
   // Submit transaction with optional fee sponsorship (relayer) and fallback
   const submitTransaction = useCallback(async (signedTxXdr: string) => {
-    let txHash: string;
+    let txHash: string | undefined;
     let isSponsored = false;
     let resultMetaXdr: string | undefined = undefined;
+
+    const submitDirect = async () => {
+      const signedTransaction = TransactionBuilder.fromXDR(signedTxXdr, Networks.TESTNET);
+      const sendResponse = await rpcServer.sendTransaction(signedTransaction);
+      if (sendResponse.status !== "PENDING" && sendResponse.status !== "DUPLICATE") {
+        const errorMsg = sendResponse.errorResult
+          ? sendResponse.errorResult.toXDR("base64")
+          : "Unknown error";
+        throw new Error(`Transaction submission error (Status: ${sendResponse.status}): ${errorMsg}`);
+      }
+      return sendResponse.hash;
+    };
+
+    let shouldSubmitDirect = false;
 
     // Try gasless fee-bump relayer first
     try {
@@ -279,29 +293,19 @@ export function useStellarWallet() {
         console.log("Transaction sponsored successfully. Hash:", txHash);
       } else {
         console.warn("Sponsorship failed, falling back to direct submission:", data.error || "Unknown error");
-        // Fallback to direct submission
-        const signedTransaction = TransactionBuilder.fromXDR(signedTxXdr, Networks.TESTNET);
-        const sendResponse = await rpcServer.sendTransaction(signedTransaction);
-        if (sendResponse.status !== "PENDING" && sendResponse.status !== "DUPLICATE") {
-          const errorMsg = sendResponse.errorResult 
-            ? sendResponse.errorResult.toXDR("base64")
-            : "Unknown error";
-          throw new Error(`Transaction submission error (Status: ${sendResponse.status}): ${errorMsg}`);
-        }
-        txHash = sendResponse.hash;
+        shouldSubmitDirect = true;
       }
     } catch (err) {
       console.warn("Sponsorship failed due to error, falling back to direct submission:", err);
-      // Fallback to direct submission
-      const signedTransaction = TransactionBuilder.fromXDR(signedTxXdr, Networks.TESTNET);
-      const sendResponse = await rpcServer.sendTransaction(signedTransaction);
-      if (sendResponse.status !== "PENDING" && sendResponse.status !== "DUPLICATE") {
-        const errorMsg = sendResponse.errorResult 
-          ? sendResponse.errorResult.toXDR("base64")
-          : "Unknown error";
-        throw new Error(`Transaction submission error (Status: ${sendResponse.status}): ${errorMsg}`);
-      }
-      txHash = sendResponse.hash;
+      shouldSubmitDirect = true;
+    }
+
+    if (shouldSubmitDirect) {
+      txHash = await submitDirect();
+    }
+
+    if (!txHash) {
+      throw new Error("Transaction submission did not return a hash.");
     }
 
     let getResponse: any = null;
