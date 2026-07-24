@@ -7,6 +7,81 @@ import { sanitizeSymbol } from "@/lib/utils";
 
 const HORIZON_URL = "https://horizon-testnet.stellar.org";
 const SOROBAN_RPC_URL = process.env.NEXT_PUBLIC_STELLAR_RPC_URL || "https://soroban-testnet.stellar.org:443";
+const AID_CONTRACT_ID = process.env.NEXT_PUBLIC_AID_CONTRACT_ID || "CDERJSFS75XYBXJOZYOJA62T4GFHSJZAM34D4OAXNSPOFSAUPWEQ3BST";
+const MOCK_WALLET_ADDRESS = "GBZXN7PIRZGNMHGA7MUUUF4GWPY5ALY4UV2GL6VJGIQRXFDNMADIXXXX";
+
+export type AidVoucherCategory = "Food" | "Medicine" | "Shelter" | "Other";
+
+export interface AidIssueVoucherInput {
+  voucherId: string;
+  campaignId: string;
+  caseId: string;
+  merchant: string;
+  amount: string;
+  category: AidVoucherCategory;
+  purposeHash: string;
+  expiresAt: number;
+}
+
+export function aidHexToBytes32ScVal(hexString: string) {
+  const cleanHex = hexString.startsWith("0x") ? hexString.slice(2) : hexString;
+  if (!/^[0-9a-fA-F]{64}$/.test(cleanHex)) {
+    throw new Error("Expected a 32-byte hex value (64 hex characters).");
+  }
+  return xdr.ScVal.scvBytes(Buffer.from(cleanHex, "hex"));
+}
+
+export function aidAddressScVal(address: string) {
+  return nativeToScVal(new Address(address));
+}
+
+export function aidAmountToI128ScVal(amount: string) {
+  const trimmed = amount.trim();
+  const match = /^(\d+)(?:\.(\d{1,7}))?$/.exec(trimmed);
+  if (!match) {
+    throw new Error("Amount must be a positive decimal with at most 7 fractional digits.");
+  }
+
+  const whole = BigInt(match[1]);
+  const fractional = BigInt((match[2] || "").padEnd(7, "0"));
+  const stroops = whole * 10_000_000n + fractional;
+  if (stroops <= 0n) {
+    throw new Error("Amount must be greater than zero.");
+  }
+
+  return nativeToScVal(stroops, { type: "i128" });
+}
+
+export function aidU64ScVal(value: number) {
+  if (!Number.isSafeInteger(value) || value < 0) {
+    throw new Error("u64 value must be a non-negative safe integer.");
+  }
+  return nativeToScVal(BigInt(value), { type: "u64" });
+}
+
+export function aidVoucherCategoryScVal(category: AidVoucherCategory) {
+  if (!["Food", "Medicine", "Shelter", "Other"].includes(category)) {
+    throw new Error("Unsupported voucher category.");
+  }
+  return xdr.ScVal.scvVec([xdr.ScVal.scvSymbol(category)]);
+}
+
+export function buildAidInvocationArgs(method: string, caller: string, input: any) {
+  switch (method) {
+    case "create_campaign":
+      return [aidAddressScVal(caller), aidHexToBytes32ScVal(input.campaignId), aidAddressScVal(input.token)];
+    case "fund_campaign":
+      return [aidAddressScVal(caller), aidHexToBytes32ScVal(input.campaignId), aidAmountToI128ScVal(input.amount)];
+    case "approve_merchant":
+      return [aidAddressScVal(caller), aidAddressScVal(input.merchant), aidHexToBytes32ScVal(input.profileHash)];
+    case "create_case":
+      return [aidAddressScVal(caller), aidHexToBytes32ScVal(input.campaignId), aidHexToBytes32ScVal(input.caseId), aidHexToBytes32ScVal(input.caseRecordHash)];
+    case "issue_voucher":
+      return [aidAddressScVal(caller), aidHexToBytes32ScVal(input.voucherId), aidHexToBytes32ScVal(input.campaignId), aidHexToBytes32ScVal(input.caseId), aidAddressScVal(input.merchant), aidAmountToI128ScVal(input.amount), aidVoucherCategoryScVal(input.category), aidHexToBytes32ScVal(input.purposeHash), aidU64ScVal(input.expiresAt)];
+    default:
+      throw new Error(`Unsupported Aethyr Aid method: ${method}`);
+  }
+}
 
 const horizonServer = new Horizon.Server(HORIZON_URL);
 const rpcServer = new rpc.Server(SOROBAN_RPC_URL);
@@ -353,6 +428,64 @@ export function useStellarWallet() {
       resultMetaXdr,
     };
   }, [checkConnection]);
+
+  const invokeAidContract = useCallback(async (method: "create_campaign" | "fund_campaign" | "approve_merchant" | "create_case" | "issue_voucher", input: any) => {
+    const currentAddress = stateRef.current.address;
+    if (!currentAddress) {
+      throw new Error("Wallet is not connected.");
+    }
+
+    if (currentAddress === MOCK_WALLET_ADDRESS) {
+      await new Promise((resolve) => setTimeout(resolve, 250));
+      return {
+        hash: `mock_aid_${method}_${JSON.stringify(input).length}`,
+        result: { status: "SUCCESS", mode: "local-demo", method },
+        isSponsored: false,
+      };
+    }
+
+    try {
+      getKit();
+      const account = await horizonServer.loadAccount(currentAddress);
+      const fee = await horizonServer.fetchBaseFee();
+      const contract = new Contract(AID_CONTRACT_ID);
+      const invokeOp = contract.call(method, ...buildAidInvocationArgs(method, currentAddress, input));
+      let transaction = new TransactionBuilder(account, {
+        fee: fee.toString(),
+        networkPassphrase: Networks.TESTNET,
+      })
+        .addOperation(invokeOp)
+        .setTimeout(120)
+        .build();
+
+      const simulation = await rpcServer.simulateTransaction(transaction);
+      if (rpc.Api.isSimulationError(simulation)) {
+        throw new Error(`Simulation failed: ${simulation.error}`);
+      }
+
+      transaction = rpc.assembleTransaction(transaction, simulation).build();
+      const txXdr = transaction.toEnvelope().toXDR("base64");
+      const { signedTxXdr } = await StellarWalletsKit.signTransaction(txXdr, {
+        networkPassphrase: Networks.TESTNET,
+        address: currentAddress,
+      });
+
+      if (!signedTxXdr) {
+        throw new Error("Transaction was not signed.");
+      }
+
+      return await submitTransaction(signedTxXdr);
+    } catch (err: any) {
+      console.error(`Aethyr Aid ${method} failed:`, err);
+      throw new Error(parseWalletError(err, "transaction"));
+    }
+  }, [submitTransaction]);
+
+  const createCampaign = useCallback((input: { campaignId: string; token: string }) => invokeAidContract("create_campaign", input), [invokeAidContract]);
+  const fundCampaign = useCallback((input: { campaignId: string; amount: string }) => invokeAidContract("fund_campaign", input), [invokeAidContract]);
+  const approveMerchant = useCallback((input: { merchant: string; profileHash: string }) => invokeAidContract("approve_merchant", input), [invokeAidContract]);
+  const createCase = useCallback((input: { campaignId: string; caseId: string; caseRecordHash: string }) => invokeAidContract("create_case", input), [invokeAidContract]);
+  const issueVoucher = useCallback((input: AidIssueVoucherInput) => invokeAidContract("issue_voucher", input), [invokeAidContract]);
 
   // Send XLM transaction
   const sendXLM = useCallback(async (destination: string, amount: string) => {
@@ -1079,6 +1212,12 @@ export function useStellarWallet() {
     submitMilestone,
     disputeMilestone,
     autoReleaseMilestone,
+    invokeAidContract,
+    createCampaign,
+    fundCampaign,
+    approveMerchant,
+    createCase,
+    issueVoucher,
     refresh: checkConnection,
   };
 
