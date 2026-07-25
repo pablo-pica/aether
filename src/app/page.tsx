@@ -16,6 +16,7 @@ import SendTab from "@/components/SendTab";
 import EscrowTab from "@/components/EscrowTab";
 import ActivityTab from "@/components/ActivityTab";
 import SettingsTab from "@/components/SettingsTab";
+import AidTab from "@/components/AidTab";
 import { Toast, ToastContainer } from "@/components/ui/Toast";
 import { Milestone } from "@/components/MilestoneBuilder";
 import { validateStellarAddress } from "@/lib/utils";
@@ -90,6 +91,11 @@ export default function Dashboard() {
     submitMilestone,
     disputeMilestone,
     autoReleaseMilestone,
+    createCampaign,
+    fundCampaign,
+    approveMerchant,
+    createCase,
+    issueVoucher,
   } = useStellarWallet();
 
   // Tab routing view state
@@ -717,7 +723,21 @@ export default function Dashboard() {
             />
           )}
 
-          {/* TAB 4: SETTINGS PANEL */}
+          {/* TAB 4: AETHYR AID */}
+          {activeTab === "aid" && txStatus === "idle" && (
+            <AidTab
+              isConnected={isConnected}
+              address={address}
+              isLoading={walletLoading}
+              createCampaign={createCampaign}
+              fundCampaign={fundCampaign}
+              approveMerchant={approveMerchant}
+              createCase={createCase}
+              issueVoucher={issueVoucher}
+            />
+          )}
+
+          {/* TAB 5: SETTINGS PANEL */}
           {activeTab === "settings" && txStatus === "idle" && (
             <SettingsTab
               network={network}

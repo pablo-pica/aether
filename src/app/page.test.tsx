@@ -17,6 +17,14 @@ vi.mock("@/hooks/useStellarWallet", () => ({
     routeToEscrow: () => {},
     releaseMilestone: () => {},
     refundEscrow: () => {},
+    submitMilestone: () => {},
+    disputeMilestone: () => {},
+    autoReleaseMilestone: () => {},
+    createCampaign: () => {},
+    fundCampaign: () => {},
+    approveMerchant: () => {},
+    createCase: () => {},
+    issueVoucher: () => {},
   }),
 }));
 
@@ -80,6 +88,32 @@ describe("Dashboard Page Background Style & Layout Tests", () => {
     expect(fileContent).toContain("Active Escrows");
     expect(fileContent).toContain("Release");
     expect(fileContent).toContain("Refund Expired Escrow");
+  });
+
+  it("should preserve existing tabs and add the Aethyr Aid workspace navigation", () => {
+    const navPath = path.resolve(__dirname, "../components/BottomNav.tsx");
+    const navContent = fs.readFileSync(navPath, "utf-8");
+    expect(navContent).toContain('label: "Send"');
+    expect(navContent).toContain('label: "Escrow"');
+    expect(navContent).toContain('label: "Activity"');
+    expect(navContent).toContain('label: "Aid"');
+    expect(navContent).toContain('label: "Settings"');
+
+    const pagePath = path.resolve(__dirname, "./page.tsx");
+    const pageContent = fs.readFileSync(pagePath, "utf-8");
+    expect(pageContent).toContain('activeTab === "aid"');
+    expect(pageContent).toContain("<AidTab");
+  });
+
+  it("should document live/demo boundary and role separation in the Aid workspace", () => {
+    const aidPath = path.resolve(__dirname, "../components/AidTab.tsx");
+    const aidContent = fs.readFileSync(aidPath, "utf-8");
+    expect(aidContent).toContain("deterministic local demo — never on-chain");
+    expect(aidContent).toContain("Live Testnet");
+    expect(aidContent).toContain("verifier payout review, reject, freeze, and redemption controls are intentionally not included");
+    expect(aidContent).toContain("Do not enter beneficiary personal data or raw evidence");
+    expect(aidContent).toContain("Reserved vouchers");
+    expect(aidContent).toContain("Available");
   });
 
   it("should display custom slippage and network selectors in Settings Tab", () => {

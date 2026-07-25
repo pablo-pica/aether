@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { SendHorizontal, Lock, ReceiptText, Settings2 } from "lucide-react";
+import { SendHorizontal, Lock, ReceiptText, Settings2, HandHeart } from "lucide-react";
 
-export type TabId = "send" | "escrow" | "activity" | "settings";
+export type TabId = "send" | "escrow" | "activity" | "aid" | "settings";
 
 interface BottomNavProps {
   activeTab: TabId;
@@ -26,6 +26,11 @@ export default function BottomNav({ activeTab, setActiveTab }: BottomNavProps) {
       id: "activity" as TabId,
       label: "Activity",
       icon: ReceiptText,
+    },
+    {
+      id: "aid" as TabId,
+      label: "Aid",
+      icon: HandHeart,
     },
     {
       id: "settings" as TabId,
