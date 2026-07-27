@@ -2,13 +2,18 @@ import { describe, expect, it } from "vitest";
 import fs from "fs";
 import path from "path";
 
-describe("AidTab live/demo contract", () => {
+describe("AidTab live/demo lifecycle contract", () => {
   const source = () => fs.readFileSync(path.resolve(__dirname, "./AidTab.tsx"), "utf-8");
 
-  it("keeps voucher availability reservation demo-only", () => {
+  it("keeps deterministic local-demo accounting honest and outcome-visible", () => {
     const content = source();
-    expect(content).toContain("if (mode === \"demo\") {\n      if (amount > available)");
-    expect(content).toContain("Contract validation determines live availability/state until read APIs are added");
+    expect(content).toContain("Start clean walkthrough");
+    expect(content).toContain("Start disputed walkthrough");
+    expect(content).toContain("Advance walkthrough");
+    expect(content).toContain("Current: {walkthroughCurrent}. Next: {walkthroughNext}");
+    expect(content).toContain("History below records every validated transition");
+    expect(content).toContain("never on-chain");
+    expect(content).toContain("Visible state/history");
   });
 
   it("requires explicit live operator inputs for non-derived Aid values", () => {
@@ -25,19 +30,25 @@ describe("AidTab live/demo contract", () => {
       "Funding amount",
       "Voucher amount",
       "Voucher category",
-    ]) {
-      expect(content).toContain(`aria-label=\"${label}\"`);
-    }
-    expect(content).toContain("Live mode requires merchant address and merchant profile hash.");
-    expect(content).toContain("Live mode requires campaign ID, case ID, and case record hash.");
-    expect(content).toContain("Live mode requires voucher ID, campaign ID, case ID, merchant address, and purpose hash.");
+      "Initial evidence digest",
+      "Evidence record ID",
+      "Evidence revision digest",
+      "Evidence revision record ID",
+      "Freeze reason digest",
+      "Verifier decision reason digest",
+    ]) expect(content).toContain(`aria-label=\"${label}\"`);
+    expect(content).toContain("role-disjoint wallets");
+    expect(content).toContain("Pending submission:");
   });
 
-  it("separates live campaign creation from funding existing campaigns", () => {
+  it("separates merchant, admin freeze, and verifier controls", () => {
     const content = source();
-    expect(content).toContain("const createLiveCampaign = () => run(\"Creating campaign\"");
-    expect(content).toContain("Create live campaign");
-    expect(content).toContain("const funded = await fundCampaign({ campaignId, amount: fundAmount });");
-    expect(content).not.toContain("const create = await createCampaign");
+    expect(content).toContain("Merchant redemption workspace");
+    expect(content).toContain("Admin emergency-freeze control");
+    expect(content).toContain("Verifier-only review panel");
+    expect(content).toContain("Freeze is an admin control, not a verifier decision.");
+    expect(content).toContain("decide(ClaimDecision.Approve)");
+    expect(content).toContain("decide(ClaimDecision.Reject)");
+    expect(content).not.toContain("decide(ClaimDecision.Freeze)");
   });
 });

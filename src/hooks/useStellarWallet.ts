@@ -11,6 +11,10 @@ const AID_CONTRACT_ID = process.env.NEXT_PUBLIC_AID_CONTRACT_ID || "CDERJSFS75XY
 const MOCK_WALLET_ADDRESS = "GBZXN7PIRZGNMHGA7MUUUF4GWPY5ALY4UV2GL6VJGIQRXFDNMADIXXXX";
 
 export type AidVoucherCategory = "Food" | "Medicine" | "Shelter" | "Other";
+export enum ClaimDecision {
+  Approve = "Approve",
+  Reject = "Reject",
+}
 
 export interface AidIssueVoucherInput {
   voucherId: string;
@@ -59,6 +63,25 @@ export function aidU64ScVal(value: number) {
   return nativeToScVal(BigInt(value), { type: "u64" });
 }
 
+export interface AidRedeemVoucherInput {
+  voucherId: string;
+  contentDigest: string;
+  evidenceRecordId: string;
+}
+
+export type AidAppendEvidenceRevisionInput = AidRedeemVoucherInput;
+
+export interface AidFreezeClaimInput {
+  voucherId: string;
+  reasonHash: string;
+}
+
+export interface AidDecideClaimInput {
+  voucherId: string;
+  decision: ClaimDecision;
+  reasonHash: string;
+}
+
 export function aidVoucherCategoryScVal(category: AidVoucherCategory) {
   if (!["Food", "Medicine", "Shelter", "Other"].includes(category)) {
     throw new Error("Unsupported voucher category.");
@@ -66,7 +89,16 @@ export function aidVoucherCategoryScVal(category: AidVoucherCategory) {
   return xdr.ScVal.scvVec([xdr.ScVal.scvSymbol(category)]);
 }
 
-export function buildAidInvocationArgs(method: string, caller: string, input: any) {
+export function aidClaimDecisionScVal(decision: ClaimDecision) {
+  if (![ClaimDecision.Approve, ClaimDecision.Reject].includes(decision)) {
+    throw new Error("Unsupported claim decision. Use Approve or Reject.");
+  }
+  return xdr.ScVal.scvVec([xdr.ScVal.scvSymbol(decision)]);
+}
+
+export type AidContractMethod = "create_campaign" | "fund_campaign" | "approve_merchant" | "create_case" | "issue_voucher" | "redeem_voucher" | "append_evidence_revision" | "freeze_claim" | "decide_claim";
+
+export function buildAidInvocationArgs(method: AidContractMethod, caller: string, input: any) {
   switch (method) {
     case "create_campaign":
       return [aidAddressScVal(caller), aidHexToBytes32ScVal(input.campaignId), aidAddressScVal(input.token)];
@@ -78,6 +110,14 @@ export function buildAidInvocationArgs(method: string, caller: string, input: an
       return [aidAddressScVal(caller), aidHexToBytes32ScVal(input.campaignId), aidHexToBytes32ScVal(input.caseId), aidHexToBytes32ScVal(input.caseRecordHash)];
     case "issue_voucher":
       return [aidAddressScVal(caller), aidHexToBytes32ScVal(input.voucherId), aidHexToBytes32ScVal(input.campaignId), aidHexToBytes32ScVal(input.caseId), aidAddressScVal(input.merchant), aidAmountToI128ScVal(input.amount), aidVoucherCategoryScVal(input.category), aidHexToBytes32ScVal(input.purposeHash), aidU64ScVal(input.expiresAt)];
+    case "redeem_voucher":
+      return [aidAddressScVal(caller), aidHexToBytes32ScVal(input.voucherId), aidHexToBytes32ScVal(input.contentDigest), aidHexToBytes32ScVal(input.evidenceRecordId)];
+    case "append_evidence_revision":
+      return [aidAddressScVal(caller), aidHexToBytes32ScVal(input.voucherId), aidHexToBytes32ScVal(input.contentDigest), aidHexToBytes32ScVal(input.evidenceRecordId)];
+    case "freeze_claim":
+      return [aidAddressScVal(caller), aidHexToBytes32ScVal(input.voucherId), aidHexToBytes32ScVal(input.reasonHash)];
+    case "decide_claim":
+      return [aidAddressScVal(caller), aidHexToBytes32ScVal(input.voucherId), aidClaimDecisionScVal(input.decision), aidHexToBytes32ScVal(input.reasonHash)];
     default:
       throw new Error(`Unsupported Aethyr Aid method: ${method}`);
   }
@@ -429,7 +469,7 @@ export function useStellarWallet() {
     };
   }, [checkConnection]);
 
-  const invokeAidContract = useCallback(async (method: "create_campaign" | "fund_campaign" | "approve_merchant" | "create_case" | "issue_voucher", input: any) => {
+  const invokeAidContract = useCallback(async (method: AidContractMethod, input: any) => {
     const currentAddress = stateRef.current.address;
     if (!currentAddress) {
       throw new Error("Wallet is not connected.");
@@ -486,6 +526,10 @@ export function useStellarWallet() {
   const approveMerchant = useCallback((input: { merchant: string; profileHash: string }) => invokeAidContract("approve_merchant", input), [invokeAidContract]);
   const createCase = useCallback((input: { campaignId: string; caseId: string; caseRecordHash: string }) => invokeAidContract("create_case", input), [invokeAidContract]);
   const issueVoucher = useCallback((input: AidIssueVoucherInput) => invokeAidContract("issue_voucher", input), [invokeAidContract]);
+  const redeemVoucher = useCallback((input: AidRedeemVoucherInput) => invokeAidContract("redeem_voucher", input), [invokeAidContract]);
+  const appendEvidenceRevision = useCallback((input: AidAppendEvidenceRevisionInput) => invokeAidContract("append_evidence_revision", input), [invokeAidContract]);
+  const freezeClaim = useCallback((input: AidFreezeClaimInput) => invokeAidContract("freeze_claim", input), [invokeAidContract]);
+  const decideClaim = useCallback((input: AidDecideClaimInput) => invokeAidContract("decide_claim", input), [invokeAidContract]);
 
   // Send XLM transaction
   const sendXLM = useCallback(async (destination: string, amount: string) => {
@@ -1218,6 +1262,10 @@ export function useStellarWallet() {
     approveMerchant,
     createCase,
     issueVoucher,
+    redeemVoucher,
+    appendEvidenceRevision,
+    freezeClaim,
+    decideClaim,
     refresh: checkConnection,
   };
 

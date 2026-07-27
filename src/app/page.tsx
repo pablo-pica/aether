@@ -96,6 +96,10 @@ export default function Dashboard() {
     approveMerchant,
     createCase,
     issueVoucher,
+    redeemVoucher,
+    appendEvidenceRevision,
+    freezeClaim,
+    decideClaim,
   } = useStellarWallet();
 
   // Tab routing view state
@@ -734,6 +738,10 @@ export default function Dashboard() {
               approveMerchant={approveMerchant}
               createCase={createCase}
               issueVoucher={issueVoucher}
+              redeemVoucher={redeemVoucher}
+              appendEvidenceRevision={appendEvidenceRevision}
+              freezeClaim={freezeClaim}
+              decideClaim={decideClaim}
             />
           )}
 

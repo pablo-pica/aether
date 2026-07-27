@@ -7,7 +7,7 @@ vi.mock("@creit.tech/stellar-wallets-kit", () => ({
   Networks: { TESTNET: "TESTNET" },
 }));
 import { Keypair, scValToNative, xdr } from "@stellar/stellar-sdk";
-import { aidAmountToI128ScVal, aidHexToBytes32ScVal, aidU64ScVal, aidVoucherCategoryScVal, buildAidInvocationArgs } from "./useStellarWallet";
+import { ClaimDecision, aidAmountToI128ScVal, aidClaimDecisionScVal, aidHexToBytes32ScVal, aidU64ScVal, aidVoucherCategoryScVal, buildAidInvocationArgs } from "./useStellarWallet";
 
 const id = "a".repeat(64);
 const validAddress = Keypair.random().publicKey();
@@ -38,6 +38,23 @@ describe("Aethyr Aid contract invocation serialization", () => {
     expect(args[5].switch()).toBe(xdr.ScValType.scvI128());
     expect(args[6].switch()).toBe(xdr.ScValType.scvVec());
     expect(args[8].switch()).toBe(xdr.ScValType.scvU64());
+  });
+
+  it("builds lifecycle method arguments in the authoritative contract order", () => {
+    expect(buildAidInvocationArgs("redeem_voucher", validAddress, { voucherId: id, contentDigest: id, evidenceRecordId: id })).toHaveLength(4);
+    expect(buildAidInvocationArgs("append_evidence_revision", validAddress, { voucherId: id, contentDigest: id, evidenceRecordId: id })[3].switch()).toBe(xdr.ScValType.scvBytes());
+    expect(buildAidInvocationArgs("freeze_claim", validAddress, { voucherId: id, reasonHash: id })).toHaveLength(3);
+    const decideArgs = buildAidInvocationArgs("decide_claim", validAddress, { voucherId: id, decision: ClaimDecision.Approve, reasonHash: id });
+    expect(decideArgs).toHaveLength(4);
+    expect(decideArgs[2].vec()?.[0].sym().toString()).toBe("Approve");
+    expect(decideArgs[3].switch()).toBe(xdr.ScValType.scvBytes());
+  });
+
+  it("encodes only verifier Approve/Reject claim decisions and rejects invalid values", () => {
+    expect(aidClaimDecisionScVal(ClaimDecision.Approve).vec()?.[0].sym().toString()).toBe("Approve");
+    expect(aidClaimDecisionScVal(ClaimDecision.Reject).vec()?.[0].sym().toString()).toBe("Reject");
+    expect(() => aidClaimDecisionScVal("Freeze" as ClaimDecision)).toThrow("Approve or Reject");
+    expect(() => buildAidInvocationArgs("decide_claim", validAddress, { voucherId: id, decision: "Freeze", reasonHash: id })).toThrow("Approve or Reject");
   });
 
   it("rejects invalid bytes32 and non-positive amounts before live submission", () => {

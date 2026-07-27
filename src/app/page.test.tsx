@@ -110,9 +110,11 @@ describe("Dashboard Page Background Style & Layout Tests", () => {
     const aidContent = fs.readFileSync(aidPath, "utf-8");
     expect(aidContent).toContain("deterministic local demo — never on-chain");
     expect(aidContent).toContain("Live Testnet");
-    expect(aidContent).toContain("verifier payout review, reject, freeze, and redemption controls are intentionally not included");
-    expect(aidContent).toContain("Do not enter beneficiary personal data or raw evidence");
-    expect(aidContent).toContain("Reserved vouchers");
+    expect(aidContent).toContain("Merchant redemption workspace");
+    expect(aidContent).toContain("Admin emergency-freeze control");
+    expect(aidContent).toContain("Verifier-only review panel");
+    expect(aidContent).toContain("No raw evidence or beneficiary personal data");
+    expect(aidContent).toContain("Reserved");
     expect(aidContent).toContain("Available");
   });
 
