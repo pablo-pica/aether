@@ -5,10 +5,10 @@ This is a living document updated autonomously by agents at the end of each task
 ## ⚡ Active Task
 
 ```yaml
-Current Task: "Phase 7 Aethyr Aid campaign workspace"
+Current Task: "Phase 7 Green Belt product flow"
 Assigned Agent: Builder
-Status: "Batch 1 complete — Added isolated mobile-first Aid campaign funding and voucher-administration workspace with deterministic local demo and live Testnet contract calls; 70 Vitest tests, ESLint, and production build pass"
-Next Gate: "Build merchant redemption/evidence submission and separated admin/verifier dispute-resolution flows"
+Status: "Completed — Mobile Aid workspace now covers campaign administration, merchant redemption/evidence, admin emergency freeze, verifier approve/reject, and guided clean/disputed local demos; 75 Vitest tests, 18 contract tests, ESLint, and production build pass"
+Next Gate: "Phase 8 production validation: deploy MVP, monitoring/analytics, and operational-user evidence"
 ```
 
 ---
@@ -100,11 +100,11 @@ Next Gate: "Build merchant redemption/evidence submission and separated admin/ve
 
 ### 🟢 Phase 7: Green Belt Product Flow (August 15–20)
 - [x] Build the mobile-first campaign funding and voucher administration flows `[AI]`
-- [ ] Build merchant redemption and evidence submission flows `[AI]`
-- [ ] Build separated admin emergency-freeze and verifier review, payout, rejection, and dispute-resolution views `[AI]`
-- [ ] Demonstrate one clean delivery and one disputed delivery end to end `[AI]`
-- [ ] Add explicit loading, empty, success, rejection, and recoverable error states `[AI]`
-- [ ] Complete frontend, contract, integration, and production-build verification `[AI]`
+- [x] Build merchant redemption and evidence submission flows `[AI]`
+- [x] Build separated admin emergency-freeze and verifier review, payout, rejection, and dispute-resolution views `[AI]`
+- [x] Demonstrate one clean delivery and one disputed delivery end to end `[AI]`
+- [x] Add explicit loading, empty, success, rejection, and recoverable error states `[AI]`
+- [x] Complete frontend, contract, integration, and production-build verification `[AI]`
 
 ### 🟢 Phase 8: Green Belt Production Validation (August 21–27)
 - [ ] Deploy the feature-complete MVP to production `[AI→YOU]`
@@ -148,6 +148,7 @@ Next Gate: "Build merchant redemption/evidence submission and separated admin/ve
 ## 📜 Audit Logs
 
 ### 2026-08-04
+- **Builder**: Completed Phase 7 in commit `614426c`: added wallet-contract methods for merchant redemption, one frozen-claim evidence revision, admin emergency freeze, and verifier approve/reject. Delivered isolated merchant, admin, and verifier mobile views plus a reducer-backed guided local walkthrough that visibly executes clean (`Issued → Redeemed/evidence[0] → Paid`) and disputed (`Issued → Redeemed/evidence[0] → Frozen → evidence[1] → Rejected`) flows with correct accounting. Verified 75/75 Vitest tests, 18/18 contract tests, ESLint, and production build; live Testnet actions remain operator-driven and require configured, role-disjoint wallets.
 - **Builder**: Completed Phase 7 product-flow batch 1 in commits `5cc39ac`, `e2eb419`, and `9d28397`: added an isolated Aethyr Aid mobile workspace with explicit local-demo versus live-Testnet modes; campaign creation/funding; merchant approval; beneficiary-case creation; voucher issuance; privacy-safe digest/opaque-ID guidance; and loading, empty, success, and recoverable-error states. Added exact Aethyr Aid SCVal serialization, prevented duplicate direct transaction submission after sponsorship failure, and added focused Vitest coverage. Verified 70/70 Vitest tests, ESLint, and the Next.js production build.
 - **Checker**: Completed full audit for task 'Deploy Level 4 contracts (aethyr-aid) to Stellar Testnet'. Verified static files and configurations (`README.md`, `docs/PROGRESS.md`, `docs/DEPLOYMENT.md`, `.env.example`, `.env.local`). Confirmed commit `feat: deploy aethyr-aid contract to Stellar Testnet` (`1e05d81`) is present. Verified all 18 smart contract tests pass in `cargo test` (7 in `aethyr-aid`, 7 in `aethyr-escrow`, 4 in `aethyr-router`). Verified all 59 frontend unit/integration tests pass in Vitest across 17 test files. Verified Playwright mobile UI verification on `http://localhost:3000` (390x844 viewport), confirming landing header, active tabs (Send, Escrow, Activity, Settings), and wallet connect buttons are present and visible. Saved validation screenshot to `test-results/screenshots/audit_mobile_390x844.png`. Active Task status updated to 'Audit Passed'.
 - **Builder**: Compiled and deployed the Level 4 `aethyr-aid` Soroban smart contract to Stellar Testnet (`CDERJSFS75XYBXJOZYOJA62T4GFHSJZAM34D4OAXNSPOFSAUPWEQ3BST`) using deployer key `GDIOBU6KL3WY5UMWVLRAQJRCZOAAK2HWWPFENKKDFZUH55DBVCWSKZC6`. Recorded WASM upload tx `91136c9764ce8eb5e4159d7d9f6a8c687766fad74dc543a2b8246a518757b58d`, contract creation tx `0b48000a46b3a63465f7eaaecd49915bd13aa095d6981f59e2107a875ba93593`, and contract initialization tx `831184035d160a9cf88a1532c59fa28a4ca661890d254b159efa65db7b811828`. Verified `is_admin` read call returns `true`. Updated contract IDs in `.env.example`, `.env.local`, `docs/DEPLOYMENT.md`, `README.md`, `docs/PROGRESS.md`, and whitelisted the aid contract in `/api/sponsor` fee relayer. Verified all 18 cargo contract tests and 59 frontend Vitest tests pass cleanly.
