@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/Stellar-Testnet-blue?style=flat-square&logo=stellar" alt="Network">
   <img src="https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=nextdotjs" alt="Next.js">
   <img src="https://img.shields.io/badge/Tailwind-v4-38bdf8?style=flat-square&logo=tailwindcss" alt="Styling">
-  <img src="https://img.shields.io/badge/Rust%20Tests-11%2F11%20Passed-green?style=flat-square&logo=rust" alt="Rust Tests">
+  <img src="https://img.shields.io/badge/Rust%20Tests-18%2F18%20Passed-green?style=flat-square&logo=rust" alt="Rust Tests">
   <img src="https://img.shields.io/badge/Vitest-59%2F59%20Passed-green?style=flat-square&logo=vitest" alt="Vitest Tests">
 </p>
 
