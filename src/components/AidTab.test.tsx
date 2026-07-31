@@ -60,8 +60,11 @@ describe("AidTab live/demo lifecycle contract", () => {
     expect(content).toContain("focus-ring");
     expect(content).toContain('idPrefix="aid-mode"');
     expect(content).toContain('aria-live="polite"');
+    expect(content).toContain('const formActionButtonClassName = "w-full h-11');
     expect(content).toContain('h-8 px-3 rounded-lg bg-teal-500/10 hover:bg-teal-500/20 border border-teal-500/30 text-[10px] font-bold text-teal-400 cursor-pointer');
     expect(content).toContain('h-8 px-3 rounded-lg bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 text-[10px] font-bold text-amber-400 cursor-pointer');
     expect(content).toContain('h-8 px-3 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-[10px] font-bold text-red-400 cursor-pointer');
+    expect(content).toContain('onClick={() => decide(ClaimDecision.Approve)} className={primaryButtonClassName}');
+    expect(content).toContain('onClick={fund} className={formActionButtonClassName}');
   });
 });
