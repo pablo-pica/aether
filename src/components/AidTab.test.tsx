@@ -66,5 +66,6 @@ describe("AidTab live/demo lifecycle contract", () => {
     expect(content).toContain('h-8 px-3 rounded-lg bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-[10px] font-bold text-red-400 cursor-pointer');
     expect(content).toContain('onClick={() => decide(ClaimDecision.Approve)} className={primaryButtonClassName}');
     expect(content).toContain('onClick={fund} className={formActionButtonClassName}');
+    expect(content).toContain('className="grid grid-cols-2 gap-2"><button type="button" onClick={() => startWalkthrough("clean")} disabled={!!pending} className={formActionButtonClassName}');
   });
 });
