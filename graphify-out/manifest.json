@@ -20,9 +20,9 @@
     "semantic_hash": "6c6de512e567a8cc893addab9036c6b5"
   },
   "/home/pablo-pica/Documents/programming/aethyr/next-env.d.ts": {
-    "mtime": 1783845691.7288888,
-    "ast_hash": "2a74d3909800ca5467fa83b0ab4a4890",
-    "semantic_hash": "2a74d3909800ca5467fa83b0ab4a4890"
+    "mtime": 1785848579.821523,
+    "ast_hash": "d0f8375ae1199dc7acd3977fc33b78b8",
+    "semantic_hash": "d0f8375ae1199dc7acd3977fc33b78b8"
   },
   "/home/pablo-pica/Documents/programming/aethyr/package.json": {
     "mtime": 1783653631.3764653,
@@ -45,14 +45,14 @@
     "semantic_hash": "a12798f8a52ee06589c623081f2523eb"
   },
   "/home/pablo-pica/Documents/programming/aethyr/src/app/page.test.tsx": {
-    "mtime": 1783653631.3764653,
-    "ast_hash": "8eced9637a76217fe851aebf94b37f03",
-    "semantic_hash": "8eced9637a76217fe851aebf94b37f03"
+    "mtime": 1785831794.4723003,
+    "ast_hash": "bcc04a1727daf6f942c3d8b4233b949e",
+    "semantic_hash": "bcc04a1727daf6f942c3d8b4233b949e"
   },
   "/home/pablo-pica/Documents/programming/aethyr/src/app/page.tsx": {
-    "mtime": 1785331102.152579,
-    "ast_hash": "fb95989d5322364188dbcd847b23a2b9",
-    "semantic_hash": "fb95989d5322364188dbcd847b23a2b9"
+    "mtime": 1785831746.6357265,
+    "ast_hash": "7221d1023fa18225029527ef7a9f8419",
+    "semantic_hash": "7221d1023fa18225029527ef7a9f8419"
   },
   "/home/pablo-pica/Documents/programming/aethyr/src/app/api/sponsor/route.test.ts": {
     "mtime": 1785331102.1523452,
@@ -60,9 +60,9 @@
     "semantic_hash": "58e6ee6f782f95ec7097a35098608a90"
   },
   "/home/pablo-pica/Documents/programming/aethyr/src/app/api/sponsor/route.ts": {
-    "mtime": 1785331102.1524496,
-    "ast_hash": "4ee723316f9419ac40a9e4c47ddde059",
-    "semantic_hash": "4ee723316f9419ac40a9e4c47ddde059"
+    "mtime": 1785815077.8476813,
+    "ast_hash": "3b1ba0b4ceefc6db5d94f75bb10f8669",
+    "semantic_hash": "3b1ba0b4ceefc6db5d94f75bb10f8669"
   },
   "/home/pablo-pica/Documents/programming/aethyr/src/hooks/useFreighter.ts": {
     "mtime": 1783581313.0229425,
@@ -70,14 +70,14 @@
     "semantic_hash": "255e39ba3678b4d9a4d04d792aa3fc54"
   },
   "/home/pablo-pica/Documents/programming/aethyr/src/hooks/useStellarWallet.ts": {
-    "mtime": 1785331102.153346,
-    "ast_hash": "d3e8816517306aabe55336202cee3baf",
-    "semantic_hash": "d3e8816517306aabe55336202cee3baf"
+    "mtime": 1785831622.5898936,
+    "ast_hash": "1e77eba154a9a04744fa01ba721776d6",
+    "semantic_hash": "1e77eba154a9a04744fa01ba721776d6"
   },
   "/home/pablo-pica/Documents/programming/aethyr/src/components/BottomNav.tsx": {
-    "mtime": 1783653631.3772287,
-    "ast_hash": "f0bfa83f1460845e76066f8aa00c8a92",
-    "semantic_hash": "f0bfa83f1460845e76066f8aa00c8a92"
+    "mtime": 1785829468.6558237,
+    "ast_hash": "db3e0cc2f72e28db7168991f43561d3d",
+    "semantic_hash": "db3e0cc2f72e28db7168991f43561d3d"
   },
   "/home/pablo-pica/Documents/programming/aethyr/src/components/MilestoneBuilder.test.tsx": {
     "mtime": 1783653631.3773913,
@@ -270,14 +270,14 @@
     "semantic_hash": "956107ee8541b39460a0deb0a775f5b8"
   },
   "/home/pablo-pica/Documents/programming/aethyr/README.md": {
-    "mtime": 1785777761.1614747,
-    "ast_hash": "af20e2151cd3f9abceb91ba273c0965c",
-    "semantic_hash": "af20e2151cd3f9abceb91ba273c0965c"
+    "mtime": 1785815348.5471394,
+    "ast_hash": "dfb5956b3f0edc66c1cbb0a25cae0860",
+    "semantic_hash": "dfb5956b3f0edc66c1cbb0a25cae0860"
   },
   "/home/pablo-pica/Documents/programming/aethyr/docs/MASTERPLAN.md": {
-    "mtime": 1785777724.4280698,
-    "ast_hash": "a01ab89d5febb708a1189cd54aca0bbe",
-    "semantic_hash": "a01ab89d5febb708a1189cd54aca0bbe"
+    "mtime": 1785811553.5951505,
+    "ast_hash": "41a099ab03030452fe3a282cc3682e6e",
+    "semantic_hash": "41a099ab03030452fe3a282cc3682e6e"
   },
   "/home/pablo-pica/Documents/programming/aethyr/docs/BELT-REQUIREMENTS.md": {
     "mtime": 1785778211.6341963,
@@ -285,9 +285,9 @@
     "semantic_hash": "52d1f56fb459fa963b89989470ed7756"
   },
   "/home/pablo-pica/Documents/programming/aethyr/docs/DEPLOYMENT.md": {
-    "mtime": 1785777739.5136755,
-    "ast_hash": "2a66b17358f73b9aa6f6627c358fcdee",
-    "semantic_hash": "2a66b17358f73b9aa6f6627c358fcdee"
+    "mtime": 1785815074.8346872,
+    "ast_hash": "8a85bde308437b32b6b53c42b2bab249",
+    "semantic_hash": "8a85bde308437b32b6b53c42b2bab249"
   },
   "/home/pablo-pica/Documents/programming/aethyr/docs/README-TEMPLATE.md": {
     "mtime": 1783430707.9162138,
@@ -300,9 +300,9 @@
     "semantic_hash": "d49ad57f6ff868ba07e7249e1ebbfb4c"
   },
   "/home/pablo-pica/Documents/programming/aethyr/docs/ARCHITECTURE.md": {
-    "mtime": 1785777472.3484979,
-    "ast_hash": "6081be711ed8e05d5f508fd7545e50f3",
-    "semantic_hash": "6081be711ed8e05d5f508fd7545e50f3"
+    "mtime": 1785811866.923043,
+    "ast_hash": "7a6a525cab054a51e1cccc9064f2f5c0",
+    "semantic_hash": "7a6a525cab054a51e1cccc9064f2f5c0"
   },
   "/home/pablo-pica/Documents/programming/aethyr/docs/AGENTS.md": {
     "mtime": 1783653631.374968,
@@ -315,9 +315,9 @@
     "semantic_hash": "44b3567af9b6fe7266b5498951390cc8"
   },
   "/home/pablo-pica/Documents/programming/aethyr/docs/IDEA-SUBMISSION.md": {
-    "mtime": 1785777767.4205663,
-    "ast_hash": "1a1e99de37c86eb2e4c1cdd3f4b1cd54",
-    "semantic_hash": "1a1e99de37c86eb2e4c1cdd3f4b1cd54"
+    "mtime": 1785811881.5305743,
+    "ast_hash": "c9823b892f1d6ab74f8649f24f7cf3fb",
+    "semantic_hash": "c9823b892f1d6ab74f8649f24f7cf3fb"
   },
   "/home/pablo-pica/Documents/programming/aethyr/docs/IDEA-SUBMISSION.txt": {
     "mtime": 1785333957.808217,
@@ -325,9 +325,9 @@
     "semantic_hash": "27fb850104a45787a07407ecd684ba21"
   },
   "/home/pablo-pica/Documents/programming/aethyr/docs/PROGRESS.md": {
-    "mtime": 1785778217.951172,
-    "ast_hash": "6b5ce90a088b3670053271c9c21deabc",
-    "semantic_hash": "6b5ce90a088b3670053271c9c21deabc"
+    "mtime": 1785846246.4740932,
+    "ast_hash": "197f2ec5db0da85e43058f1e1cbf2710",
+    "semantic_hash": "197f2ec5db0da85e43058f1e1cbf2710"
   },
   "/home/pablo-pica/Documents/programming/aethyr/docs/LEVELS-4-7-REQUIREMENTS.md": {
     "mtime": 1785778249.9269602,
@@ -413,5 +413,70 @@
     "mtime": 1785331102.120074,
     "ast_hash": "e1c6041f965a56755f3a465ee04d7a99",
     "semantic_hash": "e1c6041f965a56755f3a465ee04d7a99"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/hooks/useStellarWallet.aid.test.ts": {
+    "mtime": 1785831760.3920424,
+    "ast_hash": "7e31b9a1fe77294ae91e5168d3d330ac",
+    "semantic_hash": "7e31b9a1fe77294ae91e5168d3d330ac"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/hooks/useStellarWallet.submitTransaction.test.ts": {
+    "mtime": 1785830077.3898692,
+    "ast_hash": "675f51377743a70b5ebd1434993c682c",
+    "semantic_hash": "675f51377743a70b5ebd1434993c682c"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/AidTab.tsx": {
+    "mtime": 1785848525.4546323,
+    "ast_hash": "9de1392891e7ba636916444b108031b5",
+    "semantic_hash": "9de1392891e7ba636916444b108031b5"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/AidTab.test.tsx": {
+    "mtime": 1785848503.1527576,
+    "ast_hash": "9a3634283b47251d9d4ee2c4d6159b39",
+    "semantic_hash": "9a3634283b47251d9d4ee2c4d6159b39"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/aidDemoState.ts": {
+    "mtime": 1785832248.94996,
+    "ast_hash": "71e0aa7c25d4c06b87972b696bd9ec67",
+    "semantic_hash": "71e0aa7c25d4c06b87972b696bd9ec67"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/src/components/aidDemoState.test.ts": {
+    "mtime": 1785832277.679095,
+    "ast_hash": "a1623af9809c2b4231db7beba0c20875",
+    "semantic_hash": "a1623af9809c2b4231db7beba0c20875"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/scripts/verify_ui.js": {
+    "mtime": 1785815269.0792985,
+    "ast_hash": "b2dfe26b242d869c17dc00ac13a38420",
+    "semantic_hash": "b2dfe26b242d869c17dc00ac13a38420"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/contracts/aethyr-router/contracts/aethyr-aid/src/types.rs": {
+    "mtime": 1785813211.8268597,
+    "ast_hash": "064fa5d610057bf2b8282928e842f808",
+    "semantic_hash": "064fa5d610057bf2b8282928e842f808"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/contracts/aethyr-router/contracts/aethyr-aid/src/errors.rs": {
+    "mtime": 1785813229.0098248,
+    "ast_hash": "940fe369ba9fc9911493e9334a764876",
+    "semantic_hash": "940fe369ba9fc9911493e9334a764876"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/contracts/aethyr-router/contracts/aethyr-aid/src/lib.rs": {
+    "mtime": 1785813964.0763898,
+    "ast_hash": "c28b228331c836debaa48a6d84019981",
+    "semantic_hash": "c28b228331c836debaa48a6d84019981"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/contracts/aethyr-router/contracts/aethyr-aid/src/test.rs": {
+    "mtime": 1785814012.563244,
+    "ast_hash": "afb8e48ead762405bdc266d7977c5c8c",
+    "semantic_hash": "afb8e48ead762405bdc266d7977c5c8c"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/contracts/aethyr-router/contracts/aethyr-aid/src/storage.rs": {
+    "mtime": 1785813788.355761,
+    "ast_hash": "9509dc0c7a0983b5d9357025cbc84633",
+    "semantic_hash": "9509dc0c7a0983b5d9357025cbc84633"
+  },
+  "/home/pablo-pica/Documents/programming/aethyr/docs/LEVEL-4-IMPLEMENTATION-SPEC.md": {
+    "mtime": 1785812022.828286,
+    "ast_hash": "1201dd1376a0948c9c9ffa4f77dc31fa",
+    "semantic_hash": "1201dd1376a0948c9c9ffa4f77dc31fa"
   }
 }
