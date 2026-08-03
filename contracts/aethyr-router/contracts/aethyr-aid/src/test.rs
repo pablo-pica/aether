@@ -381,6 +381,37 @@ fn authorization_roles_and_registry_are_strictly_separated() {
 }
 
 #[test]
+fn verifier_cannot_approve_their_own_merchant_claim() {
+    let env = Env::default();
+    let fx = fixture(&env);
+    let client = AethyrAidClient::new(&env, &fx.contract);
+
+    client.approve_merchant(&fx.admin, &fx.verifier, &id(&env, 54));
+    client.issue_voucher(
+        &fx.admin,
+        &id(&env, 55),
+        &fx.campaign_id,
+        &fx.case_id,
+        &fx.verifier,
+        &1_000,
+        &VoucherCategory::Food,
+        &id(&env, 56),
+        &2_000,
+    );
+    client.redeem_voucher(&fx.verifier, &id(&env, 55), &id(&env, 57), &id(&env, 58));
+
+    assert_eq!(
+        client.try_decide_claim(
+            &fx.verifier,
+            &id(&env, 55),
+            &ClaimDecision::Approve,
+            &id(&env, 59),
+        ),
+        Err(Ok(AidError::SelfApproval))
+    );
+}
+
+#[test]
 fn aggregate_token_balance_is_conserved_across_campaigns_sharing_a_token() {
     let env = Env::default();
     let fx = fixture(&env);

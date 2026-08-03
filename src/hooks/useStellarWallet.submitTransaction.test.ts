@@ -18,4 +18,11 @@ describe("submitTransaction sponsorship fallback control flow", () => {
     expect(sponsorshipTry).not.toContain("rpcServer.sendTransaction");
     expect(sponsorshipTry).not.toContain("await submitDirect()");
   });
+
+  it("uses direct submission unless sponsorship is explicitly enabled", () => {
+    const content = fs.readFileSync(path.resolve(__dirname, "./useStellarWallet.ts"), "utf-8");
+    expect(content).toContain('const SPONSORSHIP_ENABLED = process.env.NEXT_PUBLIC_SPONSORSHIP_ENABLED === "true"');
+    expect(content).toContain("if (SPONSORSHIP_ENABLED) {");
+    expect(content).toContain("} else {\n      shouldSubmitDirect = true;\n    }");
+  });
 });

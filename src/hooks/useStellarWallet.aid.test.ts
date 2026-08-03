@@ -1,4 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
+import fs from "fs";
+import path from "path";
 
 vi.mock("@creit.tech/stellar-wallets-kit/modules/utils", () => ({ defaultModules: () => [] }));
 vi.mock("@creit.tech/stellar-wallets-kit", () => ({
@@ -72,5 +74,18 @@ describe("Aethyr Aid contract invocation serialization", () => {
     expect(() => aidAmountToI128ScVal("1.00000001")).toThrow("at most 7 fractional digits");
     expect(() => aidAmountToI128ScVal("1e-7")).toThrow("positive decimal");
     expect(() => aidAmountToI128ScVal("-1")).toThrow("positive decimal");
+  });
+
+  it("accepts either SDK event accessor shape without emitting a parsing error", () => {
+    const source = fs.readFileSync(path.resolve(__dirname, "./useStellarWallet.ts"), "utf8");
+    expect(source).toContain('typeof sorobanMeta.events === "function"');
+    expect(source).toContain("Array.isArray(events)");
+  });
+
+  it("provides a wallet-signed AIDT trustline setup action", () => {
+    const source = fs.readFileSync(path.resolve(__dirname, "./useStellarWallet.ts"), "utf8");
+    expect(source).toContain('new Asset(AIDT_TEST_ASSET_CODE, AIDT_TEST_ASSET_ISSUER)');
+    expect(source).toContain("Operation.changeTrust");
+    expect(source).toContain("addAidTrustline");
   });
 });

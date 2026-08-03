@@ -707,6 +707,11 @@ impl AethyrAid {
         }
         let mut voucher =
             storage::get_voucher(&env, &voucher_id).ok_or(AidError::VoucherNotFound)?;
+        // A verifier may participate in another operational role, but never review a claim
+        // that would pay their own merchant address.
+        if verifier == voucher.merchant {
+            return Err(AidError::SelfApproval);
+        }
         if voucher.status != VoucherStatus::Redeemed && voucher.status != VoucherStatus::Frozen {
             return Err(AidError::InvalidVoucherState);
         }

@@ -20,7 +20,7 @@
 | **Input borders (focus)** | `focus:border-primary-indigo` | `rgba(45, 212, 191, 0.25)` | Brightens on focus for clear feedback |
 
 **Files to modify:**
-- [globals.css](file:///home/pablo-pica/Documents/programming/aethyr/src/styles/globals.css) — update `@theme` tokens, `body` bg, glass classes, scrollbar colors
+- [globals.css](file:///home/pablo-pica/Projects/aethyr/src/styles/globals.css) — update `@theme` tokens, `body` bg, glass classes, scrollbar colors
 
 ### 2. Typography Scale
 
@@ -135,7 +135,7 @@ Applied globally via a base layer rule and explicitly on: buttons, links, toggle
 **Current:** Send/Swap | Activity | Settings
 **New:** Send | Escrow | Activity | Settings
 
-**File:** [BottomNav.tsx](file:///home/pablo-pica/Documents/programming/aethyr/src/components/BottomNav.tsx)
+**File:** [BottomNav.tsx](file:///home/pablo-pica/Projects/aethyr/src/components/BottomNav.tsx)
 - Add `escrow` tab with Lock/Shield icon
 - Update `TabId` type to include `"escrow"`
 - Ensure icons are consistent size and have active/inactive states
@@ -155,7 +155,7 @@ Applied globally via a base layer rule and explicitly on: buttons, links, toggle
 
 ### 12. Profile/Account — Bottom Sheet
 
-**Current:** Right-side sliding drawer ([ProfileDrawer.tsx](file:///home/pablo-pica/Documents/programming/aethyr/src/components/ProfileDrawer.tsx))
+**Current:** Right-side sliding drawer ([ProfileDrawer.tsx](file:///home/pablo-pica/Projects/aethyr/src/components/ProfileDrawer.tsx))
 **New:** Bottom sheet (using BottomSheet component)
 - Identicon + full address with copy button
 - Balance summary

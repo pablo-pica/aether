@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import "@/styles/globals.css";
+import ObservabilityProvider from "@/components/ObservabilityProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,7 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable} dark`} suppressHydrationWarning>
       <body className="antialiased selection:bg-primary-indigo/30 selection:text-slate-100">
-        {children}
+        <ObservabilityProvider>{children}</ObservabilityProvider>
       </body>
     </html>
   );

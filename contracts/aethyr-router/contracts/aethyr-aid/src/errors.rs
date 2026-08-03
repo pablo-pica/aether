@@ -34,6 +34,7 @@ pub enum AidError {
     DuplicateEvidence = 61,
     EvidenceRevisionLimit = 62,
     InvalidDecision = 63,
+    SelfApproval = 64,
     InvalidAmount = 70,
     InsufficientAvailable = 71,
     NoContribution = 72,

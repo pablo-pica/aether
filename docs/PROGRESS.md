@@ -87,7 +87,7 @@ Next Gate: "Phase 8 production validation: deploy MVP, monitoring/analytics, and
 - [x] Define the campaign, merchant, beneficiary-case, voucher, evidence, verification, payout, and dispute state models `[AI→YOU]`
 - [x] Add one `aethyr-aid` contract; keep the Level 3 Router/Escrow unchanged and outside the aid lifecycle `[AI→YOU]`
 - [x] Define privacy boundaries: raw evidence and personal data stay access-controlled off-chain; only random IDs, fixed-width digests, states, operational addresses, and attestations are recorded on-chain `[AI→YOU]`
-- [x] Map 10 real wallets to 3 donors, 2 NGO/admin operators, 2 merchants/cooperatives, and 3 independent verifiers; beneficiaries do not need wallets `[AI→YOU]`
+- [x] Define a 10-participant Testnet validation cohort spanning donor, NGO/admin, merchant/cooperative, and verifier interactions; role assignments may overlap except admin and verifier authority, and a verifier may not approve their own merchant claim; beneficiaries do not need wallets `[AI→YOU]`
 - [x] Define Testnet evidence, privacy-conscious analytics and monitoring, feedback, screenshots, and clean/disputed demo artifacts `[AI→YOU]`
 
 ### 🟢 Phase 6: Green Belt Contracts & Test Coverage (August 7–14)
@@ -96,7 +96,7 @@ Next Gate: "Phase 8 production validation: deploy MVP, monitoring/analytics, and
 - [x] Implement approved merchant/cooperative registry and beneficiary case IDs `[AI]`
 - [x] Implement evidence digest plus opaque-ID submission, admin-only emergency freeze, and verifier-only approve, reject, and frozen-claim resolution decisions `[AI]`
 - [x] Enforce authorization, replay protection, state-transition guards, refund behavior, payout invariants, and TTL extension `[AI]`
-- [x] Deploy the Level 4 contracts to Testnet and record contract addresses and representative transaction hashes `[AI→YOU]`
+- [x] Redeploy the hardened Level 4 contract to Testnet, re-provision roles, and record the replacement contract address and representative transaction hashes; the prior deployment permits verifier self-approval and must not be used for validation `[AI→YOU]`
 
 ### 🟢 Phase 7: Green Belt Product Flow (August 15–20)
 - [x] Build the mobile-first campaign funding and voucher administration flows `[AI]`
@@ -108,7 +108,7 @@ Next Gate: "Phase 8 production validation: deploy MVP, monitoring/analytics, and
 
 ### 🟢 Phase 8: Green Belt Production Validation (August 21–27)
 - [ ] Deploy the feature-complete MVP to production `[AI→YOU]`
-- [ ] Integrate privacy-conscious analytics and error monitoring `[AI]`
+- [ ] Configure production projects and verify privacy-conscious analytics/error monitoring dashboards `[YOU]` *(client instrumentation completed: PostHog allowlisted product events; Sentry error monitoring with PII/raw-payload redaction; production keys and dashboard evidence still required)*
 - [ ] Onboard at least 10 real operational users and collect proof of wallet interactions `[YOU]`
 - [ ] Collect basic user feedback without publishing unnecessary personal data `[YOU]`
 - [ ] Fix blocking usability, stability, and onboarding issues found during validation `[AI]`
@@ -146,6 +146,13 @@ Next Gate: "Phase 8 production validation: deploy MVP, monitoring/analytics, and
 ---
 
 ## 📜 Audit Logs
+
+### 2026-08-19
+- **Builder / Checker**: Completed a real-wallet, clean Aethyr Aid Testnet delivery flow against hardened contract `CBZKE67HDBTWIZLKZFJOMEMJSENJOUHJVBURYED5M7VYUQCPJH5VOVIC`. Alice served as admin, donor, and merchant; separate-address Bob served as verifier. Verified on-chain campaign creation, `10 AIDT` funding, merchant approval, beneficiary-case creation, `2 AIDT` voucher issuance, merchant redemption, and verifier atomic approval. Final contract state: voucher `Paid`; campaign `8 AIDT` available, `2 AIDT` paid, no reservation; Alice balance `92 AIDT`. Transaction register is in `TESTNET-USER-WALKTHROUGH.md`.
+- **Builder**: Fixed live-flow reliability issues exposed by that run: direct submission is now the default when sponsorship is not explicitly enabled; AIDT trustline setup submits through Horizon after Freighter signing; Soroban event parsing accepts SDK accessor variants; Mock Sandbox cannot enable live mutation actions. Focused frontend validation: 25 tests, ESLint, and production build passed.
+
+### 2026-08-05
+- **Builder**: Added Phase 8 observability instrumentation: optional PostHog analytics captures only allowlisted product events (wallet connection outcome/provider, aid-flow start, and live operation outcome/latency/sponsorship), with autocapture, session recording, URL queries, wallet identifiers, transaction hashes/XDR, campaign/case/voucher/evidence identifiers, and personal data excluded. Added optional Sentry client/server/edge monitoring with `sendDefaultPii: false`, request/user/error-payload redaction, and generic sponsor-relayer failure reporting. Added environment templates for PostHog and Sentry, plus privacy-boundary unit tests. Production dashboard configuration, credentials, retention/access settings, and sanitized evidence remain operator-required.
 
 ### 2026-08-04
 - **Builder**: Completed Phase 7 in commit `614426c`: added wallet-contract methods for merchant redemption, one frozen-claim evidence revision, admin emergency freeze, and verifier approve/reject. Delivered isolated merchant, admin, and verifier mobile views plus a reducer-backed guided local walkthrough that visibly executes clean (`Issued → Redeemed/evidence[0] → Paid`) and disputed (`Issued → Redeemed/evidence[0] → Frozen → evidence[1] → Rejected`) flows with correct accounting. Verified 75/75 Vitest tests, 18/18 contract tests, ESLint, and production build; live Testnet actions remain operator-driven and require configured, role-disjoint wallets.

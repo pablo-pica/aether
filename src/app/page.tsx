@@ -77,6 +77,7 @@ const MOCK_TRANSACTIONS: TransactionItem[] = [
 export default function Dashboard() {
   const {
     isConnected,
+    isMockWallet,
     address,
     balance,
     error: walletError,
@@ -91,6 +92,7 @@ export default function Dashboard() {
     submitMilestone,
     disputeMilestone,
     autoReleaseMilestone,
+    addAidTrustline,
     createCampaign,
     fundCampaign,
     approveMerchant,
@@ -731,6 +733,7 @@ export default function Dashboard() {
           {activeTab === "aid" && txStatus === "idle" && (
             <AidTab
               isConnected={isConnected}
+              isMockWallet={isMockWallet}
               address={address}
               isLoading={walletLoading}
               createCampaign={createCampaign}
@@ -742,6 +745,7 @@ export default function Dashboard() {
               appendEvidenceRevision={appendEvidenceRevision}
               freezeClaim={freezeClaim}
               decideClaim={decideClaim}
+              addAidTrustline={addAidTrustline}
             />
           )}
 

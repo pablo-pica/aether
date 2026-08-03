@@ -78,6 +78,13 @@ describe("Gasless Relayer API Route /api/sponsor", () => {
     expect(body.error).toBe("Missing xdr parameter");
   });
 
+  it("does not expose provider error metadata to clients", () => {
+    const source = require("fs").readFileSync(require("path").resolve(__dirname, "./route.ts"), "utf8");
+    expect(source).not.toContain("extras: responseData?.extras");
+    expect(source).toContain('error: "Fee sponsorship submission failed."');
+    expect(source).not.toContain('console.error("Sponsor fee-bump failed:", error)');
+  });
+
   it("should successfully build, sign, and submit fee-bump transaction", async () => {
     const req = new Request("http://localhost/api/sponsor", {
       method: "POST",

@@ -1,14 +1,22 @@
 # 🚀 Aethyr — Deployment & Setup Guide (DEPLOYMENT.md)
 
-This document describes the **currently implemented Level 3** contract and frontend deployment to Stellar Testnet and Vercel. The approved Aethyr Aid voucher contracts are planned Level 4 work; their deployment commands and configuration must be added only after the interfaces exist and the commands have been verified.
+This document describes the implemented Level 3 foundation and Level 4 Aethyr Aid contract/frontend deployment to Stellar Testnet and Vercel. A prior Aid contract is deployed on Testnet, but it is superseded by the self-approval security fix below; live validation must use a newly deployed hardened contract with deliberate operator role provisioning and a Testnet token contract.
 
 ---
 
 ## 🎯 Level 4 Deployment Evidence Gate
 
-Before the Green Belt submission, this guide must be extended with verified instructions for the implemented campaign, voucher, merchant-registry, evidence, verification, and dispute components. The release must also record:
+### Superseded deployment record — do not use for validation
 
-- Testnet contract addresses and representative transaction hashes.
+The prior Aethyr Aid contract is [`CDERJSFS75XYBXJOZYOJA62T4GFHSJZAM34D4OAXNSPOFSAUPWEQ3BST`](https://stellar.expert/explorer/testnet/contract/CDERJSFS75XYBXJOZYOJA62T4GFHSJZAM34D4OAXNSPOFSAUPWEQ3BST). It predates the self-approval guard and must not be used for validation. Its historical WASM upload, contract creation, and initialization transactions are respectively [`91136c9764ce8eb5e4159d7d9f6a8c687766fad74dc543a2b8246a518757b58d`](https://stellar.expert/explorer/testnet/tx/91136c9764ce8eb5e4159d7d9f6a8c687766fad74dc543a2b8246a518757b58d), [`0b48000a46b3a63465f7eaaecd49915bd13aa095d6981f59e2107a875ba93593`](https://stellar.expert/explorer/testnet/tx/0b48000a46b3a63465f7eaaecd49915bd13aa095d6981f59e2107a875ba93593), and [`831184035d160a9cf88a1532c59fa28a4ca661890d254b159efa65db7b811828`](https://stellar.expert/explorer/testnet/tx/831184035d160a9cf88a1532c59fa28a4ca661890d254b159efa65db7b811828).
+
+### Hardened Testnet deployment — validation target
+
+Use [`CBZKE67HDBTWIZLKZFJOMEMJSENJOUHJVBURYED5M7VYUQCPJH5VOVIC`](https://stellar.expert/explorer/testnet/contract/CBZKE67HDBTWIZLKZFJOMEMJSENJOUHJVBURYED5M7VYUQCPJH5VOVIC) for validation. It was initialized with admin `GDIOBU6KL3WY5UMWVLRAQJRCZOAAK2HWWPFENKKDFZUH55DBVCWSKZC6` in [transaction `f7b025…`](https://stellar.expert/explorer/testnet/tx/f7b0254742b351b2997f8965b62348e2157d9a9d119ae13ac0de5e2c20471ac5), and verifier `GBFFXFVXFMAPP5E6JXTV4FVH6TUBXCIIXSZJBGJNCIIL4D6UPR2UMXHL` was provisioned in [transaction `80e98d…`](https://stellar.expert/explorer/testnet/tx/80e98d1ca202960a04643c2005574a7db23bc3cbbb7234b1f14e75b59686dee1). `is_admin` and `is_verifier` reads returned `true` after deployment.
+
+Before the Green Belt submission, the release must also record:
+
+- Testnet contract addresses and representative operational transaction hashes.
 - Production application URL.
 - Monitoring and analytics setup without beneficiary personal data.
 - One clean-delivery trace and one disputed-delivery trace.
@@ -41,9 +49,9 @@ We need a funded dev key to deploy contracts from our terminal.
 
 ```bash
 # Generate key pair for deployment
-stellar keys generate dev --network testnet --fund
+stellar keys generate deployer --network testnet --fund
 ```
-This generates a keypair, funds it with 10,000 XLM, and registers it in the local keyring as `dev`.
+This generates a keypair, funds it with 10,000 XLM, and registers it in the local keyring as `deployer`.
 
 ---
 
@@ -55,21 +63,47 @@ Compile the smart contracts, deploy them to Testnet, and execute initialization 
 # 1. Build WASM artifacts
 stellar contract build
 
-# 2. Deploy aethyr-router
+# 2. Deploy aethyr-aid (only when creating a new Testnet environment)
+stellar contract deploy \
+  --wasm target/wasm32v1-none/release/aethyr_aid.wasm \
+  --source-account deployer \
+  --network testnet \
+  --alias aethyr-aid
+
+# 3. Initialize it exactly once with an admin account
+stellar contract invoke \
+  --id aethyr-aid \
+  --source-account deployer \
+  --network testnet \
+  -- \
+  initialize \
+  --first_admin deployer
+
+# 4. Provision a separate verifier account. Do not make an admin a verifier.
+stellar contract invoke \
+  --id aethyr-aid \
+  --source-account deployer \
+  --network testnet \
+  -- \
+  add_verifier \
+  --admin deployer \
+  --verifier <VERIFIER_G_ADDRESS>
+
+# 5. Deploy aethyr-router
 stellar contract deploy \
   --wasm target/wasm32v1-none/release/aethyr_router.wasm \
   --source-account dev \
   --network testnet \
   --alias aethyr-router
 
-# 3. Deploy aethyr-escrow
+# 6. Deploy aethyr-escrow
 stellar contract deploy \
   --wasm target/wasm32v1-none/release/aethyr_escrow.wasm \
   --source-account dev \
   --network testnet \
   --alias aethyr-escrow
 
-# 4. Initialize aethyr-escrow with its validator address
+# 7. Initialize aethyr-escrow with its validator address
 # The router contract has no initialize function.
 stellar contract invoke \
   --id aethyr-escrow \
@@ -79,7 +113,7 @@ stellar contract invoke \
   initialize \
   --validator dev
 
-# 5. Generate TypeScript bindings for integration
+# 8. Generate TypeScript bindings for integration
 stellar contract bindings typescript \
   --network testnet \
   --contract-id aethyr-router \

@@ -328,14 +328,9 @@ Events must include stable identifiers and non-sensitive state needed to reconst
 
 ### Ten real wallet users
 
-Use ten distinct consenting Testnet wallet users:
+Use at least ten distinct consenting Testnet participants and retain proof of their wallet interactions across the donor, NGO/admin, merchant/cooperative, and verifier flows. A participant may contribute to more than one flow; there is no fixed per-role wallet quota.
 
-- 3 donors
-- 2 NGO/admin operators
-- 2 merchants/cooperatives
-- 3 independent verifiers
-
-Beneficiaries do not need wallets. Maintain a private consent/contact sheet only if operationally required. Public evidence should use role aliases, transaction hashes, dates, and aggregate counts rather than names or contact details.
+The separation-of-powers constraints remain mandatory: an admin address cannot be a verifier address, and a verifier must not approve a claim assigned to that verifier's merchant address. Beneficiaries do not need wallets. Maintain a private consent/contact sheet only if operationally required. Public evidence should use role aliases, transaction hashes, dates, and aggregate counts rather than names or contact details.
 
 ### Representative Testnet evidence
 

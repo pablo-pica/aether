@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import * as Sentry from "@sentry/nextjs";
 import { TransactionBuilder, Keypair, Networks, Horizon, Transaction, Address, xdr } from "@stellar/stellar-sdk";
 
 const HORIZON_URL = "https://horizon-testnet.stellar.org";
@@ -45,6 +46,7 @@ export async function POST(request: Request) {
     if (!sponsorSecretKey) {
       return NextResponse.json({
         success: false,
+        code: "sponsorship_disabled",
         error: "Sponsorship is disabled: SPONSOR_SECRET_KEY is not configured.",
       }, { status: 503 });
     }
@@ -59,7 +61,7 @@ export async function POST(request: Request) {
 
     const allowedEscrowId = process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ID || "CD734V7PATOR7NW7APYQLUNEON2GZ7EUBM27MFQO3WDQZGCPKIWB6NOT";
     const allowedRouterId = process.env.NEXT_PUBLIC_ROUTER_CONTRACT_ID || "CA5ZEROS4VGIOZ2MIDVV7C7W4DFKWE76P4KBG455KO26RPKD2W3TC6MM";
-    const allowedAidId = process.env.NEXT_PUBLIC_AID_CONTRACT_ID || "CDERJSFS75XYBXJOZYOJA62T4GFHSJZAM34D4OAXNSPOFSAUPWEQ3BST";
+    const allowedAidId = process.env.NEXT_PUBLIC_AID_CONTRACT_ID || "CBZKE67HDBTWIZLKZFJOMEMJSENJOUHJVBURYED5M7VYUQCPJH5VOVIC";
 
     for (const op of innerTx.operations) {
       if (op.type !== "invokeHostFunction") {
@@ -123,15 +125,13 @@ export async function POST(request: Request) {
       ledger: result.ledger,
       resultXdr: result.result_meta_xdr,
     });
-  } catch (error: any) {
-    console.error("Sponsor fee-bump failed:", error);
-    // If Horizon returns structured error metadata:
-    const responseData = error.response?.data;
-    const errorMessage = responseData?.detail || error.message || String(error);
+  } catch {
+    console.error("Sponsor fee-bump failed.");
+    // Do not attach the provider error: it may contain transaction XDR or account data.
+    Sentry.captureMessage("Sponsor fee-bump failed", { level: "error", tags: { route: "sponsor" } });
     return NextResponse.json({
       success: false,
-      error: errorMessage,
-      extras: responseData?.extras,
+      error: "Fee sponsorship submission failed.",
     }, { status: 500 });
   }
 }

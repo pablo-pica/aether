@@ -37,8 +37,12 @@ describe("AidTab live/demo lifecycle contract", () => {
       "Freeze reason digest",
       "Verifier decision reason digest",
     ]) expect(content).toContain(`aria-label=\"${label}\"`);
-    expect(content).toContain("role-disjoint wallets");
+    expect(content).toContain("admin and verifier authorities must be separate");
+    expect(content).toContain("a verifier cannot approve their own merchant claim");
     expect(content).toContain("Pending submission:");
+    expect(content).toContain("Add AIDT Testnet trustline");
+    expect(content).toContain("isMockWallet");
+    expect(content).toContain("Connect a real Testnet role wallet before submitting.");
   });
 
   it("separates merchant, admin freeze, and verifier controls", () => {

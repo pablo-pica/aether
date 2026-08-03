@@ -3,11 +3,16 @@ import { StellarWalletsKit, KitEventType, Networks as SWKNetworks } from "@creit
 import { defaultModules } from "@creit.tech/stellar-wallets-kit/modules/utils";
 import { Horizon, Networks, TransactionBuilder, Asset, Operation, Address, nativeToScVal, scValToNative, rpc, Contract, xdr } from "@stellar/stellar-sdk";
 import { sanitizeSymbol } from "@/lib/utils";
+import { operationOutcomeProperties, walletConnectionProperties } from "@/lib/observability";
+import { trackProductEvent } from "@/components/ObservabilityProvider";
 
 
 const HORIZON_URL = "https://horizon-testnet.stellar.org";
 const SOROBAN_RPC_URL = process.env.NEXT_PUBLIC_STELLAR_RPC_URL || "https://soroban-testnet.stellar.org:443";
-const AID_CONTRACT_ID = process.env.NEXT_PUBLIC_AID_CONTRACT_ID || "CDERJSFS75XYBXJOZYOJA62T4GFHSJZAM34D4OAXNSPOFSAUPWEQ3BST";
+const AID_CONTRACT_ID = process.env.NEXT_PUBLIC_AID_CONTRACT_ID || "CBZKE67HDBTWIZLKZFJOMEMJSENJOUHJVBURYED5M7VYUQCPJH5VOVIC";
+const AIDT_TEST_ASSET_CODE = "AIDT";
+const AIDT_TEST_ASSET_ISSUER = "GAMYDV6WER7IKDXKMGDJEBINJNEZ22TYBGXPJQ5GJ7SA3EKQ2W36BE3A";
+const SPONSORSHIP_ENABLED = process.env.NEXT_PUBLIC_SPONSORSHIP_ENABLED === "true";
 const MOCK_WALLET_ADDRESS = "GBZXN7PIRZGNMHGA7MUUUF4GWPY5ALY4UV2GL6VJGIQRXFDNMADIXXXX";
 
 export type AidVoucherCategory = "Food" | "Medicine" | "Shelter" | "Other";
@@ -200,8 +205,10 @@ export function parseTransactionEvents(result: any) {
     }
     if (!sorobanMeta) return;
 
-    const events = sorobanMeta.events();
-    if (!events || events.length === 0) return;
+    const events = typeof sorobanMeta.events === "function"
+      ? sorobanMeta.events()
+      : sorobanMeta.events;
+    if (!Array.isArray(events) || events.length === 0) return;
 
     console.log(`--- Parsed Transaction Events (Total: ${events.length}) ---`);
     events.forEach((evt: any, idx: number) => {
@@ -339,8 +346,10 @@ export function useStellarWallet() {
         error: null,
         isLoading: false,
       });
+      trackProductEvent("wallet_connection", walletConnectionProperties(walletId));
     } catch (err: any) {
       console.error("Connect failed:", err);
+      trackProductEvent("wallet_connection", walletConnectionProperties(walletId, err));
       setState((prev) => ({
         ...prev,
         error: parseWalletError(err, "connect"),
@@ -393,25 +402,29 @@ export function useStellarWallet() {
 
     let shouldSubmitDirect = false;
 
-    // Try gasless fee-bump relayer first
-    try {
-      const response = await fetch("/api/sponsor", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ xdr: signedTxXdr }),
-      });
-      const data = await response.json();
-      if (response.ok && data.success) {
-        txHash = data.hash;
-        isSponsored = true;
-        resultMetaXdr = data.resultXdr;
-        console.log("Transaction sponsored successfully. Hash:", txHash);
-      } else {
-        console.warn("Sponsorship failed, falling back to direct submission:", data.error || "Unknown error");
+    // Sponsorship is opt-in. The default direct path avoids a predictable 503 when no relayer is configured.
+    if (SPONSORSHIP_ENABLED) {
+      try {
+        const response = await fetch("/api/sponsor", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ xdr: signedTxXdr }),
+        });
+        const data = await response.json();
+        if (response.ok && data.success) {
+          txHash = data.hash;
+          isSponsored = true;
+          resultMetaXdr = data.resultXdr;
+          console.log("Transaction sponsored successfully. Hash:", txHash);
+        } else {
+          console.warn("Sponsorship failed, falling back to direct submission:", data.error || "Unknown error");
+          shouldSubmitDirect = true;
+        }
+      } catch (err) {
+        console.warn("Sponsorship failed due to error, falling back to direct submission:", err);
         shouldSubmitDirect = true;
       }
-    } catch (err) {
-      console.warn("Sponsorship failed due to error, falling back to direct submission:", err);
+    } else {
       shouldSubmitDirect = true;
     }
 
@@ -469,10 +482,55 @@ export function useStellarWallet() {
     };
   }, [checkConnection]);
 
-  const invokeAidContract = useCallback(async (method: AidContractMethod, input: any) => {
+  const addAidTrustline = useCallback(async () => {
     const currentAddress = stateRef.current.address;
     if (!currentAddress) {
       throw new Error("Wallet is not connected.");
+    }
+    if (currentAddress === MOCK_WALLET_ADDRESS) {
+      throw new Error("Connect a real Testnet wallet to add the AIDT trustline.");
+    }
+
+    try {
+      getKit();
+      const account = await horizonServer.loadAccount(currentAddress);
+      const fee = await horizonServer.fetchBaseFee();
+      const transaction = new TransactionBuilder(account, {
+        fee: fee.toString(),
+        networkPassphrase: Networks.TESTNET,
+      })
+        .addOperation(Operation.changeTrust({
+          asset: new Asset(AIDT_TEST_ASSET_CODE, AIDT_TEST_ASSET_ISSUER),
+          limit: "1000",
+        }))
+        .setTimeout(120)
+        .build();
+      const txXdr = transaction.toEnvelope().toXDR("base64");
+      const { signedTxXdr } = await StellarWalletsKit.signTransaction(txXdr, {
+        networkPassphrase: Networks.TESTNET,
+        address: currentAddress,
+      });
+      if (!signedTxXdr) {
+        throw new Error("Transaction was not signed.");
+      }
+      const result = await horizonServer.submitTransaction(
+        TransactionBuilder.fromXDR(signedTxXdr, Networks.TESTNET),
+      );
+      await checkConnection();
+      return result;
+    } catch (err: any) {
+      console.error("Adding AIDT trustline failed:", err);
+      throw new Error(parseWalletError(err, "transaction"));
+    }
+  }, [checkConnection]);
+
+  const invokeAidContract = useCallback(async (method: AidContractMethod, input: any) => {
+    const startedAt = Date.now();
+    const currentAddress = stateRef.current.address;
+    if (!currentAddress) {
+      const error = new Error("Wallet is not connected.");
+      trackProductEvent("operation_outcome", operationOutcomeProperties(method, startedAt, error));
+      throw error;
     }
 
     if (currentAddress === MOCK_WALLET_ADDRESS) {
@@ -483,6 +541,8 @@ export function useStellarWallet() {
         isSponsored: false,
       };
     }
+
+    trackProductEvent("flow_started", { operation: method });
 
     try {
       getKit();
@@ -514,9 +574,12 @@ export function useStellarWallet() {
         throw new Error("Transaction was not signed.");
       }
 
-      return await submitTransaction(signedTxXdr);
+      const result = await submitTransaction(signedTxXdr);
+      trackProductEvent("operation_outcome", operationOutcomeProperties(method, startedAt, undefined, result.isSponsored));
+      return result;
     } catch (err: any) {
       console.error(`Aethyr Aid ${method} failed:`, err);
+      trackProductEvent("operation_outcome", operationOutcomeProperties(method, startedAt, err));
       throw new Error(parseWalletError(err, "transaction"));
     }
   }, [submitTransaction]);
@@ -1246,6 +1309,7 @@ export function useStellarWallet() {
 
   return {
     ...state,
+    isMockWallet: state.address === MOCK_WALLET_ADDRESS,
     connect,
     disconnect,
     sendXLM,
@@ -1256,6 +1320,7 @@ export function useStellarWallet() {
     submitMilestone,
     disputeMilestone,
     autoReleaseMilestone,
+    addAidTrustline,
     invokeAidContract,
     createCampaign,
     fundCampaign,

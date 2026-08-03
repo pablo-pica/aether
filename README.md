@@ -23,7 +23,7 @@
 
 Aethyr Aid addresses the last-mile accountability gap in typhoon relief. The Level 4 MVP will let donors fund campaign escrows, NGO/admin operators issue purpose-bound vouchers to beneficiary case IDs, approved local merchants submit delivery evidence, admins emergency-freeze disputed claims, and independent verifiers approve or reject payouts and resolve frozen claims. Beneficiaries will not need crypto wallets; sensitive personal data and raw evidence will remain off-chain.
 
-The approved scope is documented in [`docs/IDEA-SUBMISSION.md`](./docs/IDEA-SUBMISSION.md), and the implementation-ready domain model and acceptance scenarios are defined in [`docs/LEVEL-4-IMPLEMENTATION-SPEC.md`](./docs/LEVEL-4-IMPLEMENTATION-SPEC.md). Delivery gates and the August target are tracked in [`docs/PROGRESS.md`](./docs/PROGRESS.md).
+The approved scope is documented in [`docs/IDEA-SUBMISSION.md`](./docs/IDEA-SUBMISSION.md), and the implementation-ready domain model and acceptance scenarios are defined in [`docs/LEVEL-4-IMPLEMENTATION-SPEC.md`](./docs/LEVEL-4-IMPLEMENTATION-SPEC.md). Delivery gates and the August target are tracked in [`docs/PROGRESS.md`](./docs/PROGRESS.md). For a real-wallet validation session, follow [`docs/TESTNET-USER-WALKTHROUGH.md`](./docs/TESTNET-USER-WALKTHROUGH.md).
 
 > **Status:** The disaster-relief workflow is planned, not yet implemented. The repository currently contains the completed Level 3 wallet, routing, escrow, relayer, testing, and deployment foundation described below. The internal Level 4 submission deadline is **August 28, 2026**, with approval targeted by **August 31, 2026**.
 
