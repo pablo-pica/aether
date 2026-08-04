@@ -107,7 +107,7 @@ Next Gate: "Phase 8 production validation: deploy MVP, monitoring/analytics, and
 - [x] Complete frontend, contract, integration, and production-build verification `[AI]`
 
 ### 🟢 Phase 8: Green Belt Production Validation (August 21–27)
-- [ ] Deploy the feature-complete MVP to production `[AI→YOU]`
+- [x] Deploy the feature-complete MVP to production `[AI→YOU]` — Vercel production deployment is Ready from `58206ef`; production URL and monitoring-dashboard verification remain to be recorded.
 - [ ] Configure production projects and verify privacy-conscious analytics/error monitoring dashboards `[YOU]` *(client instrumentation completed: PostHog allowlisted product events; Sentry error monitoring with PII/raw-payload redaction; production keys and dashboard evidence still required)*
 - [ ] Onboard at least 10 real operational users and collect proof of wallet interactions `[YOU]`
 - [ ] Collect basic user feedback without publishing unnecessary personal data `[YOU]`

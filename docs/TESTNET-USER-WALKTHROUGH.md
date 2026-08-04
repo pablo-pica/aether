@@ -56,6 +56,19 @@ A clean delivery flow was independently checked on-chain with Alice as admin/don
 
 Final state: voucher `Paid`; campaign `8 AIDT` available, `2 AIDT` paid, no reservation; Alice's AIDT balance `92`.
 
+### Verified disputed Testnet run
+
+A real-wallet disputed flow was checked on the hardened contract using Alice as admin/merchant and Bob as the separate verifier:
+
+- Case creation: `ab415c2654ad81ce899f273a183111c8f717e1aec26dd6f14ffeaa6c640c6b8d`
+- Voucher issuance (`1 AIDT`): `f7dcacf68e7efd0842033d5c029a56d44358089937302f53805d2fbe3ccb133c`
+- Merchant redemption: `71dee0c9f9f9ce9c787e896660158e93c82d9f41043b6d7fc85e922ba6e726f9`
+- Admin freeze: `7767526c4298886417d910fd76bed99fdaf1b3701d999a574dded67407ec4313`
+- Evidence revision: `fa8663d3d3208aa893ebe3772ba7fc378a09d8eb9fba8d26fbef3a69b4345306`
+- Verifier rejection: `6028913de139357a9aaa73a75e4893c548cfee908df8fa98c056c7aede0fdb42`
+
+A read-only contract query confirmed the voucher is `Rejected`, the reservation is released, the campaign remains open with `8 AIDT` available / `0 AIDT` reserved / `2 AIDT` paid, and Alice's balance remains `92 AIDT`; the disputed voucher paid nothing to the merchant.
+
 ## 5. Test the disputed Testnet delivery flow
 
 1. With the admin, issue a **new** voucher using fresh voucher/purpose IDs.
