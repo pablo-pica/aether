@@ -37,3 +37,7 @@ test-results/
 
 # Local subagent transcripts and review artifacts
 .pi-subagents/
+
+# Local Pi session artifacts and Graphify query scratch files
+.pi/
+graphify-out/memory/
