@@ -1,0 +1,18 @@
+# Local dependencies and Next.js build output
+node_modules/
+.next/
+out/
+
+# Nested Soroban build artifacts: Vercel's root target/ rule does not exclude this workspace.
+contracts/aethyr-router/target/
+
+# Local configuration, tool state, and generated test artifacts
+.env*
+.git/
+.vercel/
+.pi/
+.pi-subagents/
+.playwright-mcp/
+test-results/
+tmp/
+graphify-out/memory/
