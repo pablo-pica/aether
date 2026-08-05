@@ -108,7 +108,7 @@ Next Gate: "Phase 8 production validation: deploy MVP, monitoring/analytics, and
 
 ### 🟢 Phase 8: Green Belt Production Validation (August 21–27)
 - [x] Deploy the feature-complete MVP to production `[AI→YOU]` — Vercel production deployment is Ready from `58206ef`; production URL and monitoring-dashboard verification remain to be recorded.
-- [ ] Configure production projects and verify privacy-conscious analytics/error monitoring dashboards `[YOU]` *(client instrumentation completed: PostHog allowlisted product events; Sentry error monitoring with PII/raw-payload redaction; production keys and dashboard evidence still required)*
+- [x] Configure production projects and verify privacy-conscious analytics/error monitoring dashboards `[YOU]` — PostHog recorded production `page_view` events; Sentry recorded a smoke-test exception as `Redacted error`, confirming client delivery and payload scrubbing. Browser tracking protection must be disabled only when validating third-party telemetry delivery.
 - [ ] Onboard at least 10 real operational users and collect proof of wallet interactions `[YOU]`
 - [ ] Collect basic user feedback without publishing unnecessary personal data `[YOU]`
 - [ ] Fix blocking usability, stability, and onboarding issues found during validation `[AI]`
