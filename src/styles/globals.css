@@ -11,9 +11,26 @@
   --color-primary-indigo-dark: #4f46e5;
   --color-primary-blue: #3b82f6;
   --color-primary-cyan: #06b6d4;
+
+  --color-aid-paper: #fff9ef;
+  --color-aid-surface: #ffffff;
+  --color-aid-ink: #17212b;
+  --color-aid-slate: #577590;
+  --color-aid-urgent: #f94144;
+  --color-aid-urgent-strong: #a61b24;
+  --color-aid-coral: #f3722c;
+  --color-aid-orange: #f8961e;
+  --color-aid-gold: #f9c74f;
+  --color-aid-success: #90be6d;
+  --color-aid-success-strong: #3f6f31;
+  --color-aid-teal: #43aa8b;
+  --color-aid-trust-teal: #4d908e;
+  --color-aid-trust-blue: #216b8c;
+  --background-image-aid-gradient-journey: linear-gradient(135deg, #f94144 0%, #f8961e 48%, #43aa8b 100%);
+  --background-image-aid-gradient-trust: linear-gradient(135deg, #43aa8b 0%, #4d908e 45%, #277da1 100%);
   
-  --font-sans: "Inter", var(--font-geist-sans), sans-serif;
-  --font-display: "Outfit", var(--font-geist-sans), sans-serif;
+  --font-sans: "Manrope", var(--font-geist-sans), sans-serif;
+  --font-display: "Bricolage Grotesque", var(--font-geist-sans), sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
@@ -58,9 +75,8 @@
     outline: none;
   }
   .focus-ring:focus-visible {
-    outline: none;
-    ring: 2px;
-    ring-color: rgba(45, 212, 191, 0.4);
+    outline: 2px solid rgba(45, 212, 191, 0.9);
+    outline-offset: 3px;
   }
 
   /* Neon Text & Background Gradients */
@@ -83,6 +99,39 @@
 
   .neon-button:active {
     transform: scale(0.98);
+  }
+
+  .motion-safe-reveal {
+    content-visibility: auto;
+    transform: translateZ(0);
+  }
+
+  .aid-pressable {
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease;
+  }
+
+  .aid-pressable:hover {
+    transform: translate3d(0, -2px, 0);
+  }
+
+  .aid-pressable:active {
+    transform: translate3d(0, 1px, 0) scale(0.99);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .motion-safe-reveal,
+  .aid-pressable,
+  .aid-pressable:hover,
+  .aid-pressable:active {
+    transform: none !important;
   }
 }
 
@@ -134,8 +183,8 @@
 }
 
 body {
-  background-color: #0f172a;
-  color: #f8fafc;
+  background-color: #fff9ef;
+  color: #17212b;
   min-height: 100vh;
   margin: 0;
   font-family: var(--font-sans);
@@ -150,14 +199,114 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #ede5d8;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #577590;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #277da1;
+}
+
+/* The operational components retain their tested behavior while the app shell
+   remaps the former dark protocol palette into the Aid editorial system. */
+.aethyr-app .glass-card,
+.aethyr-app .glass-panel {
+  background: #ffffff;
+  border-color: rgba(23, 33, 43, 0.12);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.aethyr-app [class*="bg-space-"],
+.aethyr-app [class*="bg-slate-9"],
+.aethyr-app [class*="bg-red-950"],
+.aethyr-app [class*="bg-teal-950"] {
+  background-color: #ffffff !important;
+}
+
+.aethyr-app [class*="border-space-"],
+.aethyr-app [class*="border-slate-7"],
+.aethyr-app [class*="border-slate-8"] {
+  border-color: rgba(23, 33, 43, 0.14) !important;
+}
+
+.aethyr-app [class*="text-slate-1"],
+.aethyr-app [class*="text-slate-2"],
+.aethyr-app [class*="text-slate-3"] {
+  color: #17212b !important;
+}
+
+.aethyr-app [class*="text-slate-4"],
+.aethyr-app [class*="text-slate-5"],
+.aethyr-app [class*="text-slate-6"] {
+  color: #577590 !important;
+}
+
+.aethyr-app [class*="text-teal-"],
+.aethyr-app [class*="text-cyan-"],
+.aethyr-app [class*="text-indigo-"],
+.aethyr-app [class*="text-purple-"],
+.aethyr-app [class*="text-primary-indigo"] {
+  color: #216b8c !important;
+}
+
+.aethyr-app [class*="text-sky-"] {
+  color: #216b8c !important;
+}
+
+.aethyr-app [class*="bg-purple-"] {
+  background-color: rgba(33, 107, 140, 0.08) !important;
+}
+
+.aethyr-app [class*="border-purple-"] {
+  border-color: rgba(33, 107, 140, 0.28) !important;
+}
+
+.aethyr-app .bg-teal-500,
+.aethyr-app .bg-primary-indigo {
+  background-color: #216b8c !important;
+}
+
+.aethyr-app .from-primary-cyan,
+.aethyr-app .from-teal-400 {
+  --tw-gradient-from: #43aa8b var(--tw-gradient-from-position) !important;
+  --tw-gradient-to: rgb(67 170 139 / 0) var(--tw-gradient-to-position) !important;
+}
+
+.aethyr-app .to-primary-indigo {
+  --tw-gradient-to: #216b8c var(--tw-gradient-to-position) !important;
+}
+
+.aethyr-app [class*="text-emerald-"] {
+  color: #3f6f31 !important;
+}
+
+.aethyr-app [class*="text-amber-"] {
+  color: #7a4c00 !important;
+}
+
+.aethyr-app [class*="text-red-"] {
+  color: #a61b24 !important;
+}
+
+.aethyr-app input,
+.aethyr-app select,
+.aethyr-app textarea {
+  color-scheme: light;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

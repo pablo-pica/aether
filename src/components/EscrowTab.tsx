@@ -363,10 +363,10 @@ export default function EscrowTab({
                   value={userRole}
                   onChange={setUserRole}
                   options={[
-                    { label: "Client", value: "client", color: "bg-teal-500" },
-                    { label: "Freelancer", value: "freelancer", color: "bg-cyan-500" },
-                    { label: "Mediator", value: "mediator", color: "bg-purple-500" },
-                    { label: "Auto", value: "auto", color: "bg-slate-500" },
+                    { label: "Client", value: "client", color: "bg-teal-500", activeTextClassName: "text-white" },
+                    { label: "Freelancer", value: "freelancer", color: "bg-cyan-500", activeTextClassName: "text-aid-ink" },
+                    { label: "Mediator", value: "mediator", color: "bg-purple-500", activeTextClassName: "text-aid-ink" },
+                    { label: "Auto", value: "auto", color: "bg-slate-500", activeTextClassName: "text-white" },
                   ]}
                   idPrefix="role-unified"
                 />

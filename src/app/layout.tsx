@@ -1,28 +1,28 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Bricolage_Grotesque, Manrope } from "next/font/google";
 import "@/styles/globals.css";
 import ObservabilityProvider from "@/components/ObservabilityProvider";
 
-const inter = Inter({
+const manrope = Manrope({
   subsets: ["latin"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const outfit = Outfit({
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Aethyr — Stellar Payment Routing",
-  description: "AI-Augmented Cross-Border Payment Routing on Stellar",
+  title: "Aethyr Aid — Verified Typhoon Relief Payments on Stellar",
+  description: "Track Bicol relief from campaign escrow to voucher, evidence, verification, and payout or dispute.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
-    title: "Aethyr",
+    statusBarStyle: "default",
+    title: "Aethyr Aid",
   },
 };
 
@@ -32,8 +32,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable} dark`} suppressHydrationWarning>
-      <body className="antialiased selection:bg-primary-indigo/30 selection:text-slate-100">
+    <html lang="en" className={`${manrope.variable} ${bricolage.variable}`} suppressHydrationWarning>
+      <body className="antialiased selection:bg-aid-gold/60 selection:text-aid-ink">
         <ObservabilityProvider>{children}</ObservabilityProvider>
       </body>
     </html>

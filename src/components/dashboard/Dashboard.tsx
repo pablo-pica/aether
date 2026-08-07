@@ -1,0 +1,776 @@
+"use client";
+
+import React, { useState, useEffect, useCallback } from "react";
+import { CheckCircle2, XCircle, AlertCircle, ExternalLink, ArrowUpRight } from "lucide-react";
+import { useStellarWallet } from "@/hooks/useStellarWallet";
+import dynamic from "next/dynamic";
+import { motion, AnimatePresence, MotionConfig } from "framer-motion";
+
+const WalletConnect = dynamic(() => import("@/components/WalletConnect"), {
+  ssr: false,
+});
+import ProfileDrawer from "@/components/ProfileDrawer";
+import WalletPickerBottomSheet from "@/components/WalletPickerBottomSheet";
+import SendTab from "@/components/SendTab";
+import EscrowTab from "@/components/EscrowTab";
+import ActivityTab from "@/components/ActivityTab";
+import SettingsTab from "@/components/SettingsTab";
+import AidOverview from "@/components/workflows/aid/AidOverview";
+import AppShell from "@/components/app-shell/AppShell";
+import { AidRole, AppView } from "@/components/app-shell/appShellContent";
+import { Toast, ToastContainer } from "@/components/ui/Toast";
+import { Milestone } from "@/components/MilestoneBuilder";
+import { validateStellarAddress } from "@/lib/utils";
+
+interface TransactionItem {
+  id: string;
+  type: "send" | "swap" | "escrow";
+  status: "success" | "pending" | "failed";
+  timestamp: string;
+  amountIn: string;
+  assetIn: string;
+  amountOut?: string;
+  assetOut?: string;
+  txHash?: string;
+  description: string;
+  escrowContract?: string;
+  escrowId?: string;
+  senderAddress?: string;
+  receiverAddress?: string;
+  milestones?: Milestone[];
+  isExpired?: boolean;
+}
+
+const MOCK_TRANSACTIONS: TransactionItem[] = [
+  {
+    id: "tx-1",
+    type: "escrow",
+    status: "success",
+    timestamp: "Today, 11:20 AM",
+    amountIn: "250.00",
+    assetIn: "USDC",
+    description: "Milestone Escrow #1 (USD to PHP)",
+    txHash: "a809f4b93478d5e6f7a8b9c0d1e2f3f4e5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0",
+    escrowContract: "CDXZR77ODWNHHP5BR4BCSRS66FNHQQMUGEHGEFTX2IK4HWOAMC43ZERO",
+    escrowId: "8a92b3c4d5e6f7a8b9c0d1e2f3f4e5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2",
+    senderAddress: "GBRPYHIL2CIYAOSRIWRMQHEBOZJ7PAGB37NMQ22FQGSNLUY65VOUAIV2",
+    receiverAddress: "GBRPYHIL2CIYAOSRIWRMQHEBOZJ7PAGB37NMQ22FQGSNLUY65VOUAIV2",
+    milestones: [
+      { description: "UI Design mockups", payout_weight: 3000, is_completed: false, is_disputed: false, submitted_at: 0 },
+      { description: "Integration with Soroban", payout_weight: 7000, is_completed: false, is_disputed: false, submitted_at: 0 }
+    ],
+    isExpired: true,
+  },
+  {
+    id: "tx-2",
+    type: "swap",
+    status: "success",
+    timestamp: "Yesterday, 3:15 PM",
+    amountIn: "50.00",
+    assetIn: "XLM",
+    amountOut: "5.85",
+    assetOut: "USDC",
+    description: "Asset Swap (DEX Routing)",
+    txHash: "bf82d1c8f89e5a6b7c8d9e0f1a2b3c4d5e6f7a8b9c0d1e2f3f4e5a6b7c8d9e0f1",
+  },
+];
+
+export default function Dashboard({ initialView = "aid", initialRole = null }: { initialView?: AppView; initialRole?: AidRole | null } = {}) {
+  const {
+    isConnected,
+    isMockWallet,
+    address,
+    balance,
+    error: walletError,
+    isLoading: walletLoading,
+    connect,
+    disconnect,
+    sendXLM,
+    routePayment,
+    routeToEscrow,
+    releaseMilestone,
+    refundEscrow,
+    submitMilestone,
+    disputeMilestone,
+    autoReleaseMilestone,
+    addAidTrustline,
+    createCampaign,
+    fundCampaign,
+    approveMerchant,
+    createCase,
+    issueVoucher,
+    redeemVoucher,
+    appendEvidenceRevision,
+    freezeClaim,
+    decideClaim,
+  } = useStellarWallet();
+
+  // The shared /app layout keeps this controller mounted. The URL is the view source of truth,
+  // so route changes cannot flash a stale panel while React effects catch up.
+  const activeTab = initialView;
+
+  // Bottom sheets visibility
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isWalletPickerOpen, setIsWalletPickerOpen] = useState(false);
+
+  // Send Form States
+  const [recipient, setRecipient] = useState("");
+  const [amount, setAmount] = useState("");
+  const [sendLoading, setSendLoading] = useState(false);
+  const [txStatus, setTxStatus] = useState<"idle" | "sending" | "success" | "failed">("idle");
+  const [txHash, setTxHash] = useState("");
+  const [txError, setTxError] = useState("");
+  const [isRouted, setIsRouted] = useState(true);
+
+  // Simulated User Role for Escrow Milestones Actions
+  const [userRole, setUserRole] = useState<"client" | "freelancer" | "mediator" | "auto">("client");
+
+  // Settings states
+  const [slippage, setSlippage] = useState("1.0");
+  const [isAiEnabled, setIsAiEnabled] = useState(true);
+  const [network, setNetwork] = useState("Testnet");
+
+  // Toast Notification State & Action
+  const [toasts, setToasts] = useState<Toast[]>([]);
+
+  const showToast = useCallback((message: string, type: "success" | "error" | "info" = "info") => {
+    const id = `toast-${Date.now()}`;
+    setToasts((prev) => [...prev, { id, message, type }]);
+  }, []);
+
+  const handleDismissToast = useCallback((id: string) => {
+    setToasts((prev) => prev.filter((t) => t.id !== id));
+  }, []);
+
+  // Listen to connection errors
+  useEffect(() => {
+    if (walletError) {
+      showToast(walletError, "error");
+    }
+  }, [walletError, showToast]);
+
+  // Load mock data when connected to Mock Sandbox wallet, keep empty for real wallets
+  useEffect(() => {
+    if (isConnected && address === "GBZXN7PIRZGNMHGA7MUUUF4GWPY5ALY4UV2GL6VJGIQRXFDNMADIXXXX") {
+      setTransactions(MOCK_TRANSACTIONS);
+    } else {
+      if (typeof window !== "undefined") {
+        const saved = window.localStorage.getItem("aethyr_transactions");
+        if (saved) {
+          try {
+            setTransactions(JSON.parse(saved));
+            return;
+          } catch (e) {
+            console.error("Failed to parse transactions", e);
+          }
+        }
+      }
+      setTransactions((prev) => prev.filter(tx => tx.id !== "tx-1" && tx.id !== "tx-2"));
+    }
+  }, [isConnected, address]);
+
+  const [expandedEscrows, setExpandedEscrows] = useState<Record<string, boolean>>({});
+
+  const toggleEscrowExpand = (txId: string) => {
+    setExpandedEscrows((prev) => ({ ...prev, [txId]: !prev[txId] }));
+  };
+
+  const handleRelease = async (txId: string, milestoneIndex: number) => {
+    const tx = transactions.find((t) => t.id === txId);
+    if (!tx || !tx.escrowContract || !tx.escrowId) {
+      showToast("Escrow details not found.", "error");
+      return;
+    }
+    try {
+      showToast("Releasing milestone funds...", "info");
+      const result = await releaseMilestone(tx.escrowContract, tx.escrowId, milestoneIndex);
+      const hash = result?.hash;
+      setTransactions((prev) =>
+        prev.map((t) => {
+          if (t.id === txId && t.milestones) {
+            const updated = [...t.milestones];
+            updated[milestoneIndex] = {
+              ...updated[milestoneIndex],
+              is_completed: true,
+              releaseTxHash: hash,
+            };
+            return { ...t, milestones: updated };
+          }
+          return t;
+        })
+      );
+      showToast("Milestone successfully released!", "success");
+    } catch (err: any) {
+      showToast(err.message || "Failed to release milestone", "error");
+    }
+  };
+
+  const handleRefund = async (txId: string) => {
+    const tx = transactions.find((t) => t.id === txId);
+    if (!tx || !tx.escrowContract || !tx.escrowId) {
+      showToast("Escrow details not found.", "error");
+      return;
+    }
+    try {
+      showToast("Executing refund_escrow...", "info");
+      await refundEscrow(tx.escrowContract, tx.escrowId);
+      setTransactions((prev) =>
+        prev.map((t) => {
+          if (t.id === txId) {
+            return { ...t, status: "failed", description: `${t.description} (Refunded)` };
+          }
+          return t;
+        })
+      );
+      showToast("Escrow successfully refunded!", "success");
+    } catch (err: any) {
+      showToast(err.message || "Failed to refund escrow", "error");
+    }
+  };
+
+  const handleSubmitWork = async (txId: string, milestoneIndex: number) => {
+    const tx = transactions.find((t) => t.id === txId);
+    if (!tx || !tx.escrowContract || !tx.escrowId) {
+      showToast("Escrow details not found.", "error");
+      return;
+    }
+    try {
+      showToast("Submitting milestone work...", "info");
+      const result = await submitMilestone(tx.escrowContract, tx.escrowId, milestoneIndex);
+      const hash = result?.hash;
+      setTransactions((prev) =>
+        prev.map((t) => {
+          if (t.id === txId && t.milestones) {
+            const updated = [...t.milestones];
+            updated[milestoneIndex] = {
+              ...updated[milestoneIndex],
+              submitted_at: Math.floor(Date.now() / 1000),
+              submitTxHash: hash,
+            };
+            return { ...t, milestones: updated };
+          }
+          return t;
+        })
+      );
+      showToast("Milestone work submitted!", "success");
+    } catch (err: any) {
+      showToast(err.message || "Failed to submit milestone", "error");
+    }
+  };
+
+  const handleDispute = async (txId: string, milestoneIndex: number) => {
+    const tx = transactions.find((t) => t.id === txId);
+    if (!tx || !tx.escrowContract || !tx.escrowId) {
+      showToast("Escrow details not found.", "error");
+      return;
+    }
+    try {
+      showToast("Flagging dispute...", "info");
+      const result = await disputeMilestone(tx.escrowContract, tx.escrowId, milestoneIndex);
+      const hash = result?.hash;
+      setTransactions((prev) =>
+        prev.map((t) => {
+          if (t.id === txId && t.milestones) {
+            const updated = [...t.milestones];
+            updated[milestoneIndex] = {
+              ...updated[milestoneIndex],
+              is_disputed: true,
+              disputeTxHash: hash,
+            };
+            return { ...t, milestones: updated };
+          }
+          return t;
+        })
+      );
+      showToast("Milestone dispute flagged!", "success");
+    } catch (err: any) {
+      showToast(err.message || "Failed to flag dispute", "error");
+    }
+  };
+
+  const handleAutoRelease = async (txId: string, milestoneIndex: number) => {
+    const tx = transactions.find((t) => t.id === txId);
+    if (!tx || !tx.escrowContract || !tx.escrowId) {
+      showToast("Escrow details not found.", "error");
+      return;
+    }
+    try {
+      showToast("Triggering auto-release...", "info");
+      const result = await autoReleaseMilestone(tx.escrowContract, tx.escrowId, milestoneIndex);
+      const hash = result?.hash;
+      setTransactions((prev) =>
+        prev.map((t) => {
+          if (t.id === txId && t.milestones) {
+            const updated = [...t.milestones];
+            updated[milestoneIndex] = {
+              ...updated[milestoneIndex],
+              is_completed: true,
+              submitted_at: 0,
+              is_disputed: false,
+              releaseTxHash: hash,
+            };
+            return { ...t, milestones: updated };
+          }
+          return t;
+        })
+      );
+      showToast("Milestone auto-released!", "success");
+    } catch (err: any) {
+      showToast(err.message || "Failed to auto-release milestone", "error");
+    }
+  };
+
+  // Dynamic Transaction Log
+  const [transactions, setTransactions] = useState<TransactionItem[]>([]);
+
+  // Load transactions from localStorage on mount
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const saved = window.localStorage.getItem("aethyr_transactions");
+      if (saved) {
+        try {
+          setTransactions(JSON.parse(saved));
+        } catch (e) {
+          console.error("Failed to parse transactions", e);
+        }
+      }
+    }
+  }, []);
+
+  // Save real transactions to localStorage whenever they change
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const realTransactions = transactions.filter(
+        (tx) => tx.id !== "tx-1" && tx.id !== "tx-2"
+      );
+      window.localStorage.setItem("aethyr_transactions", JSON.stringify(realTransactions));
+    }
+  }, [transactions]);
+
+  const handleSend = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!recipient || !amount) return;
+
+    // Form input validation checks - inline alerts/toasts
+    if (!validateStellarAddress(recipient)) {
+      const errMsg = "Invalid recipient address format. Stellar public keys start with G.";
+      setTxError(errMsg);
+      setTxStatus("failed");
+      showToast(errMsg, "error");
+      return;
+    }
+
+    if (Number(amount) <= 0) {
+      const errMsg = "Amount must be greater than zero.";
+      setTxError(errMsg);
+      setTxStatus("failed");
+      showToast(errMsg, "error");
+      return;
+    }
+
+    if (Number(amount) > Number(balance)) {
+      const errMsg = "Insufficient XLM balance to complete transfer.";
+      setTxError(errMsg);
+      setTxStatus("failed");
+      showToast(errMsg, "error");
+      return;
+    }
+
+    setSendLoading(true);
+    setTxStatus("sending");
+    setTxError("");
+    setTxHash("");
+
+    try {
+      let hash = "";
+      if (isRouted) {
+        // Routed contract call
+        const XLM_SAC_ADDRESS = "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC";
+        const USDC_SAC_ADDRESS = process.env.NEXT_PUBLIC_USDC_CONTRACT_ID || "CA5VEP5EMYBSKGC2N5T63QUTECIBKIGN6UAY6VWB2CXL5KSDJTJEW2Y7";
+        const PHP_SAC_ADDRESS = process.env.NEXT_PUBLIC_PHP_CONTRACT_ID || "CC4BFOSEUZ4HKHDOMSFA5IE6LN76N34GOHYRKDV4MMVDZXV5L5NBEXP2";
+        const path = [XLM_SAC_ADDRESS, USDC_SAC_ADDRESS, PHP_SAC_ADDRESS];
+        const slipVal = parseFloat(slippage) || 1.0;
+        const minAmountOut = (parseFloat(amount) * (100 - slipVal) / 100).toFixed(7);
+
+        const result = await routePayment(recipient, path, amount, minAmountOut);
+        hash = result.hash;
+      } else {
+        // Direct XLM payment
+        const result = await sendXLM(recipient, amount);
+        hash = result.hash;
+      }
+
+      setTxHash(hash);
+      setTxStatus("success");
+      showToast("Transaction submitted successfully!", "success");
+
+      // Add transaction to the activity log dynamically
+      const newTx: TransactionItem = {
+        id: `tx-${Date.now()}`,
+        type: isRouted ? "swap" : "send",
+        status: "success",
+        timestamp: "Just now",
+        amountIn: amount,
+        assetIn: "XLM",
+        amountOut: isRouted ? (parseFloat(amount) * 6.84).toFixed(2) : undefined,
+        assetOut: isRouted ? "PHP" : undefined,
+        txHash: hash,
+        description: isRouted
+          ? `Routed payment to ${recipient.slice(0, 4)}...${recipient.slice(-4)}`
+          : `Direct transfer to ${recipient.slice(0, 4)}...${recipient.slice(-4)}`,
+        senderAddress: address || "",
+        receiverAddress: recipient,
+        isExpired: false,
+      };
+      setTransactions((prev) => [newTx, ...prev]);
+    } catch (err: any) {
+      console.error(err);
+      const errMsg = err.message || "Transaction execution was cancelled or failed.";
+      setTxError(errMsg);
+      setTxStatus("failed");
+      showToast(errMsg, "error");
+    } finally {
+      setSendLoading(false);
+    }
+  };
+
+  const onCreateEscrow = async (escrowRecipient: string, escrowAmount: string, escrowMilestones: Milestone[]) => {
+    if (!address) {
+      showToast("Wallet is not connected.", "error");
+      return;
+    }
+    setSendLoading(true);
+    setTxStatus("sending");
+    setTxError("");
+    setTxHash("");
+
+    try {
+      const XLM_SAC_ADDRESS = "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC";
+      const USDC_SAC_ADDRESS = process.env.NEXT_PUBLIC_USDC_CONTRACT_ID || "CA5VEP5EMYBSKGC2N5T63QUTECIBKIGN6UAY6VWB2CXL5KSDJTJEW2Y7";
+      const PHP_SAC_ADDRESS = process.env.NEXT_PUBLIC_PHP_CONTRACT_ID || "CC4BFOSEUZ4HKHDOMSFA5IE6LN76N34GOHYRKDV4MMVDZXV5L5NBEXP2";
+      const path = [XLM_SAC_ADDRESS, USDC_SAC_ADDRESS, PHP_SAC_ADDRESS];
+      const slipVal = parseFloat(slippage) || 1.0;
+      const minAmountOut = (parseFloat(escrowAmount) * (100 - slipVal) / 100).toFixed(7);
+
+      const escrowContract = process.env.NEXT_PUBLIC_ESCROW_CONTRACT_ID || "CD734V7PATOR7NW7APYQLUNEON2GZ7EUBM27MFQO3WDQZGCPKIWB6NOT";
+      const result = await routeToEscrow(escrowContract, escrowRecipient, path, escrowAmount, minAmountOut, escrowMilestones);
+      const hash = result.hash;
+
+      setTxHash(hash);
+      setTxStatus("success");
+      showToast("Escrow Lock created successfully!", "success");
+
+      // Add to transaction log
+      const newTx: TransactionItem = {
+        id: `tx-${Date.now()}`,
+        type: "escrow",
+        status: "success",
+        timestamp: "Just now",
+        amountIn: escrowAmount,
+        assetIn: "XLM",
+        txHash: hash,
+        description: `Milestone Escrow to ${escrowRecipient.slice(0, 4)}...${escrowRecipient.slice(-4)}`,
+        escrowContract,
+        escrowId: result.escrowId,
+        senderAddress: address || "",
+        receiverAddress: escrowRecipient,
+        milestones: escrowMilestones,
+        isExpired: false,
+      };
+      setTransactions((prev) => [newTx, ...prev]);
+    } catch (err: any) {
+      console.error(err);
+      const errMsg = err.message || "Escrow lock creation failed.";
+      setTxError(errMsg);
+      setTxStatus("failed");
+      showToast(errMsg, "error");
+      throw err;
+    } finally {
+      setSendLoading(false);
+    }
+  };
+
+  const handleSelectWallet = async (walletId: string) => {
+    try {
+      await connect(walletId);
+    } catch (err) {
+      // handled inside hook
+    }
+  };
+
+  // Header border shadow scroll detection
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = (e: any) => {
+      if (e.target.scrollTop > 10) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    const mainEl = document.getElementById("main-content");
+    mainEl?.addEventListener("scroll", handleScroll);
+    return () => mainEl?.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const renderParticles = () => {
+    return Array.from({ length: 12 }).map((_, i) => {
+      const angle = (i * 360) / 12;
+      const distance = 45 + Math.random() * 40;
+      const delay = Math.random() * 0.15;
+      const scale = 0.4 + Math.random() * 0.6;
+      const color = i % 3 === 0 ? "bg-teal-400" : i % 3 === 1 ? "bg-indigo-400" : "bg-cyan-400";
+      return (
+        <motion.div
+          key={i}
+          initial={{ scale: 0, x: 0, y: 0 }}
+          animate={{
+            scale: [0, scale, 0],
+            x: Math.cos((angle * Math.PI) / 180) * distance,
+            y: Math.sin((angle * Math.PI) / 180) * distance,
+          }}
+          transition={{
+            duration: 0.65,
+            delay,
+            ease: "easeOut",
+          }}
+          className={`absolute w-2 h-2 rounded-full ${color}`}
+        />
+      );
+    });
+  };
+
+  return (
+    <MotionConfig reducedMotion="user">
+      <AppShell
+        activeView={activeTab}
+        walletSlot={(
+          <WalletConnect
+            isConnected={isConnected}
+            address={address}
+            connect={() => setIsWalletPickerOpen(true)}
+            openDrawer={() => setIsDrawerOpen(true)}
+            isLoading={walletLoading}
+          />
+        )}
+      >
+          {/* Broadcasting status modal block */}
+          {txStatus === "sending" && (
+            <div className="p-6 rounded-2xl border border-primary-indigo/35 bg-primary-indigo/5 text-center space-y-4" data-testid="tx-sending-block">
+              <div className="relative w-16 h-16 mx-auto">
+                <div className="absolute inset-0 rounded-full border-4 border-primary-indigo/20" />
+                <div className="absolute inset-0 rounded-full border-4 border-t-teal-400 animate-spin" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-sm font-semibold text-slate-200">
+                  Broadcasting Transaction
+                </h3>
+                <p className="text-xs text-slate-400 max-w-[240px] mx-auto leading-relaxed">
+                  Sign payload inside extension and wait for confirmation.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Success screen card + particle burst */}
+          {txStatus === "success" && (
+            <div className="p-6 rounded-2xl glass-card border-teal-500/20 text-center space-y-5 animate-pulse-glow relative flex flex-col items-center" data-testid="tx-success-block">
+              <div className="relative w-16 h-16 flex items-center justify-center">
+                {renderParticles()}
+                <div className="w-14 h-14 rounded-full bg-teal-500/10 border border-teal-500/30 flex items-center justify-center z-10">
+                  <CheckCircle2 className="w-8 h-8 text-teal-400" />
+                </div>
+              </div>
+
+              <div className="space-y-1">
+                <h3 className="text-lg font-bold text-slate-100 font-display">Payment Transmitted!</h3>
+                <p className="text-xs text-slate-400">Your transaction has been processed on Testnet.</p>
+              </div>
+
+              {/* Summary card */}
+              <div className="w-full bg-space-950/60 p-4 rounded-xl border border-space-850 space-y-2 text-xs font-mono text-left">
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Amount:</span>
+                  <span className="text-slate-100 font-bold">{amount || "Routed"} XLM</span>
+                </div>
+                {recipient && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">Recipient:</span>
+                    <span className="text-slate-100 truncate max-w-[140px]">{recipient}</span>
+                  </div>
+                )}
+                {txHash && (
+                  <div className="flex justify-between">
+                    <span className="text-slate-500">TX Hash:</span>
+                    <span className="text-teal-400 font-bold">{txHash.slice(0, 8)}...{txHash.slice(-8)}</span>
+                  </div>
+                )}
+              </div>
+
+              {txHash && (
+                <a
+                  href={`https://stellar.expert/explorer/testnet/tx/${txHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full h-10 rounded-xl bg-space-800 hover:bg-space-850 border border-space-700/40 text-xs font-bold text-slate-200 flex items-center justify-center gap-1.5 transition-all focus-ring"
+                >
+                  View on StellarExplorer
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              )}
+
+              <button
+                onClick={() => {
+                  setTxStatus("idle");
+                  setRecipient("");
+                  setAmount("");
+                }}
+                className="text-xs font-bold text-teal-400 hover:text-teal-300 transition-colors focus-ring"
+              >
+                Back to Send Form
+              </button>
+            </div>
+          )}
+
+          {/* Failed transaction status overlay card */}
+          {txStatus === "failed" && (
+            <div className="p-6 rounded-2xl border border-red-500/20 bg-red-500/5 text-center space-y-4" data-testid="tx-failed-block">
+              <div className="w-12 h-12 rounded-full bg-red-500/10 border border-red-500/30 flex items-center justify-center mx-auto">
+                <XCircle className="w-6 h-6 text-red-400" />
+              </div>
+              <div className="space-y-1">
+                <h3 className="text-sm font-semibold text-slate-200">Transaction Failed</h3>
+                <p className="text-xs text-red-400/95 max-w-[280px] mx-auto font-mono px-3 py-2 rounded bg-red-950/20 border border-red-900/30 text-left overflow-x-auto whitespace-pre-wrap">
+                  {txError}
+                </p>
+              </div>
+              <button
+                onClick={() => setTxStatus("idle")}
+                className="text-xs text-slate-400 hover:text-slate-200 font-semibold underline transition-colors cursor-pointer"
+              >
+                Dismiss and return
+              </button>
+            </div>
+          )}
+
+          {/* TAB 1: SEND / SWAP */}
+          {txStatus === "idle" && (
+            <section hidden={activeTab !== "send"} aria-hidden={activeTab !== "send"}>
+            <SendTab
+              balance={balance}
+              recipient={recipient}
+              setRecipient={setRecipient}
+              amount={amount}
+              setAmount={setAmount}
+              isRouted={isRouted}
+              setIsRouted={setIsRouted}
+              sendLoading={sendLoading}
+              txStatus={txStatus}
+              setTxStatus={setTxStatus}
+              handleSend={handleSend}
+              isAiEnabled={isAiEnabled}
+              showToast={showToast}
+              slippage={slippage}
+              connect={() => setIsWalletPickerOpen(true)}
+              isConnected={isConnected}
+            />
+            </section>
+          )}
+
+          {/* TAB 2: ESCROW MILESTONES (NEW) */}
+          {txStatus === "idle" && (
+            <section hidden={activeTab !== "escrow"} aria-hidden={activeTab !== "escrow"}>
+            <EscrowTab
+              balance={balance}
+              isConnected={isConnected}
+              connect={() => setIsWalletPickerOpen(true)}
+              transactions={transactions}
+              expandedEscrows={expandedEscrows}
+              toggleEscrowExpand={toggleEscrowExpand}
+              userRole={userRole}
+              setUserRole={setUserRole}
+              handleSubmitMilestone={handleSubmitWork}
+              handleReleaseMilestone={handleRelease}
+              handleDisputeMilestone={handleDispute}
+              handleAutoReleaseMilestone={handleAutoRelease}
+              handleRefundEscrow={handleRefund}
+              onCreateEscrow={onCreateEscrow}
+              showToast={showToast}
+              isAiEnabled={isAiEnabled}
+            />
+            </section>
+          )}
+
+          {/* TAB 3: ACTIVITY FEED */}
+          {txStatus === "idle" && (
+            <section hidden={activeTab !== "activity"} aria-hidden={activeTab !== "activity"}>
+            <ActivityTab
+              transactions={transactions}
+              isConnected={isConnected}
+              connect={() => setIsWalletPickerOpen(true)}
+            />
+            </section>
+          )}
+
+          {/* TAB 4: AETHYR AID (visible when activeTab === "aid") */}
+          {txStatus === "idle" && (
+            <section hidden={activeTab !== "aid"} aria-hidden={activeTab !== "aid"}>
+            <AidOverview
+              initialRole={initialRole}
+              isConnected={isConnected}
+              isMockWallet={isMockWallet}
+              address={address}
+              isLoading={walletLoading}
+              createCampaign={createCampaign}
+              fundCampaign={fundCampaign}
+              approveMerchant={approveMerchant}
+              createCase={createCase}
+              issueVoucher={issueVoucher}
+              redeemVoucher={redeemVoucher}
+              appendEvidenceRevision={appendEvidenceRevision}
+              freezeClaim={freezeClaim}
+              decideClaim={decideClaim}
+              addAidTrustline={addAidTrustline}
+            />
+            </section>
+          )}
+
+          {/* TAB 5: SETTINGS PANEL */}
+          {txStatus === "idle" && (
+            <section hidden={activeTab !== "settings"} aria-hidden={activeTab !== "settings"}>
+            <SettingsTab
+              network={network}
+              setNetwork={setNetwork}
+              slippage={slippage}
+              setSlippage={setSlippage}
+              isAiEnabled={isAiEnabled}
+              setIsAiEnabled={setIsAiEnabled}
+            />
+            </section>
+          )}
+
+
+        {/* Custom Toast Notifications Container */}
+        <ToastContainer toasts={toasts} onDismiss={handleDismissToast} />
+
+        {/* Slide-up Profile Bottom Sheet */}
+        <ProfileDrawer
+          isOpen={isDrawerOpen}
+          onClose={() => setIsDrawerOpen(false)}
+          address={address}
+          balance={balance}
+          disconnect={disconnect}
+          isLoading={walletLoading}
+        />
+
+        {/* Custom Wallet Picker Bottom Sheet */}
+        <WalletPickerBottomSheet
+          isOpen={isWalletPickerOpen}
+          onClose={() => setIsWalletPickerOpen(false)}
+          onSelectWallet={handleSelectWallet}
+        />
+
+      </AppShell>
+    </MotionConfig>
+  );
+}

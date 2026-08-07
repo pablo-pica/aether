@@ -50,9 +50,9 @@ export default function SettingsTab({
           value={network}
           onChange={setNetwork}
           options={[
-            { label: "Testnet", value: "Testnet", color: "bg-teal-500" },
-            { label: "Futurenet", value: "Futurenet", color: "bg-teal-500" },
-            { label: "Local", value: "Local", color: "bg-teal-500" },
+            { label: "Testnet", value: "Testnet", color: "bg-teal-500", activeTextClassName: "text-white" },
+            { label: "Futurenet", value: "Futurenet", color: "bg-teal-500", activeTextClassName: "text-white" },
+            { label: "Local", value: "Local", color: "bg-teal-500", activeTextClassName: "text-white" },
           ]}
           idPrefix="net"
         />
@@ -78,10 +78,10 @@ export default function SettingsTab({
             }
           }}
           options={[
-            { label: "0.5%", value: "0.5", color: "bg-teal-500" },
-            { label: "1.0%", value: "1.0", color: "bg-teal-500" },
-            { label: "3.0%", value: "3.0", color: "bg-teal-500" },
-            { label: "Custom", value: "Custom", color: "bg-teal-500" },
+            { label: "0.5%", value: "0.5", color: "bg-teal-500", activeTextClassName: "text-white" },
+            { label: "1.0%", value: "1.0", color: "bg-teal-500", activeTextClassName: "text-white" },
+            { label: "3.0%", value: "3.0", color: "bg-teal-500", activeTextClassName: "text-white" },
+            { label: "Custom", value: "Custom", color: "bg-teal-500", activeTextClassName: "text-white" },
           ]}
           idPrefix="slip"
         />
