@@ -38,6 +38,10 @@ vi.mock("@stellar/stellar-sdk", async () => {
     toString: () => "CD734V7PATOR7NW7APYQLUNEON2GZ7EUBM27MFQO3WDQZGCPKIWB6NOT",
   });
 
+  class MockHorizonServer {
+    submitTransaction = mockSubmitTransaction;
+  }
+
   return {
     ...actual,
     Address: {
@@ -53,11 +57,7 @@ vi.mock("@stellar/stellar-sdk", async () => {
       buildFeeBumpTransaction: mockBuildFeeBumpTransaction,
     },
     Horizon: {
-      Server: vi.fn().mockImplementation(() => {
-        return {
-          submitTransaction: mockSubmitTransaction,
-        };
-      }),
+      Server: MockHorizonServer,
     },
   };
 });

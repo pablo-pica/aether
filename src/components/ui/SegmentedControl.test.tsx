@@ -19,7 +19,8 @@ describe("SegmentedControl Component Tests", () => {
     expect(fileContent).toContain("options.map");
 
     // Border and background styling tokens
-    expect(fileContent).toContain("border-space-700/50");
-    expect(fileContent).toContain("bg-space-950/60");
+    expect(fileContent).toContain("border-aid-ink/10");
+    expect(fileContent).toContain("bg-aid-paper");
+    expect(fileContent).toContain("activeTextClassName");
   });
 });

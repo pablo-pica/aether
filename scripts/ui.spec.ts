@@ -1,114 +1,130 @@
-import { test, expect } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
+import { expect, test, type Page } from "@playwright/test";
 
-test.use({
-  viewport: { width: 390, height: 844 },
-  userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1",
+const baseUrl = process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:3000";
+const viewports = [
+  { name: "phone", width: 320, height: 800 },
+  { name: "tablet", width: 768, height: 900 },
+  { name: "laptop", width: 1024, height: 900 },
+  { name: "desktop", width: 1440, height: 1000 },
+] as const;
+
+async function expectNoHorizontalOverflow(page: Page) {
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth);
+  expect(overflow).toBe(false);
+}
+
+async function expectNoSeriousAccessibilityViolations(page: Page) {
+  const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze();
+  expect(results.violations.filter((violation) => violation.impact === "critical" || violation.impact === "serious")).toEqual([]);
+}
+
+for (const viewport of viewports) {
+  test(`${viewport.name}: Aid landing and app remain responsive`, async ({ page }) => {
+    await page.setViewportSize({ width: viewport.width, height: viewport.height });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+
+    await page.goto(`${baseUrl}/`, { waitUntil: "networkidle" });
+    await expect(page.getByRole("heading", { level: 1, name: "Relief should arrive with proof." })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Open Aid workspace" })).toHaveAttribute("href", "/app");
+    await expectNoHorizontalOverflow(page);
+
+    await page.goto(`${baseUrl}/app`, { waitUntil: "networkidle" });
+    await expect(page.getByTestId("app-shell")).toBeVisible();
+    await expect(page.getByRole("heading", { name: "How are you helping?" })).toBeVisible();
+    await expect(page.getByRole("link", { name: /Donor/ }).first()).toHaveAttribute("href", "/app/aid/donor");
+    await expectNoHorizontalOverflow(page);
+
+    if (viewport.width < 768) {
+      await expect(page.getByRole("navigation", { name: "Mobile app navigation" })).toBeVisible();
+    } else {
+      await expect(page.getByRole("complementary", { name: "App sidebar" })).toBeVisible();
+    }
+  });
+}
+
+test("app routes are shareable and preserve every workspace", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+
+  const routes = [
+    ["/app/aid/donor", "Donor view"],
+    ["/app/aid/coordinator", "Coordinator view"],
+    ["/app/aid/merchant", "Merchant view"],
+    ["/app/aid/verifier", "Verifier view"],
+  ] as const;
+
+  for (const [route, heading] of routes) {
+    await page.goto(`${baseUrl}${route}`, { waitUntil: "networkidle" });
+    await expect(page).toHaveURL(new RegExp(`${route}$`));
+    await expect(page.getByRole("heading", { name: heading })).toBeVisible();
+  }
+
+  for (const route of ["/app/activity", "/app/settings", "/app/tools/send", "/app/tools/escrow"]) {
+    await page.goto(`${baseUrl}${route}`, { waitUntil: "networkidle" });
+    await expect(page).toHaveURL(new RegExp(`${route}$`));
+    await expect(page.getByTestId("app-shell")).toBeVisible();
+    await expectNoHorizontalOverflow(page);
+  }
 });
 
-test("Verify mobile dashboard rendering and captures", async ({ page }) => {
-  // Navigate to local dev server
-  await page.goto("http://localhost:3000");
-  await page.waitForLoadState("networkidle");
+test("keyboard entry and navigation expose visible destinations", async ({ page }) => {
+  await page.setViewportSize({ width: 1024, height: 900 });
+  await page.goto(`${baseUrl}/app`, { waitUntil: "networkidle" });
 
-  // Verify header presence
-  const headerText = await page.textContent("h1, h2, h3");
-  console.log("Main Header text detected:", headerText);
-  
-  // Verify main navbar / tab navigation is visible
-  const bottomNav = page.locator("[data-testid='bottom-nav'], nav");
-  await expect(bottomNav).toBeVisible();
-  
-  // Take screenshot of the initial state (disconnected/welcome screen)
-  await page.screenshot({ path: "test-results/screenshots/screen1.png" });
-  console.log("Captured test-results/screenshots/screen1.png");
+  await page.keyboard.press("Tab");
+  await expect(page.getByRole("link", { name: "Skip to workspace" })).toBeFocused();
+  await expect(page.getByTestId("app-nav-send")).toHaveAttribute("href", "/app/tools/send");
+  await expect(page.getByTestId("app-nav-escrow")).toHaveAttribute("href", "/app/tools/escrow");
 
-  // Let's connect the mock wallet if possible or inspect the connect button
-  const connectBtn = page.locator("button:has-text('Connect Wallet'), [data-testid='connect-wallet-btn']");
-  await expect(connectBtn.first()).toBeVisible();
+  const startTab = page.getByRole("tab", { name: "Start here" });
+  await startTab.focus();
+  await page.keyboard.press("ArrowRight");
+  await expect(page.getByRole("tab", { name: "Field guide" })).toBeFocused();
+  await expect(page.getByRole("tab", { name: "Field guide" })).toHaveAttribute("aria-selected", "true");
+});
 
-  // Click on the connect wallet button to trigger the bottom sheet/drawer
-  await connectBtn.first().click();
-  await page.waitForTimeout(1000);
+test("Aid role, guide choice, and mounted form state persist across app routes", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(`${baseUrl}/app/aid/merchant`, { waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { name: "Merchant view" })).toBeVisible();
 
-  // Take screenshot of wallet connection picker modal
-  await page.screenshot({ path: "test-results/screenshots/screen2.png" });
-  console.log("Captured test-results/screenshots/screen2.png");
+  await page.getByRole("tab", { name: "Field guide" }).click();
+  await page.getByRole("button", { name: "Live Testnet" }).click();
+  await page.getByLabel("Campaign ID").fill("campaign-persistence-check");
 
-  // Let's click Freighter or Mock connection (if available) to connect
-  const mockOption = page.locator("button:has-text('Sandbox Mode'), button:has-text('Freighter'), [data-testid='sandbox-connect']");
-  if (await mockOption.count() > 0) {
-    await mockOption.first().click();
-    await page.waitForTimeout(1000);
-    console.log("Clicked wallet connection option");
-  } else {
-    // If not found, close sheet or overlay
-    const backdrop = page.locator("[data-testid='bottom-sheet-backdrop']");
-    if (await backdrop.count() > 0) {
-      await backdrop.first().click();
-      await page.waitForTimeout(500);
-    }
-  }
+  await page.getByTestId("app-nav-activity").click();
+  await expect(page).toHaveURL(/\/app\/activity$/);
+  await page.getByTestId("app-nav-aid").click();
+  await expect(page).toHaveURL(/\/app$/);
+  await expect(page.getByRole("heading", { name: "Merchant view" })).toBeVisible();
+  await expect(page.getByRole("tab", { name: "Field guide" })).toHaveAttribute("aria-selected", "true");
+  await expect(page.getByLabel("Campaign ID")).toHaveValue("campaign-persistence-check");
 
-  // Take screenshot of connected state
-  await page.screenshot({ path: "test-results/screenshots/screen3.png" });
-  console.log("Captured test-results/screenshots/screen3.png");
+  await page.reload({ waitUntil: "networkidle" });
+  await expect(page.getByRole("heading", { name: "Merchant view" })).toBeVisible();
+  await expect(page.getByRole("tab", { name: "Field guide" })).toHaveAttribute("aria-selected", "true");
+});
 
-  // Navigate to Send tab if it's a tab interface (it should be on SendTab by default)
-  // Let's switch to Escrow tab
-  const escrowTabBtn = page.locator("button:has-text('Escrow'), [data-testid='tab-escrow']");
-  if (await escrowTabBtn.count() > 0) {
-    await escrowTabBtn.first().click();
-    await page.waitForTimeout(500);
-    await page.screenshot({ path: "test-results/screenshots/screen5.png" });
-    console.log("Captured test-results/screenshots/screen5.png");
-  }
+test("preview is deterministic, synchronized, and non-operational", async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto(`${baseUrl}/preview`, { waitUntil: "networkidle" });
 
-  // Switch to Activity tab
-  const activityTabBtn = page.locator("button:has-text('Activity'), [data-testid='tab-activity']");
-  if (await activityTabBtn.count() > 0) {
-    await activityTabBtn.first().click();
-    await page.waitForTimeout(500);
-    await page.screenshot({ path: "test-results/screenshots/screen6.png" });
-    console.log("Captured test-results/screenshots/screen6.png");
+  await expect(page.getByRole("heading", { name: "Synchronized desktop and phone" })).toBeVisible();
+  await expect(page.getByRole("region", { name: "Desktop preview frame" })).toBeVisible();
+  await expect(page.getByRole("region", { name: "Phone preview frame" })).toBeVisible();
+  // Next.js injects a dev-tools button in development; exclude that framework chrome.
+  await expect(page.locator('button:not([data-nextjs-dev-tools-button])')).toHaveCount(0);
+  await expectNoHorizontalOverflow(page);
 
-    // Click on a transaction item to expand it
-    const txCard = page.locator("[data-testid='tx-card-tx-1']");
-    if (await txCard.count() > 0) {
-      console.log("Found transaction card, clicking to expand...");
-      await txCard.first().click();
-      await page.waitForTimeout(600); // wait for framer-motion slide animation
-      await page.screenshot({ path: "test-results/screenshots/screen6_expanded.png" });
-      console.log("Captured test-results/screenshots/screen6_expanded.png");
+  await page.setViewportSize({ width: 768, height: 900 });
+  await expect(page.getByRole("heading", { name: "Desktop-only preview" })).toBeVisible();
+  await expectNoHorizontalOverflow(page);
+});
 
-      // Verify the details are visible and clean
-      const fromDetail = page.locator("text=GBRPYHIL2CIYAOSRIWRMQHEBOZJ7PAGB37NMQ22FQGSNLUY65VOUAIV2").first();
-      await expect(fromDetail).toBeVisible();
-      console.log("Expanded details verified successfully");
-    }
-  }
-
-  // Switch to Settings tab
-  const settingsTabBtn = page.locator("button:has-text('Settings'), [data-testid='tab-settings']");
-  if (await settingsTabBtn.count() > 0) {
-    await settingsTabBtn.first().click();
-    await page.waitForTimeout(500);
-    await page.screenshot({ path: "test-results/screenshots/screen5_settings.png" });
-    console.log("Captured test-results/screenshots/screen5_settings.png");
-
-    // Click Custom slippage
-    const customSlippageBtn = page.locator("[data-testid='segmented-option-Custom']");
-    if (await customSlippageBtn.count() > 0) {
-      await customSlippageBtn.first().click();
-      await page.waitForTimeout(500);
-      console.log("Clicked Custom Slippage option");
-      
-      // Let's verify the CustomNumberInput is visible
-      const customSlippageInput = page.locator("[data-testid='settings-slippage-group'] input");
-      await expect(customSlippageInput).toBeVisible();
-      
-      // Take screenshot with Custom Slippage visible
-      await page.screenshot({ path: "test-results/screenshots/screen5_settings_custom.png" });
-      console.log("Captured test-results/screenshots/screen5_settings_custom.png");
-    }
+test("critical public and app surfaces have no serious WCAG 2.1 AA violations", async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 900 });
+  for (const route of ["/", "/app", "/preview"]) {
+    await page.goto(`${baseUrl}${route}`, { waitUntil: "networkidle" });
+    await expectNoSeriousAccessibilityViolations(page);
   }
 });
