@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=nextdotjs" alt="Next.js">
   <img src="https://img.shields.io/badge/Tailwind-v4-38bdf8?style=flat-square&logo=tailwindcss" alt="Styling">
   <img src="https://img.shields.io/badge/Rust%20Tests-18%2F18%20Passed-green?style=flat-square&logo=rust" alt="Rust Tests">
-  <img src="https://img.shields.io/badge/Vitest-59%2F59%20Passed-green?style=flat-square&logo=vitest" alt="Vitest Tests">
+  <img src="https://img.shields.io/badge/Vitest-96%2F96%20Passed-green?style=flat-square&logo=vitest" alt="Vitest Tests">
 </p>
 
 ---
@@ -25,7 +25,7 @@ Aethyr Aid addresses the last-mile accountability gap in typhoon relief. The Lev
 
 The approved scope is documented in [`docs/IDEA-SUBMISSION.md`](./docs/IDEA-SUBMISSION.md), and the implementation-ready domain model and acceptance scenarios are defined in [`docs/LEVEL-4-IMPLEMENTATION-SPEC.md`](./docs/LEVEL-4-IMPLEMENTATION-SPEC.md). Delivery gates and the August target are tracked in [`docs/PROGRESS.md`](./docs/PROGRESS.md). For a real-wallet validation session, follow [`docs/TESTNET-USER-WALKTHROUGH.md`](./docs/TESTNET-USER-WALKTHROUGH.md).
 
-> **Status:** The disaster-relief workflow is planned, not yet implemented. The repository currently contains the completed Level 3 wallet, routing, escrow, relayer, testing, and deployment foundation described below. The internal Level 4 submission deadline is **August 28, 2026**, with approval targeted by **August 31, 2026**.
+> **Status:** The Aid-first frontend revamp is implemented for `/app` and `/preview` while preserving the existing wallet, routing, escrow, Aid contract, sponsor API, and observability foundations. Backend/contracts were not changed. The internal Level 4 submission deadline is **August 28, 2026**, with approval targeted by **August 31, 2026**.
 
 ### Green Belt MVP Scope
 
@@ -67,11 +67,14 @@ The approved scope is documented in [`docs/IDEA-SUBMISSION.md`](./docs/IDEA-SUBM
   * **Automatic client fallback**: If the relayer is unconfigured or fails, the frontend transparently falls back to user-paid fees.
 
 ### Frontend (Next.js 16 / TypeScript / Tailwind v4)
+* 🧭 **Aid-first app routes**: `/app` opens the Aethyr Aid command center; `/app/aid/donor`, `/app/aid/coordinator`, `/app/aid/merchant`, and `/app/aid/verifier` open role-guided views with local-only role persistence.
+* 🧰 **Protocol tools**: Send and Escrow remain available at `/app/tools/send` and `/app/tools/escrow` with the existing handlers.
+* 🧪 **Safe preview**: `/preview` is deterministic, desktop-only, and contains no live wallet, sponsor API, contract, Send, Escrow, or Aid submission controls.
 * 🦊 **Multi-Wallet Support**: StellarWalletsKit integration supporting Freighter, Albedo, and xBull via a unified modal selector.
 * 🤖 **AI Intent Parser**: Gemini-powered natural language bar that converts human commands (e.g., *"Pay 100 XLM to GA... for Milestone 1"*) into structured transaction payloads.
-* 📱 **PWA-Ready Layout**: Full-bleed mobile UI with safe-area notch handling, glassmorphic drawers, and a desktop phone-shell mockup.
+* 📱 **Responsive Aid Design System**: One light editorial visual language across `/` and `/app`, with a desktop sidebar, mobile bottom navigation, visible focus states, reduced-motion support, and safe-area handling.
 * 🏗️ **Visual Milestone Builder**: Drag-and-edit milestone card editor for composing AI-drafted escrow milestones before on-chain submission.
-* 🧪 **59 passing Vitest tests** covering AI parsing, page integration, component rendering, and API route logic.
+* 🧪 **96 passing Vitest tests** plus nine Playwright checks covering route behavior, mounted-state persistence, deterministic preview safety, target viewports, keyboard entry, overflow, and WCAG 2.1 AA scans.
 * 🔒 **Pre-commit security hooks** scanning for Stellar private key leaks and running full test suites before every commit.
 
 ---

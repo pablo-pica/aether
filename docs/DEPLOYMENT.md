@@ -25,6 +25,22 @@ Before the Green Belt submission, the release must also record:
 
 Mainnet deployment is outside Level 4 scope and remains blocked on the Level 6 pilot and security-review gates.
 
+### Frontend route validation before deployment
+
+The Aid-first frontend keeps the public story at `/` and the operational application at `/app`. Validate the role routes, `/app/activity`, `/app/settings`, `/app/tools/send`, `/app/tools/escrow`, and the non-operational `/preview` before promoting a release. The preview is deterministic and must never import wallet, sponsor, or contract submission seams.
+
+Run:
+
+```bash
+npm test
+npm run lint
+npm run build
+# Start the production build, then run the responsive/accessibility suite:
+PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npx playwright test scripts/ui.spec.ts --workers=1
+```
+
+Do not deploy the revamp until these checks pass and the frontend diff has received review. No backend, contract, sponsorship, or wallet-serialization change is required for the presentation release.
+
 ---
 
 ## 🦊 Freighter Wallet Configuration

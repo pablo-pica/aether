@@ -5,13 +5,24 @@ This is a living document updated autonomously by agents at the end of each task
 ## ⚡ Active Task
 
 ```yaml
-Current Task: "Phase 7 Green Belt product flow"
+Current Task: "Aid-first frontend revamp"
 Assigned Agent: Builder
-Status: "Completed — Mobile Aid workspace now covers campaign administration, merchant redemption/evidence, admin emergency freeze, verifier approve/reject, and guided clean/disputed local demos; 75 Vitest tests, 18 contract tests, ESLint, and production build pass"
-Next Gate: "Phase 8 production validation: deploy MVP, monitoring/analytics, and operational-user evidence"
+Status: "Completed locally — / and /app now share the light Aid editorial system; role-guided Aid routes, secondary Protocol tools, deterministic /preview, 96 Vitest tests, ESLint, TypeScript, production build, and 9 Playwright responsive/accessibility checks pass"
+Next Gate: "Review the uncommitted frontend diff, then deploy and onboard the 10-user Testnet cohort"
 ```
 
 ---
+
+## Frontend overhaul pass 2 update
+
+- Replaced the app font foundation with Bricolage Grotesque + Manrope and refreshed motion/palette utilities.
+- Added shared `/app` App Router layout ownership through a persistent client workspace controller so route changes derive view/role from the pathname without caching wallet authority.
+- Added beginner Aid onboarding tabs covering Start here, Field guide, and Signing & safety with explicit role-vs-contract authority boundaries.
+- Added an interactive Aid accountability trail in the landing hero with keyboard focus, stage detail, subtle hover motion, and reduced-motion support.
+- Added subtle landing scroll/reveal/hover motion that respects reduced-motion settings.
+- Added route-mounted form persistence and benign local persistence for the selected onboarding guide tab.
+- Fixed selected Aid role card contrast by removing conflicting active `bg-white` styling.
+
 
 ## 📈 Level 4 Delivery Target
 
@@ -112,7 +123,7 @@ Next Gate: "Phase 8 production validation: deploy MVP, monitoring/analytics, and
 - [ ] Onboard at least 10 real operational users and collect proof of wallet interactions `[YOU]`
 - [ ] Collect basic user feedback without publishing unnecessary personal data `[YOU]`
 - [ ] Fix blocking usability, stability, and onboarding issues found during validation `[AI]`
-- [ ] Update README, architecture, deployment, user guidance, screenshots, and evidence links `[AI]`
+- [x] Update README, frontend plan, deployment notes, user guidance, and progress documentation for the Aid-first route structure `[AI]`
 - [ ] Record a live demo showing the complete clean and disputed delivery flows `[YOU]`
 
 ### 🟢 Phase 9: Green Belt Submission & Approval Buffer (August 28–31)

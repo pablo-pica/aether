@@ -16,10 +16,12 @@ Use this runbook against hardened Aid contract [`CBZKE67HDBTWIZLKZFJOMEMJSENJOUH
 
 ## 2. Start and connect
 
-1. Run `npm run dev` and open the local URL.
-2. Click **Connect Wallet**, choose Freighter, and approve the connection.
-3. Confirm that the displayed `G...` address is the expected Testnet account and that an XLM balance is shown.
-4. Switch to **Aid** in the bottom navigation. Start with **Local demo** to verify the UI before signing anything.
+1. Run `npm run dev`, open the local URL, and launch the operational workspace at `/app`.
+2. Choose the role that matches the current step—Donor, Coordinator, Merchant, or Verifier. This changes guidance only; wallet and contract permissions remain authoritative.
+3. Click **Connect Wallet**, choose Freighter, and approve the connection.
+4. Confirm that the displayed `G...` address is the expected Testnet account and that an XLM balance is shown. Start in **Local demo** to verify the Aid workflow before signing anything.
+
+The role routes are shareable: `/app/aid/donor`, `/app/aid/coordinator`, `/app/aid/merchant`, and `/app/aid/verifier`. Activity and Settings are at `/app/activity` and `/app/settings`; general Send and Escrow remain under `/app/tools/*` as secondary Protocol tools.
 
 ## 3. Test the local walkthroughs (no wallet transaction)
 
