@@ -64,8 +64,10 @@ describe("Aid-first route split", () => {
     expect(screen.getByText("Built from Bato, Camarines Sur")).toBeTruthy();
     expect(screen.getAllByText(/Beneficiaries do not need wallets/i).length).toBeGreaterThan(0);
     expect(screen.getByText(/blockchain does not verify real-world truth by itself/i)).toBeTruthy();
+    expect(screen.getAllByText("Interactive accountability trail")).toHaveLength(1);
+    expect(screen.queryByRole("heading", { name: "How Aethyr Aid works" })).toBeNull();
 
-    const workspaceLinks = screen.getAllByRole("link", { name: /workspace|open \/app/i });
+    const workspaceLinks = screen.getAllByRole("link", { name: /Launch Aethyr Aid|workspace|open \/app/i });
     expect(workspaceLinks.some((link) => link.getAttribute("href") === "/app")).toBe(true);
   });
 
@@ -80,7 +82,7 @@ describe("Aid-first route split", () => {
 
     const mobileNav = screen.getByRole("navigation", { name: "Mobile navigation" });
     expect(within(mobileNav).getByRole("link", { name: "Journey" })).toBeTruthy();
-    expect(within(mobileNav).getByRole("link", { name: "Launch workspace" }).getAttribute("href")).toBe("/app");
+    expect(within(mobileNav).getByRole("link", { name: "Launch Aethyr Aid" }).getAttribute("href")).toBe("/app");
 
     fireEvent.keyDown(document, { key: "Escape" });
     expect(menuButton.getAttribute("aria-expanded")).toBe("false");
@@ -94,6 +96,22 @@ describe("Aid-first route split", () => {
     fireEvent.click(within(screen.getByRole("navigation", { name: "Mobile navigation" })).getByRole("link", { name: "Journey" }));
 
     expect(menuButton.getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("animates FAQ answers through an accessible accordion", () => {
+    render(<LandingPage />);
+
+    const question = screen.getByRole("button", { name: "Is this a beneficiary app?" });
+    expect(question.getAttribute("aria-expanded")).toBe("false");
+    expect(screen.queryByRole("region", { name: "Is this a beneficiary app?" })).toBeNull();
+
+    fireEvent.click(question);
+    expect(question.getAttribute("aria-expanded")).toBe("true");
+    expect(screen.getByRole("region", { name: "Is this a beneficiary app?" })).toBeTruthy();
+
+    fireEvent.click(question);
+    expect(question.getAttribute("aria-expanded")).toBe("false");
+    expect(screen.queryByRole("region", { name: "Is this a beneficiary app?" })).toBeNull();
   });
 });
 
@@ -174,6 +192,8 @@ describe("preserved operational dashboard contracts", () => {
     expect(layout).toContain("Manrope");
     expect(globals).toContain("Bricolage Grotesque");
     expect(globals).toContain("prefers-reduced-motion: reduce");
+    expect(globals).toContain(".aid-app");
+    expect(globals).not.toContain('[class*="');
     expect(landing).toContain("useReducedMotion");
     expect(landing).toContain("function useMotionReady");
     expect(landing).toContain("supportsViewportObserver");
@@ -213,8 +233,17 @@ describe("preserved operational dashboard contracts", () => {
     expect(chooser).not.toContain("group min-h-48 bg-white p-5");
   });
 
-  it("retains Aid role separation and the live/demo boundary", () => {
+  it("keeps the Aid workspace grid stable at usable content widths", () => {
+    const overview = readSource("../components/workflows/aid/AidOverview.tsx");
     const aid = readSource("../components/AidTab.tsx");
+    const workspace = readSource("../components/workflows/aid/AidWorkspaceCards.tsx");
+    expect(overview).toContain("2xl:grid-cols-[230px_minmax(0,1fr)]");
+    expect(workspace).toContain("2xl:grid-cols-2");
+    expect(aid).not.toContain("workspaceOrder");
+  });
+
+  it("retains Aid role separation and the live/demo boundary", () => {
+    const aid = `${readSource("../components/AidTab.tsx")}\n${readSource("../components/workflows/aid/AidWorkspaceCards.tsx")}`;
     expect(aid).toContain("deterministic local demo — never on-chain");
     expect(aid).toContain("Live Testnet");
     expect(aid).toContain("Merchant redemption workspace");

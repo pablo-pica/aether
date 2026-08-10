@@ -55,7 +55,7 @@ export default function LandingHeader({ ctaClassName }: LandingHeaderProps) {
             </a>
           ))}
           <Link href="/app" className={ctaClassName}>
-            Launch workspace
+            Launch Aethyr Aid
           </Link>
         </nav>
 
@@ -88,7 +88,7 @@ export default function LandingHeader({ ctaClassName }: LandingHeaderProps) {
             </a>
           ))}
           <Link href="/app" onClick={closeMenu} className={`${ctaClassName} mt-2 w-full`}>
-            Launch workspace
+            Launch Aethyr Aid
           </Link>
         </nav>
       )}

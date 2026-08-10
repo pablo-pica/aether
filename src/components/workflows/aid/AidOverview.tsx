@@ -85,8 +85,8 @@ export default function AidOverview({ initialRole = null, ...aidProps }: AidOver
         </div>
       </section>
 
-      <div className="grid gap-8 lg:grid-cols-[230px_minmax(0,1fr)]">
-        <aside className="space-y-7 lg:sticky lg:top-28 lg:self-start" aria-label="Workflow guidance">
+      <div className="grid gap-8 2xl:grid-cols-[230px_minmax(0,1fr)]">
+        <aside className="space-y-7 2xl:sticky 2xl:top-28 2xl:self-start" aria-label="Workflow guidance">
           <section>
             <p className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-aid-trust-blue">
               Recommended next

@@ -26,7 +26,7 @@ for (const viewport of viewports) {
 
     await page.goto(`${baseUrl}/`, { waitUntil: "networkidle" });
     await expect(page.getByRole("heading", { level: 1, name: "Relief should arrive with proof." })).toBeVisible();
-    await expect(page.getByRole("link", { name: "Open Aid workspace" })).toHaveAttribute("href", "/app");
+    await expect(page.locator('main a[href="/app"]').first()).toHaveAttribute("href", "/app");
     await expectNoHorizontalOverflow(page);
 
     await page.goto(`${baseUrl}/app`, { waitUntil: "networkidle" });

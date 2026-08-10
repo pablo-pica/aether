@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion, MotionConfig, useReducedMotion, useScroll } from "framer-motion";
-import { ArrowRight, BadgeCheck, CircleCheck, LockKeyhole, ShieldCheck } from "lucide-react";
+import { AnimatePresence, motion, MotionConfig, useReducedMotion, useScroll } from "framer-motion";
+import { ArrowRight, BadgeCheck, ChevronDown, CircleCheck, LockKeyhole, ShieldCheck } from "lucide-react";
 import LandingHeader from "./LandingHeader";
 import {
   aidCapabilities,
@@ -49,7 +49,7 @@ function HeroSection() {
   const reveal = canAnimate ? { initial: { opacity: 0, y: 18 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: "-80px" } } : {};
 
   return (
-    <section className="relative isolate overflow-hidden">
+    <section id="journey" className="relative isolate overflow-hidden">
       <div aria-hidden="true" className="absolute inset-x-0 top-0 h-1 bg-aid-gradient-journey" />
       <div aria-hidden="true" className="absolute -left-24 top-24 h-56 w-56 rounded-full bg-aid-gold/15 blur-3xl" />
       <div aria-hidden="true" className="absolute -right-20 bottom-6 h-72 w-72 rounded-full bg-aid-teal/10 blur-3xl" />
@@ -69,7 +69,7 @@ function HeroSection() {
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
             <Link href="/app" className={primaryCta}>
-              Open Aid workspace
+              Launch Aethyr Aid
               <span className="grid h-7 w-7 place-items-center rounded-full bg-white/10 transition-transform duration-500 group-hover:translate-x-0.5">
                 <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
               </span>
@@ -82,7 +82,7 @@ function HeroSection() {
         </motion.div>
 
         <motion.div {...reveal} className="relative motion-safe-reveal">
-          <div aria-hidden="true" className="absolute -inset-3 rotate-2 rounded-[2.25rem] bg-aid-gradient-journey opacity-20" />
+          <div aria-hidden="true" className="pointer-events-none absolute -inset-2 rounded-[2.25rem] bg-aid-gradient-journey opacity-25 blur-2xl" />
           <div className="relative rounded-[2rem] bg-aid-ink p-2 shadow-[0_32px_80px_-45px_rgba(23,33,43,0.7)]">
             <div className="rounded-[calc(2rem-0.5rem)] border border-white/10 bg-[#1c2a35] p-5 sm:p-6">
               <div className="flex items-center justify-between gap-4">
@@ -100,10 +100,8 @@ function HeroSection() {
                         aria-pressed={active}
                         onClick={() => setActiveStep(index)}
                         onFocus={() => setActiveStep(index)}
-                        onHoverStart={() => setActiveStep(index)}
-                        whileHover={canAnimate ? { x: 4 } : undefined}
-                        whileTap={canAnimate ? { scale: 0.985 } : undefined}
-                        className={`flex w-full items-center gap-3 rounded-2xl px-3 py-2.5 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-aid-gold/70 ${active ? "bg-white text-aid-ink" : "text-white/72 hover:bg-white/10"}`}
+                        onPointerEnter={() => setActiveStep(index)}
+                        className={`flex w-full cursor-pointer items-center gap-3 rounded-2xl px-3 py-2.5 text-left transition-colors duration-300 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-aid-gold/70 ${active ? "bg-white text-aid-ink" : "text-white/72 hover:bg-white/10"}`}
                       >
                         <span className={`grid h-8 w-8 shrink-0 place-items-center rounded-full text-[10px] font-black ${journeyTones[index]} ${index === 3 ? "text-aid-ink" : "text-white"}`}>{index + 1}</span>
                         <span className="font-display text-base font-bold">{step}</span>
@@ -126,40 +124,51 @@ function HeroSection() {
   );
 }
 
-function JourneySection() {
-  const canAnimate = useMotionReady();
+function ProofSection() {
+  const proofPoints = [
+    {
+      label: "Balances",
+      title: "Follow the money",
+      body: "Available, reserved, and paid campaign value stay easy to distinguish.",
+    },
+    {
+      label: "Privacy",
+      title: "Keep people off-chain",
+      body: "Opaque case references and evidence digests point to private records without publishing them.",
+    },
+    {
+      label: "Review",
+      title: "Separate the decision",
+      body: "Merchant delivery, admin freezes, and verifier outcomes remain distinct responsibilities.",
+    },
+  ] as const;
+
   return (
-    <section className="border-y border-aid-ink/10 bg-white" id="journey">
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr]">
+    <section className="border-y border-aid-ink/10 bg-white">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+        <div className="grid gap-8 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
           <div>
             <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-aid-trust-blue">
-              The accountability trail
+              Proof at a glance
             </p>
             <h2 className="mt-3 font-display text-3xl font-black sm:text-4xl">
-              How Aethyr Aid works
+              Enough detail to follow the money.
             </h2>
             <p className="mt-4 max-w-md leading-7 text-aid-slate">
-              Each state change answers a practical relief question without exposing a family&apos;s
-              identity on-chain.
+              The trail stays useful for operators and donors without turning a family&apos;s recovery
+              record into public data.
             </p>
           </div>
 
-          <ol className="divide-y divide-aid-ink/10 border-y border-aid-ink/10">
-            {aidJourney.map((step, index) => (
-              <motion.li key={step} initial={canAnimate ? { opacity: 1, y: 12 } : false} whileInView={canAnimate ? { opacity: 1, y: 0 } : undefined} viewport={{ once: true }} whileHover={canAnimate ? { backgroundColor: "rgba(249,199,79,0.10)" } : undefined} className="grid gap-2 py-5 sm:grid-cols-[3rem_11rem_1fr] sm:items-baseline">
-                <span className="font-mono text-xs font-bold text-aid-slate">
-                  0{index + 1}
-                </span>
-                <h3 className="font-display text-lg font-bold">{step}</h3>
-                <p className="text-sm leading-6 text-aid-slate">
-                  {step === "Payout or Dispute"
-                    ? "A clean approval releases merchant payout. A rejection returns reserved value to the campaign and records no merchant payout."
-                    : `The ${step.toLowerCase()} step adds an attributable record to the relief trail.`}
-                </p>
-              </motion.li>
+          <div className="grid overflow-hidden rounded-3xl border border-aid-ink/10 bg-aid-ink/10 sm:grid-cols-3">
+            {proofPoints.map(({ label, title, body }, index) => (
+              <article key={label} className={`bg-aid-paper p-5 sm:p-6 ${index > 0 ? "border-t border-aid-ink/10 sm:border-l sm:border-t-0" : ""}`}>
+                <p className="font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-aid-trust-blue">{label}</p>
+                <h3 className="mt-4 font-display text-lg font-bold">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-aid-slate">{body}</p>
+              </article>
             ))}
-          </ol>
+          </div>
         </div>
       </div>
     </section>
@@ -290,18 +299,65 @@ function StellarSection() {
 }
 
 function FaqSection() {
+  const canAnimate = useMotionReady();
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
   return (
     <section id="faq" className="mx-auto max-w-4xl px-4 py-16 sm:px-6">
-      <h2 className="font-display text-3xl font-black">FAQ</h2>
+      <div className="flex items-end justify-between gap-6">
+        <div>
+          <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-aid-trust-blue">Questions before you enter</p>
+          <h2 className="mt-3 font-display text-3xl font-black">FAQ</h2>
+        </div>
+        <span className="hidden rounded-full border border-aid-ink/10 bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-aid-slate sm:inline-flex">
+          Tap to expand
+        </span>
+      </div>
       <div className="mt-6 border-t border-aid-ink/10">
-        {aidFaqs.map(({ question, answer }) => (
-          <details key={question} className="border-b border-aid-ink/10 py-5">
-            <summary className="cursor-pointer rounded-md font-bold focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-aid-gold/70">
-              {question}
-            </summary>
-            <p className="mt-3 max-w-2xl text-aid-slate">{answer}</p>
-          </details>
-        ))}
+        {aidFaqs.map(({ question, answer }, index) => {
+          const isOpen = openFaq === index;
+          const questionId = `faq-question-${index}`;
+          const answerId = `faq-answer-${index}`;
+
+          return (
+            <div key={question} className="border-b border-aid-ink/10">
+              <button
+                id={questionId}
+                type="button"
+                aria-expanded={isOpen}
+                aria-controls={isOpen ? answerId : undefined}
+                onClick={() => setOpenFaq(isOpen ? null : index)}
+                className="group flex min-h-14 w-full cursor-pointer items-center justify-between gap-4 py-5 text-left font-bold focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-aid-gold/70"
+              >
+                <span>{question}</span>
+                <motion.span
+                  aria-hidden="true"
+                  animate={canAnimate ? { rotate: isOpen ? 180 : 0 } : undefined}
+                  transition={{ duration: canAnimate ? 0.24 : 0 }}
+                  className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-aid-ink/10 text-aid-trust-blue transition-colors duration-200 group-hover:border-aid-trust-blue/40"
+                >
+                  <ChevronDown className="h-4 w-4" />
+                </motion.span>
+              </button>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    id={answerId}
+                    role="region"
+                    aria-labelledby={questionId}
+                    initial={canAnimate ? { height: 0, opacity: 0 } : false}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={canAnimate ? { height: 0, opacity: 0 } : undefined}
+                    transition={{ duration: canAnimate ? 0.28 : 0, ease: "easeOut" }}
+                    className="overflow-hidden"
+                  >
+                    <p className="max-w-2xl pb-5 pr-12 leading-7 text-aid-slate">{answer}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
@@ -321,7 +377,7 @@ function FinalCta() {
         </p>
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
           <Link href="/app" className={secondaryCta}>
-            Open /app
+            Launch Aethyr Aid
             <ArrowRight aria-hidden="true" className="h-4 w-4" />
           </Link>
           <Link href="/preview" className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/25 px-5 py-3 text-sm font-bold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-aid-gold/70">
@@ -342,7 +398,7 @@ export default function LandingPage() {
       <LandingHeader ctaClassName={primaryCta} />
       <main>
         <HeroSection />
-        <JourneySection />
+        <ProofSection />
         <OriginAndCapabilities />
         <RolesSection />
         <ScenarioSection />
