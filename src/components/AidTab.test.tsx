@@ -3,7 +3,20 @@ import fs from "fs";
 import path from "path";
 
 describe("AidTab live/demo lifecycle contract", () => {
-  const source = () => fs.readFileSync(path.resolve(__dirname, "./AidTab.tsx"), "utf-8");
+  const aidTabSource = () => fs.readFileSync(path.resolve(__dirname, "./AidTab.tsx"), "utf-8");
+  const workspaceSource = () => {
+    const workspacePath = path.resolve(__dirname, "./workflows/aid/AidWorkspaceCards.tsx");
+    return fs.existsSync(workspacePath) ? fs.readFileSync(workspacePath, "utf-8") : "";
+  };
+  const source = () => `${aidTabSource()}\n${workspaceSource()}`;
+
+  it("keeps workspace cards out of the stateful controller", () => {
+    expect(aidTabSource()).toContain('import AidWorkspaceCards from "./workflows/aid/AidWorkspaceCards"');
+    expect(aidTabSource()).not.toContain("Admin bootstrap workspace");
+    expect(workspaceSource()).toContain("function AdminBootstrapCard");
+    expect(workspaceSource()).toContain("function MerchantRedemptionCard");
+    expect(workspaceSource()).toContain("function VerifierReviewCard");
+  });
 
   it("keeps deterministic local-demo accounting honest and outcome-visible", () => {
     const content = source();
@@ -58,7 +71,7 @@ describe("AidTab live/demo lifecycle contract", () => {
 
   it("uses the app's shared tab primitives and accessible field treatment", () => {
     const content = source();
-    expect(content).toContain('import SegmentedControl from "./ui/SegmentedControl"');
+    expect(content).toContain('import SegmentedControl from "@/components/ui/SegmentedControl"');
     expect(content).toContain('className="space-y-6" data-testid="aid-tab-root"');
     expect(content).toContain('className={surfaceCardClassName}');
     expect(content).not.toContain("glass-card");
@@ -72,6 +85,8 @@ describe("AidTab live/demo lifecycle contract", () => {
     expect(content).toContain('const redActionButtonClassName = "ml-auto h-9 w-fit rounded-full');
     expect(content).toContain('onClick={() => decide(ClaimDecision.Approve)} className={primaryButtonClassName}');
     expect(content).toContain('onClick={fund} className={formActionButtonClassName}');
-    expect(content).toContain('className="grid grid-cols-1 gap-2 sm:grid-cols-2"><button type="button" onClick={() => startWalkthrough("clean")} disabled={!!pending} className={formActionButtonClassName}');
+    expect(content).toContain('onClick={() => startWalkthrough("clean")}');
+    expect(content).toContain('onClick={() => startWalkthrough("disputed")}');
+    expect(content).toContain('onClick={advanceWalkthrough}');
   });
 });
