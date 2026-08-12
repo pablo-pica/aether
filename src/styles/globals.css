@@ -211,92 +211,76 @@ body {
   background: #277da1;
 }
 
-/* The operational components retain their tested behavior while the app shell
-   remaps the former dark protocol palette into the Aid editorial system. */
-.aethyr-app .glass-card,
-.aethyr-app .glass-panel {
-  background: #ffffff;
-  border-color: rgba(23, 33, 43, 0.12);
+/* The app shell uses a semantic Aid theme scope. Retained protocol utility
+   names resolve through these tokens instead of broad class-attribute rewrites. */
+.aid-app {
+  --aid-surface: #ffffff;
+  --aid-border-soft: #d8e3e7;
+  --aid-ink: #17212b;
+  --aid-muted: #577590;
+  --aid-trust: #216b8c;
+  --aid-teal: #43aa8b;
+  --aid-gold: #f9c74f;
+  --aid-success: #3f6f31;
+  --aid-warning: #7a4c00;
+  --aid-danger: #a61b24;
+
+  --color-space-950: var(--aid-surface);
+  --color-space-900: var(--aid-surface);
+  --color-space-850: var(--aid-surface);
+  --color-space-800: var(--aid-surface);
+  --color-space-700: var(--aid-border-soft);
+  --color-slate-900: var(--aid-surface);
+  --color-slate-800: var(--aid-border-soft);
+  --color-slate-700: var(--aid-border-soft);
+  --color-slate-100: var(--aid-ink);
+  --color-slate-200: var(--aid-ink);
+  --color-slate-300: var(--aid-ink);
+  --color-slate-400: var(--aid-muted);
+  --color-slate-500: var(--aid-muted);
+  --color-slate-600: var(--aid-muted);
+  --color-teal-950: var(--aid-surface);
+  --color-teal-500: var(--aid-trust);
+  --color-teal-400: var(--aid-trust);
+  --color-teal-300: var(--aid-trust);
+  --color-cyan-500: var(--aid-trust);
+  --color-cyan-400: var(--aid-trust);
+  --color-indigo-500: var(--aid-trust);
+  --color-indigo-400: var(--aid-trust);
+  --color-purple-500: var(--aid-trust);
+  --color-purple-400: var(--aid-trust);
+  --color-sky-500: var(--aid-trust);
+  --color-primary-cyan: var(--aid-teal);
+  --color-primary-indigo: var(--aid-trust);
+  --color-primary-indigo-dark: #1a536d;
+  --color-emerald-600: var(--aid-success);
+  --color-emerald-500: #90be6d;
+  --color-emerald-400: var(--aid-success);
+  --color-amber-600: #d99a16;
+  --color-amber-500: var(--aid-gold);
+  --color-amber-400: var(--aid-warning);
+  --color-amber-300: var(--aid-warning);
+  --color-red-950: var(--aid-surface);
+  --color-red-900: #7c151c;
+  --color-red-700: var(--aid-danger);
+  --color-red-600: #8d1620;
+  --color-red-500: var(--aid-danger);
+  --color-red-400: var(--aid-danger);
+  --color-red-50: #fff1f2;
+}
+
+.aid-app .glass-card,
+.aid-app .glass-panel {
+  background: var(--aid-surface);
+  border-color: color-mix(in srgb, var(--aid-ink) 12%, transparent);
   box-shadow: none;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
 
-.aethyr-app [class*="bg-space-"],
-.aethyr-app [class*="bg-slate-9"],
-.aethyr-app [class*="bg-red-950"],
-.aethyr-app [class*="bg-teal-950"] {
-  background-color: #ffffff !important;
-}
-
-.aethyr-app [class*="border-space-"],
-.aethyr-app [class*="border-slate-7"],
-.aethyr-app [class*="border-slate-8"] {
-  border-color: rgba(23, 33, 43, 0.14) !important;
-}
-
-.aethyr-app [class*="text-slate-1"],
-.aethyr-app [class*="text-slate-2"],
-.aethyr-app [class*="text-slate-3"] {
-  color: #17212b !important;
-}
-
-.aethyr-app [class*="text-slate-4"],
-.aethyr-app [class*="text-slate-5"],
-.aethyr-app [class*="text-slate-6"] {
-  color: #577590 !important;
-}
-
-.aethyr-app [class*="text-teal-"],
-.aethyr-app [class*="text-cyan-"],
-.aethyr-app [class*="text-indigo-"],
-.aethyr-app [class*="text-purple-"],
-.aethyr-app [class*="text-primary-indigo"] {
-  color: #216b8c !important;
-}
-
-.aethyr-app [class*="text-sky-"] {
-  color: #216b8c !important;
-}
-
-.aethyr-app [class*="bg-purple-"] {
-  background-color: rgba(33, 107, 140, 0.08) !important;
-}
-
-.aethyr-app [class*="border-purple-"] {
-  border-color: rgba(33, 107, 140, 0.28) !important;
-}
-
-.aethyr-app .bg-teal-500,
-.aethyr-app .bg-primary-indigo {
-  background-color: #216b8c !important;
-}
-
-.aethyr-app .from-primary-cyan,
-.aethyr-app .from-teal-400 {
-  --tw-gradient-from: #43aa8b var(--tw-gradient-from-position) !important;
-  --tw-gradient-to: rgb(67 170 139 / 0) var(--tw-gradient-to-position) !important;
-}
-
-.aethyr-app .to-primary-indigo {
-  --tw-gradient-to: #216b8c var(--tw-gradient-to-position) !important;
-}
-
-.aethyr-app [class*="text-emerald-"] {
-  color: #3f6f31 !important;
-}
-
-.aethyr-app [class*="text-amber-"] {
-  color: #7a4c00 !important;
-}
-
-.aethyr-app [class*="text-red-"] {
-  color: #a61b24 !important;
-}
-
-.aethyr-app input,
-.aethyr-app select,
-.aethyr-app textarea {
+.aid-app input,
+.aid-app select,
+.aid-app textarea {
   color-scheme: light;
 }
 

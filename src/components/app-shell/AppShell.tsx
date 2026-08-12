@@ -38,7 +38,7 @@ export default function AppShell({ activeView, walletSlot, children }: AppShellP
 
   return (
     <div
-      className="aethyr-app min-h-[100dvh] bg-aid-paper text-aid-ink md:grid md:grid-cols-[220px_1fr] xl:grid-cols-[280px_1fr]"
+      className="aid-app min-h-[100dvh] bg-aid-paper text-aid-ink md:grid md:grid-cols-[220px_1fr] xl:grid-cols-[280px_1fr]"
       data-testid="app-shell"
     >
       <a
