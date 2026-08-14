@@ -7,7 +7,7 @@ This is a living document updated autonomously by agents at the end of each task
 ```yaml
 Current Task: "Aid-first frontend revamp"
 Assigned Agent: Builder
-Status: "Completed locally — / and /app now share the light Aid editorial system; role-guided Aid routes, secondary Protocol tools, deterministic /preview, 96 Vitest tests, ESLint, TypeScript, production build, and 9 Playwright responsive/accessibility checks pass"
+Status: "Completed locally — / and /app now share the light Aid editorial system; role-guided Aid routes, secondary Protocol tools, deterministic /preview, 99 Vitest tests, ESLint, TypeScript, production build, 9 Playwright responsive/accessibility checks, and 8 Aid visual baselines pass"
 Next Gate: "Review the uncommitted frontend diff, then deploy and onboard the 10-user Testnet cohort"
 ```
 
@@ -22,6 +22,9 @@ Next Gate: "Review the uncommitted frontend diff, then deploy and onboard the 10
 - Added subtle landing scroll/reveal/hover motion that respects reduced-motion settings.
 - Added route-mounted form persistence and benign local persistence for the selected onboarding guide tab.
 - Fixed selected Aid role card contrast by removing conflicting active `bg-white` styling.
+- Polished the landing hierarchy by keeping the accountability trail in the hero, adding a proof-at-a-glance section, animating the FAQ accordion, and standardizing the `Launch Aethyr Aid` CTA.
+- Stabilized Aid workspace cards at desktop widths by delaying the side guidance/two-column form layout until `2xl`.
+- Extracted the Aid workspace cards into focused presentational components, added desktop/mobile visual baselines for every Aid role route, and replaced broad palette attribute selectors with the scoped semantic `.aid-app` theme tokens.
 
 
 ## 📈 Level 4 Delivery Target
