@@ -21,7 +21,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # jsdom 30 and its undici dependency require Node 22.22.2+.
+          node-version: 22.22.2
           cache: 'npm'
 
       - name: Install dependencies

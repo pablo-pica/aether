@@ -338,7 +338,7 @@ Follow these instructions to run Aethyr locally on your development machine.
 
 ### 1. Prerequisites
 Ensure you have the following installed:
-* **Node.js**: v20 or later
+* **Node.js**: v22.22.2 or later
 * **npm**: v10 or later
 * **Rust / Cargo**: For compiling Soroban contracts
 * **Stellar CLI** (Optional, for contract invokes): `cargo install --locked stellar-cli`

@@ -91,7 +91,7 @@ graph TD
 ## 🚀 Quick Start (Local Setup)
 
 ### 1. Prerequisites
-Ensure you have Rust, Node.js (v20+), and Cargo installed.
+Ensure you have Rust, Node.js (v22.22.2+), and Cargo installed.
 
 ```bash
 # Install Stellar CLI
