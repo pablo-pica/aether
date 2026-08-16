@@ -1,11 +1,11 @@
-# Aethyr Hero Banner
+# Aethyr Aid Hero Banner
 <p align="center">
-  <img src="docs/assets/banner.png" alt="Aethyr Banner" width="100%" />
+  <img src="docs/assets/banner.png" alt="Aethyr Aid banner" width="100%" />
 </p>
 
-<h1 align="center">🌌 Aethyr</h1>
+<h1 align="center">🌌 Aethyr Aid</h1>
 <p align="center">
-  <strong>Aethyr Aid — Verified Typhoon Relief Payments on Stellar</strong>
+  <strong>Verified Typhoon Relief Payments on Stellar</strong>
 </p>
 
 <p align="center">
@@ -13,39 +13,36 @@
   <img src="https://img.shields.io/badge/Stellar-Testnet-blue?style=flat-square&logo=stellar" alt="Network">
   <img src="https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=nextdotjs" alt="Next.js">
   <img src="https://img.shields.io/badge/Tailwind-v4-38bdf8?style=flat-square&logo=tailwindcss" alt="Styling">
-  <img src="https://img.shields.io/badge/Rust%20Tests-18%2F18%20Passed-green?style=flat-square&logo=rust" alt="Rust Tests">
-  <img src="https://img.shields.io/badge/Vitest-96%2F96%20Passed-green?style=flat-square&logo=vitest" alt="Vitest Tests">
+  <img src="https://img.shields.io/badge/Rust%20Tests-19%2F19%20Passed-green?style=flat-square&logo=rust" alt="Rust Tests">
+  <img src="https://img.shields.io/badge/Vitest-99%2F99%20Passed-green?style=flat-square&logo=vitest" alt="Vitest Tests">
 </p>
 
 ---
 
-## 💡 Approved Product Direction
+## 💡 Aethyr Aid — Current Level 4 Implementation
 
-Aethyr Aid addresses the last-mile accountability gap in typhoon relief. The Level 4 MVP will let donors fund campaign escrows, NGO/admin operators issue purpose-bound vouchers to beneficiary case IDs, approved local merchants submit delivery evidence, admins emergency-freeze disputed claims, and independent verifiers approve or reject payouts and resolve frozen claims. Beneficiaries will not need crypto wallets; sensitive personal data and raw evidence will remain off-chain.
+Aethyr Aid is a Stellar Testnet workflow for accountable typhoon-relief delivery. Donors fund token-backed campaign pools; admins manage campaigns, merchants, beneficiary case references, and vouchers; approved merchants redeem assigned vouchers with evidence attestations; and independent verifiers make the final payout or rejection decision. Beneficiaries have no wallet role. Raw evidence and personal data stay off-chain; the contract stores only opaque IDs and content digests.
 
-The approved scope is documented in [`docs/IDEA-SUBMISSION.md`](./docs/IDEA-SUBMISSION.md), and the implementation-ready domain model and acceptance scenarios are defined in [`docs/LEVEL-4-IMPLEMENTATION-SPEC.md`](./docs/LEVEL-4-IMPLEMENTATION-SPEC.md). Delivery gates and the August target are tracked in [`docs/PROGRESS.md`](./docs/PROGRESS.md). For a real-wallet validation session, follow [`docs/TESTNET-USER-WALKTHROUGH.md`](./docs/TESTNET-USER-WALKTHROUGH.md).
+The current implementation includes campaign funding and accounting, merchant approval, privacy-preserving case references, voucher issuance and redemption, append-only evidence during a freeze, admin emergency freezes, verifier-only approval/rejection, and atomic merchant payout. The hardened contract also prevents a verifier from approving that verifier's own merchant claim. Every live action is on Stellar Testnet; the app provides deterministic local clean and disputed walkthroughs before a user signs a transaction.
 
-> **Status:** The Aid-first frontend revamp is implemented for `/app` and `/preview` while preserving the existing wallet, routing, escrow, Aid contract, sponsor API, and observability foundations. Backend/contracts were not changed. The internal Level 4 submission deadline is **August 28, 2026**, with approval targeted by **August 31, 2026**.
+> **Status:** The Aid contract, Aid-first operational workspace, role-guided routes, Testnet workflow, production deployment, and privacy-conscious telemetry are implemented. Current validation work is collecting 10 distinct real-wallet interactions, feedback, and a recorded live demo. Mainnet, beneficiary wallets, identity/KYC, token conversion, and automatic payout are out of scope.
 
-### Green Belt MVP Scope
+### Start here
 
-- Campaign escrow and donation allocation.
-- Approved merchant/cooperative registry.
-- Beneficiary case IDs without on-chain personal data.
-- Purpose-bound voucher issuance and merchant redemption.
-- Evidence digest plus opaque-ID submission, admin emergency freeze, and verifier-only approval, rejection, and frozen-claim resolution.
-- One end-to-end clean delivery and one disputed delivery in the demo.
-- Production deployment, monitoring/analytics, 10 real operational wallet users, and basic feedback evidence.
+- **Public site:** [`/`](https://aethyr-pica.vercel.app/) explains the product; [`/app`](https://aethyr-pica.vercel.app/app) opens the operational workspace.
+- **Roles:** Donor, Coordinator/Admin, Merchant/Cooperative, and Verifier have guided routes at `/app/aid/*`; authorization remains enforced by the connected wallet and contract.
+- **Test safely:** Start in **Local demo**, then select **Live Testnet** and connect Freighter only when ready to sign. Never use Mainnet funds or enter real beneficiary data.
+- **Validation guide:** [`docs/TESTNET-USER-WALKTHROUGH.md`](./docs/TESTNET-USER-WALKTHROUGH.md) documents setup, clean and disputed flows, negative checks, and privacy-safe evidence collection.
+- **Implementation detail:** [`docs/LEVEL-4-IMPLEMENTATION-SPEC.md`](./docs/LEVEL-4-IMPLEMENTATION-SPEC.md) defines the state machines, authorization, accounting invariants, and privacy boundary. [`docs/PROGRESS.md`](./docs/PROGRESS.md) tracks remaining validation work.
 
 ---
 
-## 🏆 Implemented Level 3 Foundation
+## 🏆 Implemented Contracts and Application
 
 ### Smart Contract System (Soroban / Rust)
-* 🔐 **Aethyr Aid Contract** — Purpose-bound aid delivery, merchant registry, opaque beneficiary cases, vouchers, evidence digests, admin emergency freeze, and verifier resolution.
-  * **Address**: [`CDERJSFS75XYBXJOZYOJA62T4GFHSJZAM34D4OAXNSPOFSAUPWEQ3BST`](https://stellar.expert/explorer/testnet/contract/CDERJSFS75XYBXJOZYOJA62T4GFHSJZAM34D4OAXNSPOFSAUPWEQ3BST)
-  * **Deployment Tx**: [`0b48000a46b3a6...`](https://stellar.expert/explorer/testnet/tx/0b48000a46b3a63465f7eaaecd49915bd13aa095d6981f59e2107a875ba93593)
-  * **Initialization Tx**: [`831184035d160a...`](https://stellar.expert/explorer/testnet/tx/831184035d160a9cf88a1532c59fa28a4ca661890d254b159efa65db7b811828)
+* 🔐 **Aethyr Aid Contract — current validation target** — Purpose-bound aid delivery with campaign custody, merchant registry, opaque beneficiary cases, vouchers, evidence attestations, emergency freeze, independent verifier resolution, and atomic payout.
+  * **Hardened Testnet address**: [`CBZKE67HDBTWIZLKZFJOMEMJSENJOUHJVBURYED5M7VYUQCPJH5VOVIC`](https://stellar.expert/explorer/testnet/contract/CBZKE67HDBTWIZLKZFJOMEMJSENJOUHJVBURYED5M7VYUQCPJH5VOVIC)
+  * **Important:** Do not use the historical Aid deployment listed in older submission material; it predates the verifier self-approval guard. Deployment and validation evidence are in [`docs/DEPLOYMENT.md`](./docs/DEPLOYMENT.md).
 * 🔐 **Aethyr Router Contract** — Multi-hop DEX routing with atomic swaps and direct escrow funding.
   * **Address**: [`CA5ZEROS4VGIOZ2MIDVV7C7W4DFKWE76P4KBG455KO26RPKD2W3TC6MM`](https://stellar.expert/explorer/testnet/contract/CA5ZEROS4VGIOZ2MIDVV7C7W4DFKWE76P4KBG455KO26RPKD2W3TC6MM)
   * **Deployment Tx**: [`8ffea29ec2c445...`](https://stellar.expert/explorer/testnet/tx/8ffea29ec2c44577cfbc00a4c34b251a5e20a72c063a1ebf28dc0512cb78c01d)
@@ -58,7 +55,7 @@ The approved scope is documented in [`docs/IDEA-SUBMISSION.md`](./docs/IDEA-SUBM
   * **7-day auto-release** timer for uncontested submitted milestones.
   * **30-day refund lock** to protect against dispute-bypassing refund attacks.
   * **Dust-truncation protection**: Final milestone payouts use the remaining locked balance instead of basis-point division to prevent token dust loss.
-  * **18 passing Rust contract tests** covering happy paths, edge cases, aid delivery, and panic guards.
+  * **19 passing Rust contract tests** across the Aid, Escrow, and Router crates, covering clean and disputed delivery, authorization, accounting, and historical foundation behavior.
 
 ### Gasless Fee Sponsorship Relayer
 * ⛽ **`/api/sponsor` Endpoint** — Server-side fee-bump transaction relayer that pays Soroban gas fees on behalf of users:
@@ -74,40 +71,43 @@ The approved scope is documented in [`docs/IDEA-SUBMISSION.md`](./docs/IDEA-SUBM
 * 🤖 **AI Intent Parser**: Gemini-powered natural language bar that converts human commands (e.g., *"Pay 100 XLM to GA... for Milestone 1"*) into structured transaction payloads.
 * 📱 **Responsive Aid Design System**: One light editorial visual language across `/` and `/app`, with a desktop sidebar, mobile bottom navigation, visible focus states, reduced-motion support, and safe-area handling.
 * 🏗️ **Visual Milestone Builder**: Drag-and-edit milestone card editor for composing AI-drafted escrow milestones before on-chain submission.
-* 🧪 **96 passing Vitest tests** plus nine Playwright checks covering route behavior, mounted-state persistence, deterministic preview safety, target viewports, keyboard entry, overflow, and WCAG 2.1 AA scans.
+* 🧪 **99 passing Vitest tests** covering Aid lifecycle state, wallet submission, role-guided routes, privacy-aware observability, deterministic preview safety, and core UI behavior; the repository also includes Playwright responsive/accessibility checks.
 * 🔒 **Pre-commit security hooks** scanning for Stellar private key leaks and running full test suites before every commit.
 
 ---
 
 ## 🎬 Live Demo & Presentation
 
-* 🌐 **Live Application**: [Aethyr on Vercel](https://aethyr-pica.vercel.app/)
-* 🎥 **Video Walkthrough**: [Aethyr Walkthrough Video (YouTube)](https://www.youtube.com/watch?v=F_bBEHbHh0A) | [Local Walkthrough Video (MP4)](./docs/assets/video_demo.mp4)
+* 🌐 **Live Application**: [Aethyr Aid on Vercel](https://aethyr-pica.vercel.app/)
+* 🎥 **Video Walkthrough**: [Aethyr Aid Walkthrough Video (YouTube)](https://www.youtube.com/watch?v=F_bBEHbHh0A) | [Local Walkthrough Video (MP4)](./docs/assets/video_demo.mp4)
 
 ---
 
-## 🏗️ Current Level 3 System Architecture
+## 🏗️ Current Aethyr Aid Architecture
 
-The currently implemented application connects users, the optional AI parser, and the existing Stellar contracts. The planned voucher architecture is documented separately in [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md).
+The public site lives at `/`; the operational workspace lives at `/app`. The workflow may be explored with local deterministic data, then performed with distinct Testnet wallets. The Aid contract is separate from the historical Router and Escrow contracts, which do not participate in the Level 4 voucher lifecycle.
 
 ```mermaid
 graph TD
-    User([User]) -->|Inputs Command / Form| UI[PWA Frontend]
-    UI -->|Queries DEX Liquidity| Pathfinder[Pathfinder Engine]
-    UI -->|Optional: Text Command| AI[Gemini Intent Parser]
-    AI -->|Structured Params| UI
-    Pathfinder -->|Best Route resolved| UI
-    UI -->|Signs Tx| Wallet[StellarWalletsKit / Freighter]
-    Wallet -->|Submits Signed XDR| Relayer["/api/sponsor Gasless Relayer"]
-    Relayer -->|Fee-Bump + Submit| RPC[Soroban Testnet RPC]
-    Relayer -.->|Fallback: Direct Submit| RPC
-    RPC -->|Executes| RouterContract[Aethyr Router Contract]
-    RouterContract -->|Inter-Contract Call| EscrowContract[Aethyr Escrow Contract]
-    RouterContract -->|Executes Swaps| DEX[Stellar DEX Pools]
-    EscrowContract -->|Milestone Payout| Receiver([Recipient])
+    Public[Public site /] --> Workspace[Operational workspace /app]
+    Workspace --> Demo[Local clean or disputed walkthrough<br/>never on-chain]
+    Workspace --> Roles[Role-guided Testnet actions]
+    Roles --> Donor[Donor funds campaign]
+    Roles --> Admin[Admin manages campaign, merchants, cases, and vouchers<br/>and may freeze a redeemed claim]
+    Roles --> Merchant[Approved merchant redeems assigned voucher<br/>with an opaque evidence record]
+    Roles --> Verifier[Independent verifier approves or rejects]
+    Donor --> Wallet[Connected Stellar wallet]
+    Admin --> Wallet
+    Merchant --> Wallet
+    Verifier --> Wallet
+    Wallet --> Submit[Direct submission or optional fee sponsorship]
+    Submit --> RPC[Soroban Testnet RPC]
+    RPC --> Aid[Aethyr Aid contract]
+    Aid --> Outcome[Atomic payout or reservation release]
+    Evidence[Raw evidence and personal data<br/>access-controlled off-chain] -. digest and opaque ID only .-> Aid
 ```
 
-The client queries Horizon endpoints to identify active market makers while the Soroban smart contracts execute atomic, multi-hop swaps directly on-chain. The gasless relayer sponsors transaction fees so end-users pay zero gas costs.
+The contract enforces authorization, one-way state transitions, campaign reservations, payout conservation, and the verifier self-approval guard. Frontend role selection provides guidance only; it never grants authority.
 
 ---
 
@@ -123,20 +123,25 @@ aethyr/
 ├── contracts/               # Soroban smart contracts (Rust)
 │   └── aethyr-router/
 │       ├── contracts/
-│       │   ├── aethyr-escrow/   # Milestone escrow: create, release, dispute, auto-release, refund
-│       │   │   ├── src/lib.rs   # Core escrow contract logic
-│       │   │   └── src/test.rs  # 7 comprehensive Rust tests
-│       │   └── aethyr-router/   # DEX routing: swap, fallback, route-to-escrow
-│       │       ├── src/lib.rs   # Core router contract logic
-│       │       └── src/test.rs  # 4 comprehensive Rust tests
+│       │   ├── aethyr-aid/      # Current Level 4 aid lifecycle contract
+│       │   │   ├── src/lib.rs   # Campaign, voucher, evidence, freeze, and verifier actions
+│       │   │   └── src/test.rs  # Clean, disputed, authorization, and accounting tests
+│       │   ├── aethyr-escrow/   # Historical milestone-escrow foundation
+│       │   │   ├── src/lib.rs
+│       │   │   └── src/test.rs
+│       │   └── aethyr-router/   # Historical routing foundation; not used by Aid vouchers
+│       │       ├── src/lib.rs
+│       │       └── src/test.rs
 │       └── Cargo.toml           # Workspace manifest
 ├── docs/                    # Design documentation, architecture files, and submission assets
 │   ├── assets/              # Interface screenshots and project banners
-│   ├── IDEA-SUBMISSION.md   # Approved Aethyr Aid product direction
-│   ├── ARCHITECTURE.md      # Implemented foundation + specified voucher architecture
-│   ├── LEVEL-4-IMPLEMENTATION-SPEC.md # Domain model, invariants, tests, evidence plan
+│   ├── IDEA-SUBMISSION.md   # Original approved product direction
+│   ├── ARCHITECTURE.md      # Historical foundation and architecture notes
+│   ├── LEVEL-4-IMPLEMENTATION-SPEC.md # Aid domain model, invariants, and test plan
+│   ├── TESTNET-USER-WALKTHROUGH.md # Current live-Testnet validation runbook
+│   ├── DEPLOYMENT.md        # Hardened contract and deployment guidance
 │   ├── BELT-REQUIREMENTS.md # JTM belt submission checklists through Level 6
-│   ├── PROGRESS.md          # Living progress tracker and August Level 4 gates
+│   ├── PROGRESS.md          # Living Level 4 validation tracker
 │   └── MASTERPLAN.md        # Product strategy, scope, and belt roadmap
 ├── scripts/
 │   └── pre-commit.sh        # Git compliance hook (secret scanning + test runner)
@@ -145,10 +150,14 @@ aethyr/
 │   │   ├── api/sponsor/     # Gasless relayer API route
 │   │   │   ├── route.ts     # Fee-bump builder with contract whitelisting + rate limiting
 │   │   │   └── route.test.ts# Relayer unit tests
-│   │   ├── page.tsx         # Main entry point (interactive mobile mockup container)
-│   │   ├── page.test.tsx    # Page component integration tests
+│   │   ├── page.tsx         # Public Aethyr Aid landing page
+│   │   ├── app/             # Operational workspace, role routes, activity, settings, and tools
+│   │   ├── preview/         # Deterministic non-operational preview
+│   │   ├── page.test.tsx    # Landing-page integration tests
 │   │   └── layout.tsx       # Global wrappers and metadata setup
 │   ├── components/          # Reusable React components
+│   │   ├── app-shell/       # Workspace routing, role persistence, and wallet controller
+│   │   ├── workflows/aid/   # Aid overview, role chooser, and lifecycle action cards
 │   │   ├── ui/              # BottomSheet, CustomNumberInput, SegmentedControl, ConfirmationDialog, Toast, InfoTooltip
 │   │   ├── BottomNav.tsx    # Mobile-friendly PWA bottom tab navigation
 │   │   ├── MilestoneBuilder.tsx # Visual milestone card editor
@@ -175,13 +184,13 @@ aethyr/
 ```
 
 ### Key Implementation Files
-* [page.tsx](./src/app/page.tsx): Primary container UI with tabs, forms, activity ledger, and milestone actions.
-* [lib.rs (Escrow)](./contracts/aethyr-router/contracts/aethyr-escrow/src/lib.rs): Milestone escrow logic — create, release, submit, dispute, auto-release, refund.
-* [lib.rs (Router)](./contracts/aethyr-router/contracts/aethyr-router/src/lib.rs): Payment routing contract — DEX swaps and escrow funding.
-* [useStellarWallet.ts](./src/hooks/useStellarWallet.ts): Full-featured wallet hook — multi-wallet, contract calls, gasless relayer integration with exponential backoff.
-* [route.ts (Sponsor)](./src/app/api/sponsor/route.ts): Gasless relayer with contract whitelisting and rate limiting.
-* [aiParser.ts](./src/lib/aiParser.ts): Gemini AI intent parser converting natural language to structured payloads.
-* [MilestoneBuilder.tsx](./src/components/MilestoneBuilder.tsx): Visual milestone card editor.
+* [Aethyr Aid contract](./contracts/aethyr-router/contracts/aethyr-aid/src/lib.rs): Campaign custody, merchant registry, privacy-safe cases, voucher lifecycle, evidence attestations, freezes, and verifier decisions.
+* [Aid contract tests](./contracts/aethyr-router/contracts/aethyr-aid/src/test.rs): Clean and disputed delivery, authorization separation, replay protection, conservation, and TTL coverage.
+* [Aid workspace](./src/components/workflows/aid/AidWorkspaceCards.tsx): Local walkthrough and Live Testnet lifecycle controls.
+* [App workspace controller](./src/components/app-shell/AppWorkspaceController.tsx): Connected-wallet state and Aid action wiring.
+* [useStellarWallet.ts](./src/hooks/useStellarWallet.ts): Wallet connection, Aid contract calls, direct submission, and optional sponsored submission.
+* [route.ts (Sponsor)](./src/app/api/sponsor/route.ts): Optional fee sponsor with contract allowlisting and rate limiting.
+* [lib.rs (Escrow)](./contracts/aethyr-router/contracts/aethyr-escrow/src/lib.rs) and [lib.rs (Router)](./contracts/aethyr-router/contracts/aethyr-router/src/lib.rs): Historical Level 3 foundation, retained for reference but not in the Aid voucher lifecycle.
 * [pre-commit.sh](./scripts/pre-commit.sh): Git compliance hook — secret scanning and full test runner.
 
 ---
@@ -196,6 +205,9 @@ aethyr/
 | **Dust token loss** on final milestone | Final milestone pays out full remaining balance instead of basis-point calculation |
 | **Private key leaks** | Pre-commit hook scans diffs for Stellar seed patterns; `SPONSOR_SECRET_KEY` is never committed |
 | **Unconfigured relayer in production** | Fail-fast `503` if `SPONSOR_SECRET_KEY` is absent; random fallback key only in `test` env |
+| **Verifier self-approval** | The Aid contract rejects a verifier decision for a voucher redeemed by that verifier's merchant address |
+| **Unauthorized operational action** | Contract authorization keeps donor, admin, merchant, and verifier permissions separate; the frontend role view is guidance only |
+| **Personal data on-chain or in public telemetry** | Only opaque IDs and evidence/reason digests are used in Aid actions; raw evidence and personal data remain off-chain |
 
 ---
 
