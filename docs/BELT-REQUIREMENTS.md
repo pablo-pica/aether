@@ -95,34 +95,36 @@ This file contains working audit checklists for the **Stellar Journey to Mastery
 
 ## 🟢 Green Belt Requirements (Level 4)
 
+> **Audit status (2026-08-22):** The technical MVP, 10+ user/feedback gates, observability evidence, and current desktop/mobile product screenshots are complete. The complete form export and reviewer-friendly summary are included in the repository at [`docs/GREEN-BELT-USER-TEST-RAW.csv`](./GREEN-BELT-USER-TEST-RAW.csv) and [`docs/GREEN-BELT-FEEDBACK-SUMMARY.md`](./GREEN-BELT-FEEDBACK-SUMMARY.md). Only the final live demo remains as an operator artifact; RiseIn reviewers evaluate the four quality characteristics from the README and demo after submission. Do not treat local demo activity as wallet or Testnet evidence.
+
 ### Production MVP
-- [ ] Fully functional production-ready MVP.
-- [ ] Stable frontend and smart-contract architecture.
-- [ ] Mobile-responsive UI.
-- [ ] Proper loading states and error handling.
+- [x] Fully functional production-ready MVP (technical scope) — feature-complete Aid workspace with clean and disputed lifecycle paths; see [`docs/LEVEL-4-IMPLEMENTATION-SPEC.md`](./LEVEL-4-IMPLEMENTATION-SPEC.md).
+- [x] Stable frontend and smart-contract architecture — [`src/components/workflows/aid/`](../src/components/workflows/aid/) and [`contracts/aethyr-router/contracts/aethyr-aid/`](../contracts/aethyr-router/contracts/aethyr-aid/).
+- [x] Mobile-responsive UI — responsive Playwright coverage in [`scripts/ui.spec.ts`](../scripts/ui.spec.ts) and Aid visual baselines in [`scripts/aid-visual.spec.ts`](../scripts/aid-visual.spec.ts).
+- [x] Proper loading states and error handling — pending, success, recoverable error, wallet, and contract authorization states are covered by the Aid workspace and wallet hook.
 
 ### User Onboarding
-- [ ] At least **10 real users** onboarded.
-- [ ] Proof of wallet interactions.
-- [ ] Basic user-feedback collection.
+- [x] At least **10 real users** onboarded — 15 distinct wallet addresses are present in [`docs/GREEN-BELT-USER-TEST-RAW.csv`](./GREEN-BELT-USER-TEST-RAW.csv).
+- [x] Proof of wallet interactions — 12 respondents reported signing live Testnet transactions and 11 valid transaction hashes are included in the complete export.
+- [x] Basic user-feedback collection — all 15 response rows and raw comments are preserved in [`docs/GREEN-BELT-FEEDBACK-SUMMARY.md`](./GREEN-BELT-FEEDBACK-SUMMARY.md), with aggregate ratings and themes summarized.
 
 ### Product Quality and Technical Standards
-- [ ] Production deployment.
-- [ ] Monitoring and analytics integration.
-- [ ] Optimized user experience.
-- [ ] Proper project structure and documentation.
-- [ ] Smart contracts deployed on Stellar Testnet.
-- [ ] At least **15 meaningful commits**.
-- [ ] Public GitHub repository.
+- [x] Production deployment — [Aethyr Aid on Vercel](https://aethyr-pica.vercel.app/).
+- [x] Monitoring and analytics integration — privacy-constrained PostHog/Sentry instrumentation in [`src/lib/observability.ts`](../src/lib/observability.ts); dashboard screenshots remain operator evidence.
+- [x] Optimized user experience — role-guided onboarding, deterministic local walkthroughs, accessible focus states, reduced-motion support, and route persistence.
+- [x] Proper project structure and documentation — [`README.md`](../README.md), [`docs/DEPLOYMENT.md`](./DEPLOYMENT.md), and [`docs/TESTNET-USER-WALKTHROUGH.md`](./TESTNET-USER-WALKTHROUGH.md).
+- [x] Smart contracts deployed on Stellar Testnet — hardened Aid contract and validation records in [`docs/DEPLOYMENT.md`](./DEPLOYMENT.md).
+- [x] At least **15 meaningful commits** — 190 commits on the current public repository.
+- [x] Public GitHub repository — [`github.com/pablo-pica/aethyr`](https://github.com/pablo-pica/aethyr).
 
 ### Demo and Submission Evidence
-- [ ] Live demo video showing complete functionality.
-- [ ] Team review covers technical complexity, product quality, architecture quality, and real-world usefulness.
-- [ ] README with complete documentation.
-- [ ] Live application link and contract deployment addresses.
-- [ ] Screenshots of the product UI, mobile layout, and analytics or monitoring setup.
-- [ ] Proof of 10+ user wallet interactions.
-- [ ] Basic user-feedback summary.
+- [ ] Live demo video showing complete functionality (**operator evidence**; follow [`docs/GREEN-BELT-VIDEO-SCRIPT.md`](./GREEN-BELT-VIDEO-SCRIPT.md)).
+- [ ] Team review covers technical complexity, product quality, architecture quality, and real-world usefulness (**external RiseIn reviewer evaluation; README and demo coverage is prepared**).
+- [x] README with complete technical documentation — [`README.md`](../README.md).
+- [x] Live application link and contract deployment addresses — [`README.md`](../README.md#-live-demo--presentation) and [`docs/DEPLOYMENT.md`](./DEPLOYMENT.md).
+- [x] Screenshots of the product UI, mobile layout, and analytics or monitoring setup — current [desktop Aid workspace](../docs/assets/green-belt-aid-desktop.png), [mobile Aid workspace](../docs/assets/green-belt-aid-mobile.png), [PostHog events](../docs/assets/posthog-events.png), and [Sentry redacted error](../docs/assets/sentry-redacted-error.png).
+- [x] Proof of 10+ user wallet interactions — complete CSV export: [`docs/GREEN-BELT-USER-TEST-RAW.csv`](./GREEN-BELT-USER-TEST-RAW.csv).
+- [x] Basic user-feedback summary — [`docs/GREEN-BELT-FEEDBACK-SUMMARY.md`](./GREEN-BELT-FEEDBACK-SUMMARY.md).
 
 ---
 

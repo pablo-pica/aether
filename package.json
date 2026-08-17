@@ -10,7 +10,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint src",
-    "test": "vitest run"
+    "test": "vitest run",
+    "test:ui": "playwright test scripts/ui.spec.ts --workers=1",
+    "test:demo": "playwright test scripts/aid-demo.spec.ts --workers=1",
+    "test:visual": "playwright test scripts/aid-visual.spec.ts --workers=1"
   },
   "dependencies": {
     "@creit.tech/stellar-wallets-kit": "^2.2.0",

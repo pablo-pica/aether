@@ -36,7 +36,9 @@ npm test
 npm run lint
 npm run build
 # Start the production build, then run the responsive/accessibility suite:
-PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 npx playwright test scripts/ui.spec.ts --workers=1
+PLAYWRIGHT_BASE_URL=http://localhost:3000 npm run test:ui
+PLAYWRIGHT_BASE_URL=http://localhost:3000 npm run test:demo
+PLAYWRIGHT_BASE_URL=http://localhost:3000 npm run test:visual
 ```
 
 Do not deploy the revamp until these checks pass and the frontend diff has received review. No backend, contract, sponsorship, or wallet-serialization change is required for the presentation release.

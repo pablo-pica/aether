@@ -25,7 +25,7 @@ Aethyr Aid is a Stellar Testnet workflow for accountable typhoon-relief delivery
 
 The current implementation includes campaign funding and accounting, merchant approval, privacy-preserving case references, voucher issuance and redemption, append-only evidence during a freeze, admin emergency freezes, verifier-only approval/rejection, and atomic merchant payout. The hardened contract also prevents a verifier from approving that verifier's own merchant claim. Every live action is on Stellar Testnet; the app provides deterministic local clean and disputed walkthroughs before a user signs a transaction.
 
-> **Status:** The Aid contract, Aid-first operational workspace, role-guided routes, Testnet workflow, production deployment, and privacy-conscious telemetry are implemented. Current validation work is collecting 10 distinct real-wallet interactions, feedback, and a recorded live demo. Mainnet, beneficiary wallets, identity/KYC, token conversion, and automatic payout are out of scope.
+> **Status:** The Aid contract, Aid-first operational workspace, role-guided routes, Testnet workflow, production deployment, privacy-conscious telemetry, current desktop/mobile screenshots, and the 10+ user feedback gate are complete. The private deployed-site test collected 15 distinct wallet addresses, 12 reported live Testnet transactions, and 15 feedback responses; the complete response export and summary are documented in [`docs/GREEN-BELT-USER-TEST-RAW.csv`](./docs/GREEN-BELT-USER-TEST-RAW.csv) and [`docs/GREEN-BELT-FEEDBACK-SUMMARY.md`](./docs/GREEN-BELT-FEEDBACK-SUMMARY.md). The final live demo remains; RiseIn reviewer evaluation follows submission. Mainnet, beneficiary wallets, identity/KYC, token conversion, and automatic payout are out of scope.
 
 ### Start here
 
@@ -71,7 +71,7 @@ The current implementation includes campaign funding and accounting, merchant ap
 * 🤖 **AI Intent Parser**: Gemini-powered natural language bar that converts human commands (e.g., *"Pay 100 XLM to GA... for Milestone 1"*) into structured transaction payloads.
 * 📱 **Responsive Aid Design System**: One light editorial visual language across `/` and `/app`, with a desktop sidebar, mobile bottom navigation, visible focus states, reduced-motion support, and safe-area handling.
 * 🏗️ **Visual Milestone Builder**: Drag-and-edit milestone card editor for composing AI-drafted escrow milestones before on-chain submission.
-* 🧪 **99 passing Vitest tests** covering Aid lifecycle state, wallet submission, role-guided routes, privacy-aware observability, deterministic preview safety, and core UI behavior; the repository also includes Playwright responsive/accessibility checks.
+* 🧪 **99 passing Vitest tests** covering Aid lifecycle state, wallet submission, role-guided routes, privacy-aware observability, deterministic preview safety, and core UI behavior; `npm run test:ui` runs 9 responsive/accessibility checks, `npm run test:demo` verifies both Aid walkthroughs, and `npm run test:visual` runs 8 visual baselines against the production server.
 * 🔒 **Pre-commit security hooks** scanning for Stellar private key leaks and running full test suites before every commit.
 
 ---
@@ -79,7 +79,8 @@ The current implementation includes campaign funding and accounting, merchant ap
 ## 🎬 Live Demo & Presentation
 
 * 🌐 **Live Application**: [Aethyr Aid on Vercel](https://aethyr-pica.vercel.app/)
-* 🎥 **Video Walkthrough**: [Aethyr Aid Walkthrough Video (YouTube)](https://www.youtube.com/watch?v=F_bBEHbHh0A) | [Local Walkthrough Video (MP4)](./docs/assets/video_demo.mp4)
+* 🎥 **Prior foundation walkthrough**: [YouTube](https://www.youtube.com/watch?v=F_bBEHbHh0A) | [Local MP4](./docs/assets/video_demo.mp4)
+* 🎬 **Final Green Belt recording plan**: [`docs/GREEN-BELT-VIDEO-SCRIPT.md`](./docs/GREEN-BELT-VIDEO-SCRIPT.md) — a focused 6–8 minute review cut covering complexity, product quality, architecture, and real-world usefulness.
 
 ---
 
@@ -139,6 +140,9 @@ aethyr/
 │   ├── ARCHITECTURE.md      # Historical foundation and architecture notes
 │   ├── LEVEL-4-IMPLEMENTATION-SPEC.md # Aid domain model, invariants, and test plan
 │   ├── TESTNET-USER-WALKTHROUGH.md # Current live-Testnet validation runbook
+│   ├── GREEN-BELT-USER-TEST-RAW.csv # Complete user-test export for submission evidence
+│   ├── GREEN-BELT-FEEDBACK-SUMMARY.md # User-test ratings, raw comments, and summary
+│   ├── GREEN-BELT-VIDEO-SCRIPT.md # Final Level 4 recording checklist
 │   ├── DEPLOYMENT.md        # Hardened contract and deployment guidance
 │   ├── BELT-REQUIREMENTS.md # JTM belt submission checklists through Level 6
 │   ├── PROGRESS.md          # Living Level 4 validation tracker
@@ -295,8 +299,8 @@ Each belt section below maps **1:1** against the [Belt Requirements](./docs/BELT
 | 2 | **CI/CD pipeline** (lint + test + build) | ✅ | GitHub Actions: [`.github/workflows/ci.yml`](./.github/workflows/ci.yml) — runs `npm run lint`, `npm run test`, `npm run build`, and `cargo test` on every push/PR |
 | 3 | **Mobile-responsive PWA** with safe-area notch | ✅ | [`globals.css`](./src/styles/globals.css) — `env(safe-area-inset-*)` + [`page.tsx`](./src/app/page.tsx) — max-width 420px phone shell |
 | 4 | **Error handling & state indicators** | ✅ | Loading spinners, skeleton UI, toast notifications throughout [`page.tsx`](./src/app/page.tsx) and [`WalletConnect.tsx`](./src/components/WalletConnect.tsx) |
-| 5a | **Smart contract tests** (Rust) | ✅ | **11 tests passing**: 7 in [`test.rs (Escrow)`](./contracts/aethyr-router/contracts/aethyr-escrow/src/test.rs) + 4 in [`test.rs (Router)`](./contracts/aethyr-router/contracts/aethyr-router/src/test.rs) |
-| 5b | **Frontend tests** (Vitest) | ✅ | **59 tests passing** across 17 files |
+| 5a | **Smart contract tests** (Rust) | ✅ | **19 tests passing** across Aid (8), Escrow (7), and Router (4) crates |
+| 5b | **Frontend tests** (Vitest) | ✅ | **99 tests passing** across 24 files |
 | 6 | **Production-ready architecture** | ✅ | Gasless relayer with contract whitelisting, rate limiting, 30-day refund lock, dust-truncation fix — see [Security Model](#-security-model) |
 
 #### Codebase Requirements
@@ -328,17 +332,35 @@ Each belt section below maps **1:1** against the [Belt Requirements](./docs/BELT
 
 ---
 
-### 🖼️ Visual Showcase — App Interface & Roles
+### 🟢 Green Belt — Level 4 submission evidence
 
 <details>
-<summary><strong>📱 Click to view additional screenshots</strong></summary>
+<summary><strong>✅ Level 4 readiness and evidence — Click to expand</strong></summary>
 
-| View | Screenshot |
-|:-----|:----------:|
-| **Create Escrow** — client configuration form | <img src="docs/assets/createescrow.png" width="220" alt="Create Escrow"> |
-| **Milestone Builder** — visual milestone designer sheet | <img src="docs/assets/configuremilestones.png" width="220" alt="Milestone Builder"> |
-| **Active Escrows** — freelancer task tracking view | <img src="docs/assets/activeescrows.png" width="220" alt="Active Escrows"> |
-| **Settings Tab** — slippage control, network toggles, AI configs | <img src="docs/assets/settingstab.png" width="220" alt="Settings Tab"> |
+The technical Green Belt gate, 10+ user/feedback gate, observability evidence, and current desktop/mobile screenshot gate are complete. The hardened Aid contract is deployed on Testnet, the production workspace supports clean and disputed paths, and the validation suites pass.
+
+The only remaining operator-owned artifact is the final live clean/disputed walkthrough video. RiseIn reviewers will evaluate technical complexity, product quality, architecture quality, and real-world usefulness from the README and demo; no separate team-review notes are required.
+
+- **Observability evidence:** [PostHog events](./docs/assets/posthog-events.png) and [Sentry redacted error](./docs/assets/sentry-redacted-error.png)
+- **Product viewport evidence:** [desktop/mobile visual showcase](#green-belt-visual-showcase)
+- **User-test export:** [`docs/GREEN-BELT-USER-TEST-RAW.csv`](./docs/GREEN-BELT-USER-TEST-RAW.csv)
+- **Feedback summary:** [`docs/GREEN-BELT-FEEDBACK-SUMMARY.md`](./docs/GREEN-BELT-FEEDBACK-SUMMARY.md)
+- **Submission checklist:** [`docs/BELT-REQUIREMENTS.md`](./docs/BELT-REQUIREMENTS.md), [`docs/PROGRESS.md`](./docs/PROGRESS.md), and [`docs/GREEN-BELT-VIDEO-SCRIPT.md`](./docs/GREEN-BELT-VIDEO-SCRIPT.md)
+
+</details>
+
+---
+
+<a id="green-belt-visual-showcase"></a>
+### 🖼️ Visual Showcase — Desktop & Mobile Viewports
+
+<details>
+<summary><strong>📱 Click to view desktop and mobile screenshots</strong></summary>
+
+| Surface | Desktop viewport | Mobile viewport |
+|:--|:--:|:--:|
+| **Landing page** | <img src="docs/assets/green-belt-landing-desktop.png" width="360" alt="Aethyr landing page desktop screenshot"> | <img src="docs/assets/green-belt-landing-mobile.png" width="220" alt="Aethyr landing page mobile screenshot"> |
+| **Aid workspace** | <img src="docs/assets/green-belt-aid-desktop.png" width="360" alt="Aethyr Aid workspace desktop screenshot"> | <img src="docs/assets/green-belt-aid-mobile.png" width="220" alt="Aethyr Aid workspace mobile screenshot"> |
 
 </details>
 
@@ -396,6 +418,12 @@ cd contracts/aethyr-router && cargo test
 
 # Run code style and structure lints (Next.js ESLint)
 npm run lint
+
+# Start the production build in another terminal, then run browser checks
+npm run start
+npm run test:ui
+npm run test:demo
+npm run test:visual
 ```
 
 ---
@@ -407,10 +435,10 @@ npm run lint
 | ⚪–🟠 Levels 1–3 | July 2026 | Wallet, contracts, PWA, tests, CI/CD, relayer, and demo foundation | ✅ Complete |
 | 💡 Idea gate | July 2026 | Aethyr Aid direction approved | ✅ Complete |
 | 🟢 Level 4 definition | Aug 3–6 | Domain model, implementation specification, acceptance criteria, and evidence plan | ✅ Complete |
-| 🟢 Level 4 contracts | Aug 7–14 | Tested campaign, voucher, registry, evidence, verification, and dispute logic on Testnet | 📋 Planned |
-| 🟢 Level 4 product | Aug 15–20 | Complete donor/admin, merchant, and verifier workflows | 📋 Planned |
-| 🟢 Level 4 validation | Aug 21–27 | Production deployment, monitoring/analytics, 10-user proof, feedback, and demo | 📋 Planned |
-| 🟢 Level 4 submission | Aug 28 | Green Belt package submitted with Aug 29–31 review buffer | 🎯 Target |
+| 🟢 Level 4 contracts | Aug 7–14 | Tested campaign, voucher, registry, evidence, verification, and dispute logic on Testnet | ✅ Complete |
+| 🟢 Level 4 product | Aug 15–20 | Complete donor/admin, merchant, and verifier workflows | ✅ Complete |
+| 🟢 Level 4 validation | Aug 21–27 | Production deployment, monitoring/analytics, 10-user proof, feedback, and demo | 🟡 Technical/evidence complete; final demo pending |
+| 🟢 Level 4 submission | Aug 28 | Green Belt package submitted with Aug 29–31 review buffer | 🎯 Operator gate |
 | 🔵 Level 5 | After Level 4 | 50 Testnet users, feedback-led improvements, verification thresholds, donor traceability, pricing checks, receipt, pitch, and demo | Future |
 | ⚫ Level 6 | After Level 5 | Security review, local pilot, Mainnet, 20 verified users, public launch, and ecosystem contribution | Future |
 

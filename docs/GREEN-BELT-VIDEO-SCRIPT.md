@@ -1,0 +1,62 @@
+# Green Belt Video Demo Script
+
+**Target length: 6–8 minutes.** Read the quoted lines and follow each bracketed action cue immediately when it appears.
+
+## Before recording
+
+- Use the production site and Stellar **Testnet**.
+- Use the prepared opaque values and wallets from [`TESTNET-USER-WALKTHROUGH.md`](./TESTNET-USER-WALKTHROUGH.md).
+- Never show private keys, seed phrases, beneficiary names, emails, or raw wallet exports.
+- After every live transaction, wait for the success message and public transaction hash before continuing.
+
+## Copy/paste values for the prepared recording
+
+These values use opaque hexadecimal IDs and public Testnet addresses. Paste them into the matching fields. Do not paste names, URLs, photos, or beneficiary details into these fields. If the prepared campaign or account state has changed, generate fresh 64-character values instead of reusing a completed campaign.
+
+| Field | Copy/paste |
+|:--|:--|
+| Campaign ID | `b237ca396273a0d16841add6fc7e85f6178eccdf4ec7a4b208c950190da2b878` |
+| Token address | `CCI6OVXBZKZTT2FUTZDBIYCXEG3J3T3SRZNWDHFI5NYVWPPUWWDIRJ4F` |
+| Funding amount | `10` |
+| Merchant address | `GDKSZHONN22WOJNQH4HCOJD6GYRW5VXGVQJUBXXHK5VR3VM4ITYG7NCY` |
+| Merchant profile hash | `089fe2453a89e936253d773133f374647139377780c628e943d0ed5d07f17e37` |
+| Case ID | `02939a371de20cb660bd79ca8a085014df47018f402ee4570b67c9723946d659` |
+| Case record hash | `c3bb4e371ab7fd0d0cc0201872214d88362fc0e652948ca399fac882df51942b` |
+| Voucher ID | `336d76f2b6c7c1ba31b20f6bf84225bb63d90477dbe2daea39857059d89dcf8c` |
+| Purpose hash | `6e561fdab1432fdd156dd978c97fe1882607c088ff69586d44665202704c812c` |
+| Voucher amount | `2` |
+| Voucher category | `Food` |
+| Initial evidence digest | `aaaea9a1e961847125850b8d615bcdabc9ad04bad4d0f8bd4f2a2011a3bc30fb` |
+| Evidence record ID | `67ab44e97db41c6732cdd9761c7bb9216ba4027b2c133e997326c3c0634f2c6b` |
+| Verifier decision reason digest | `dc9931321b303aee01386ae83134ce765bc4e91ce5aef42a99c948a428ce68bc` |
+| Freeze reason digest | `4a43f8a9a93fdee696d9b3f7f3feb87af46a27a7a1f34b473b5f3cf0bd5da44f` |
+| Evidence revision digest | `d047d99cdebe6ac6000eb5cbd1667b05a3d583cad54e591efb2f417930eaa62b` |
+| Evidence revision record ID | `38d85c0a2447a7eda040809550d12a569b61e7546c8800ef1ac51a22df33912f` |
+
+For the prepared wallet hand-off, Alice is the public admin/donor/merchant account and Bob is the separate public verifier account. Their addresses are documented in [`TESTNET-USER-WALKTHROUGH.md`](./TESTNET-USER-WALKTHROUGH.md).
+
+| Timestamp | Flow | Script with click cues | Screen display |
+|:--|:--|:--|:--|
+| **0:00–0:35** | Introduce Aethyr Aid | Open `https://aethyr-pica.vercel.app/`. Say: “Hi, this is Aethyr Aid. It is designed for last-mile relief delivery, where donors and relief teams need to know what happened to aid after it was funded.” **[CLICK: See the accountability trail. Pause briefly.]** Say: “Aethyr connects funding, voucher delivery, evidence, verification, and the final payout or release.” **[CLICK: Launch Aethyr Aid.]** | Landing page hero, **Relief should arrive with proof.**, accountability trail, then the Aid workspace. |
+| **0:35–1:05** | Choose a role and read the guidance | Say: “I’ll start with the coordinator view.” **[CLICK: Coordinator card, or its Open role view link.]** **[CLICK: Start here.]** Say: “Different people have different responsibilities. The coordinator organizes the workflow, the donor funds it, the merchant delivers it, and the verifier makes an independent decision.” **[CLICK: Field guide, then Signing & safety.]** Say: “The app explains each role before anyone signs.” | Coordinator view, **Before you sign**, the three guide tabs, recommended next steps, and signing boundary message. |
+| **1:05–1:30** | Explain the architecture simply | **[SWITCH TAB: Open the README and scroll to the Aid architecture diagram.]** Say: “The website guides each role, the Aid contract controls what is allowed, and personal details stay off-chain. Stellar records the important transaction. This separation makes the workflow safer and easier to trust.” **[SWITCH TAB: Return to the Aid workspace.]** | README architecture diagram, then the Aid workspace role view. |
+| **1:30–1:55** | Show product quality on mobile | Say: “The same workflow is designed to remain clear on mobile and desktop.” **[RESIZE: Set the browser to approximately 390×844.]** **[SCROLL: Show the role cards, mobile navigation, status cards, and signing guidance.]** Say: “The user can see the next action and the current status before using a wallet.” **[RESIZE: Return to desktop width.]** | Mobile role cards, mobile navigation, status cards, then the desktop workspace. |
+| **1:55–2:55** | Demonstrate the clean local outcome | Say: “First, I’ll show the clean local walkthrough. This is preview data, so it never signs a wallet transaction.” **[CLICK: Local demo.]** **[CLICK: Start clean walkthrough.]** Say: “The campaign begins with a reserved voucher.” **[CLICK: Advance walkthrough. Wait for the state to update.]** Say: “The merchant submits delivery evidence.” **[CLICK: Advance walkthrough. Wait for the state to update.]** Say: “The verifier approves the result, and the approved merchant is paid.” **[PAUSE: Show the final state.]** | `Paid`, `Reserved 0.00`, `Paid 25.00`, **Clean walkthrough complete**, and history ending in verifier approval. |
+| **2:55–4:10** | Demonstrate the disputed local outcome | Say: “Now I’ll show the disputed path. This is where the workflow handles a difficult outcome instead of only showing a happy path.” **[CLICK: Start disputed walkthrough.]** Say: “The merchant redeems with evidence.” **[CLICK: Advance walkthrough.]** Say: “The admin freezes the claim.” **[CLICK: Advance walkthrough.]** Say: “The merchant adds the permitted evidence revision.” **[CLICK: Advance walkthrough.]** Say: “The verifier rejects the claim, so the reservation is released and the merchant is not paid.” **[CLICK: Advance walkthrough. Pause on the final state.]** | Freeze, evidence revision, `Rejected`, `Reserved 0.00`, funds returned to `Available`, and history containing verifier rejection. |
+| **4:10–4:25** | Enter live mode | Say: “The local walkthrough showed the complete behavior safely. I’m now switching to Live Testnet, where the next actions require a real authorized wallet.” **[CLICK: Live Testnet.]** **[CLICK: Connect Wallet, choose Freighter, and approve.]** **[IF NEEDED: Click Add AIDT Testnet trustline and approve.]** | **Live Testnet** selected, connected public address, XLM balance, and live campaign setup card. |
+| **4:25–4:45** | Create the live campaign | Say: “With the coordinator wallet, I’ll create the relief campaign using opaque identifiers.” **[TYPE: Prepared Campaign ID and Token address.]** **[CLICK: Create live campaign. Approve the wallet prompt.]** **[WAIT: Show the success message and public transaction hash.]** | Filled campaign fields, wallet confirmation, success message, and public transaction hash. |
+| **4:45–5:00** | Fund the campaign | Say: “The donor now funds the campaign. This is a real signed Testnet action.” **[CLICK: Donor card, or its Open role view link.]** **[CONNECT: Prepared donor wallet if needed.]** **[TYPE: Campaign ID and Funding amount.]** **[CLICK: Fund campaign. Approve the wallet prompt.]** **[WAIT: Show the success message and hash.]** | Donor view, funding amount, **Fund campaign**, success state, and hash. |
+| **5:00–5:25** | Prepare the voucher | Say: “The coordinator approves the merchant, creates an opaque beneficiary case, and issues a purpose-bound voucher.” **[CLICK: Coordinator card.]** **[TYPE: Merchant address and Merchant profile hash.]** **[CLICK: Approve merchant. Approve and wait for the hash.]** **[TYPE: Case ID and Case record hash.]** **[CLICK: Create beneficiary case. Approve and wait for the hash.]** **[TYPE: Voucher ID, Purpose hash, Voucher amount, and Voucher category.]** **[CLICK: Issue voucher. Approve and wait for the hash.]** | **Approve merchant**, **Create beneficiary case**, and **Issue voucher** buttons; each success message and transaction hash. |
+| **5:25–5:45** | Redeem and verify the clean branch | Say: “The merchant now submits an opaque delivery record.” **[CLICK: Merchant card.]** **[TYPE: Initial evidence digest and Evidence record ID.]** **[CLICK: Redeem voucher with evidence[0]. Approve and wait for the hash.]** Say: “A separate verifier reviews the claim and approves it, releasing the atomic payout.” **[CLICK: Verifier card.]** **[TYPE: Verifier decision reason digest.]** **[CLICK: Verifier approve / atomic payout. Approve and wait for the hash.]** | Merchant redemption form, **Redeem voucher with evidence[0]**, verifier review panel, **Verifier approve / atomic payout**, final success hash, and Explorer link. |
+| **5:45–6:10** | Show independent proof | Say: “The local screens demonstrated the product behavior. This Explorer result proves that the selected action was signed and confirmed on Stellar Testnet.” **[CLICK: The public transaction hash or View on Stellar Explorer.]** **[PAUSE: Let the confirmed Explorer result load.]** | Stellar Explorer transaction page with the public hash and confirmed result. |
+| **6:10–6:40** | Show feedback and monitoring | Say: “The workflow was tested with 15 responses from 15 distinct wallets. Twelve respondents reported live Testnet transactions, and the evidence includes 11 valid hashes. This feedback helps us improve clarity and reliability for real operators.” **[OPEN: Aggregate feedback summary. Show ratings and themes.]** **[OPEN: posthog-events.png.]** **[OPEN: sentry-redacted-error.png.]** | Aggregate feedback ratings/themes, PostHog events screenshot, and Sentry redacted-error screenshot. Do not show the raw CSV, names, emails, or wallet addresses. |
+| **6:40–7:20** | Close on the four characteristics | **[RETURN: Production Aid workspace.]** Say: “To summarize: the technical complexity is coordinating several roles and safely handling disputes. The product quality is making those steps clear before signing on desktop and mobile. The architecture separates user guidance, contract authority, and private records. The real-world usefulness is giving relief teams a visible path from funding to verified delivery. This is Aethyr Aid.” **[OPEN: README Green Belt submission section.]** **[SHOW: Production URL and hardened Aid contract address.]** | Production Aid workspace, Green Belt submission evidence section, production URL, and hardened Aid contract address. |
+
+## If you record the disputed Testnet branch instead
+
+After **Redeem voucher with evidence[0]**, replace the clean verifier step with these spoken cues:
+
+1. Say: “The admin freezes this disputed claim.” **[CLICK: Coordinator card.]** **[TYPE: Freeze reason digest.]** **[CLICK: Admin freeze claim. Approve and wait for the hash.]**
+2. Say: “The merchant adds exactly one permitted evidence revision.” **[CLICK: Merchant card.]** **[TYPE: Evidence revision digest and Evidence revision record ID.]** **[CLICK: Append exactly one evidence[1] after freeze. Approve and wait for the hash.]**
+3. Say: “The verifier rejects the claim and releases the reservation.” **[CLICK: Verifier card.]** **[TYPE: Verifier decision reason digest.]** **[CLICK: Verifier reject / release reservation. Approve and wait for the hash.]**
+4. **[SHOW: `Rejected`, released reservation, no merchant payout, and the final public transaction hash in Explorer.]**

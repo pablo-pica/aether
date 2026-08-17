@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-const baseUrl = process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:3000";
+const baseUrl = process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:3000";
 const roles = ["donor", "coordinator", "merchant", "verifier"] as const;
 const viewports = [
   { name: "desktop", width: 1280, height: 900 },

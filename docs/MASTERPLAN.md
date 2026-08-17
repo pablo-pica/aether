@@ -142,7 +142,7 @@ Phase 5 decisions are normative in [`LEVEL-4-IMPLEMENTATION-SPEC.md`](./LEVEL-4-
 | **5: L4 Definition** | Aug 3–6 | Domain model, scope decisions, acceptance criteria, evidence plan | Implementation-ready specification |
 | **6: L4 Contracts** | Aug 7–14 | Campaign, voucher, registry, evidence, verification, dispute logic and tests | Testnet contract release |
 | **7: L4 Product Flow** | Aug 15–20 | Donor/admin, merchant, and verifier flows | Feature-complete MVP |
-| **8: L4 Validation** | Aug 21–27 | Production deploy, monitoring, analytics, 10 users, feedback, demo | Submission evidence complete |
+| **8: L4 Validation** | Aug 21–27 | Production deploy, monitoring, analytics, 10 users, feedback, demo | Technical/user/observability evidence complete; final demo pending |
 | **9: L4 Submit** | Aug 28 | Final compliance audit and submission | Green Belt submitted |
 | **Review Buffer** | Aug 29–31 | Respond to reviewer questions or corrections | Approval target |
 | **10: L5 Growth** | Post-L4 | 50 Testnet users, feedback-led iteration, traceability features, pitch | Blue Belt candidate |

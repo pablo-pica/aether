@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 
-const baseUrl = process.env.PLAYWRIGHT_BASE_URL ?? "http://127.0.0.1:3000";
+const baseUrl = process.env.PLAYWRIGHT_BASE_URL ?? "http://localhost:3000";
 const viewports = [
   { name: "phone", width: 320, height: 800 },
   { name: "tablet", width: 768, height: 900 },

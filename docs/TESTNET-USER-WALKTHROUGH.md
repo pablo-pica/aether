@@ -94,4 +94,4 @@ A read-only contract query confirmed the voucher is `Rejected`, the reservation 
 2. Ensure the cohort includes donor, admin/operator, merchant/cooperative, and verifier interactions. Participants may contribute to multiple flow types.
 3. Do **not** reuse an admin as a verifier or let a verifier decide a claim assigned to that verifier's merchant address.
 4. Publish only aliases, dates, hashes, and aggregate counts. Keep any contact/consent sheet private.
-5. Record the clean and disputed transaction chains, screenshots without personal data, and a short feedback summary.
+5. Record the clean and disputed transaction chains, screenshots without personal data, and a short feedback summary. The current complete 15-response export is [`GREEN-BELT-USER-TEST-RAW.csv`](./GREEN-BELT-USER-TEST-RAW.csv), with ratings, themes, and a reviewer-friendly summary in [`GREEN-BELT-FEEDBACK-SUMMARY.md`](./GREEN-BELT-FEEDBACK-SUMMARY.md).
