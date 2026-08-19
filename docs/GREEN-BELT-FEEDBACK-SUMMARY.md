@@ -516,6 +516,6 @@ The current release addresses the recurring usability themes with:
 - Mobile responsive/accessibility checks and visual baselines for every Aid role route.
 - Privacy guidance that limits public/on-chain inputs to opaque IDs and fixed-width digests.
 
-## Remaining submission artifact
+## Submission status
 
-The 10-user, feedback, observability, and current desktop/mobile screenshot gates are satisfied by the complete CSV export, this summary, and the linked evidence assets. The final Green Belt package still needs the live clean/disputed video described in [`GREEN-BELT-VIDEO-SCRIPT.md`](./GREEN-BELT-VIDEO-SCRIPT.md); RiseIn reviewer evaluation follows submission.
+The 10-user, feedback, observability, current desktop/mobile screenshot, and final-demo gates are satisfied by the complete CSV export, this summary, the linked evidence assets, and the [published live clean/disputed demo](https://youtu.be/yBHOUj8hG3k). The Level 4 package is ready for RiseIn submission; reviewer evaluation follows submission.

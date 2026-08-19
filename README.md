@@ -25,7 +25,7 @@ Aethyr Aid is a Stellar Testnet workflow for accountable typhoon-relief delivery
 
 The current implementation includes campaign funding and accounting, merchant approval, privacy-preserving case references, voucher issuance and redemption, append-only evidence during a freeze, admin emergency freezes, verifier-only approval/rejection, and atomic merchant payout. The hardened contract also prevents a verifier from approving that verifier's own merchant claim. Every live action is on Stellar Testnet; the app provides deterministic local clean and disputed walkthroughs before a user signs a transaction.
 
-> **Status:** The Aid contract, Aid-first operational workspace, role-guided routes, Testnet workflow, production deployment, privacy-conscious telemetry, current desktop/mobile screenshots, and the 10+ user feedback gate are complete. The private deployed-site test collected 15 distinct wallet addresses, 12 reported live Testnet transactions, and 15 feedback responses; the complete response export and summary are documented in [`docs/GREEN-BELT-USER-TEST-RAW.csv`](./docs/GREEN-BELT-USER-TEST-RAW.csv) and [`docs/GREEN-BELT-FEEDBACK-SUMMARY.md`](./docs/GREEN-BELT-FEEDBACK-SUMMARY.md). The final live demo remains; RiseIn reviewer evaluation follows submission. Mainnet, beneficiary wallets, identity/KYC, token conversion, and automatic payout are out of scope.
+> **Status:** The Aid contract, Aid-first operational workspace, role-guided routes, Testnet workflow, production deployment, privacy-conscious telemetry, current desktop/mobile screenshots, 10+ user feedback gate, and final Green Belt demo are complete. The private deployed-site test collected 15 distinct wallet addresses, 12 reported live Testnet transactions, and 15 feedback responses; the complete response export and summary are documented in [`docs/GREEN-BELT-USER-TEST-RAW.csv`](./docs/GREEN-BELT-USER-TEST-RAW.csv) and [`docs/GREEN-BELT-FEEDBACK-SUMMARY.md`](./docs/GREEN-BELT-FEEDBACK-SUMMARY.md). The Level 4 package is ready for RiseIn submission; external reviewer evaluation follows submission. Mainnet, beneficiary wallets, identity/KYC, token conversion, and automatic payout are out of scope.
 
 ### Start here
 
@@ -80,7 +80,7 @@ The current implementation includes campaign funding and accounting, merchant ap
 
 * 🌐 **Live Application**: [Aethyr Aid on Vercel](https://aethyr-pica.vercel.app/)
 * 🎥 **Prior foundation walkthrough**: [YouTube](https://www.youtube.com/watch?v=F_bBEHbHh0A) | [Local MP4](./docs/assets/video_demo.mp4)
-* 🎬 **Final Green Belt recording plan**: [`docs/GREEN-BELT-VIDEO-SCRIPT.md`](./docs/GREEN-BELT-VIDEO-SCRIPT.md) — a focused 6–8 minute review cut covering complexity, product quality, architecture, and real-world usefulness.
+* 🎬 **Final Green Belt demo**: [YouTube](https://youtu.be/yBHOUj8hG3k) | [`Recording script`](./docs/GREEN-BELT-VIDEO-SCRIPT.md) — covers complexity, product quality, architecture, and real-world usefulness.
 
 ---
 
@@ -339,7 +339,7 @@ Each belt section below maps **1:1** against the [Belt Requirements](./docs/BELT
 
 The technical Green Belt gate, 10+ user/feedback gate, observability evidence, and current desktop/mobile screenshot gate are complete. The hardened Aid contract is deployed on Testnet, the production workspace supports clean and disputed paths, and the validation suites pass.
 
-The only remaining operator-owned artifact is the final live clean/disputed walkthrough video. RiseIn reviewers will evaluate technical complexity, product quality, architecture quality, and real-world usefulness from the README and demo; no separate team-review notes are required.
+The final live clean/disputed walkthrough is published at [YouTube](https://youtu.be/yBHOUj8hG3k). RiseIn reviewers will evaluate technical complexity, product quality, architecture quality, and real-world usefulness from the README and demo; no separate team-review notes are required.
 
 - **Observability evidence:** [PostHog events](./docs/assets/posthog-events.png) and [Sentry redacted error](./docs/assets/sentry-redacted-error.png)
 - **Product viewport evidence:** [desktop/mobile visual showcase](#green-belt-visual-showcase)
@@ -437,7 +437,7 @@ npm run test:visual
 | 🟢 Level 4 definition | Aug 3–6 | Domain model, implementation specification, acceptance criteria, and evidence plan | ✅ Complete |
 | 🟢 Level 4 contracts | Aug 7–14 | Tested campaign, voucher, registry, evidence, verification, and dispute logic on Testnet | ✅ Complete |
 | 🟢 Level 4 product | Aug 15–20 | Complete donor/admin, merchant, and verifier workflows | ✅ Complete |
-| 🟢 Level 4 validation | Aug 21–27 | Production deployment, monitoring/analytics, 10-user proof, feedback, and demo | 🟡 Technical/evidence complete; final demo pending |
+| 🟢 Level 4 validation | Aug 21–27 | Production deployment, monitoring/analytics, 10-user proof, feedback, and demo | ✅ Technical/evidence/demo complete; submission pending |
 | 🟢 Level 4 submission | Aug 28 | Green Belt package submitted with Aug 29–31 review buffer | 🎯 Operator gate |
 | 🔵 Level 5 | After Level 4 | 50 Testnet users, feedback-led improvements, verification thresholds, donor traceability, pricing checks, receipt, pitch, and demo | Future |
 | ⚫ Level 6 | After Level 5 | Security review, local pilot, Mainnet, 20 verified users, public launch, and ecosystem contribution | Future |

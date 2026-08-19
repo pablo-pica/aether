@@ -95,7 +95,7 @@ This file contains working audit checklists for the **Stellar Journey to Mastery
 
 ## 🟢 Green Belt Requirements (Level 4)
 
-> **Audit status (2026-08-22):** The technical MVP, 10+ user/feedback gates, observability evidence, and current desktop/mobile product screenshots are complete. The complete form export and reviewer-friendly summary are included in the repository at [`docs/GREEN-BELT-USER-TEST-RAW.csv`](./GREEN-BELT-USER-TEST-RAW.csv) and [`docs/GREEN-BELT-FEEDBACK-SUMMARY.md`](./GREEN-BELT-FEEDBACK-SUMMARY.md). Only the final live demo remains as an operator artifact; RiseIn reviewers evaluate the four quality characteristics from the README and demo after submission. Do not treat local demo activity as wallet or Testnet evidence.
+> **Audit status (2026-08-22):** The technical MVP, 10+ user/feedback gates, observability evidence, current desktop/mobile product screenshots, and final live demo are complete. The complete form export, reviewer-friendly summary, and final video link are included in the repository at [`docs/GREEN-BELT-USER-TEST-RAW.csv`](./GREEN-BELT-USER-TEST-RAW.csv), [`docs/GREEN-BELT-FEEDBACK-SUMMARY.md`](./GREEN-BELT-FEEDBACK-SUMMARY.md), and the [published demo](https://youtu.be/yBHOUj8hG3k). The Level 4 package is ready for RiseIn submission; reviewers evaluate the four quality characteristics from the README and demo after submission. Do not treat local demo activity as wallet or Testnet evidence.
 
 ### Production MVP
 - [x] Fully functional production-ready MVP (technical scope) — feature-complete Aid workspace with clean and disputed lifecycle paths; see [`docs/LEVEL-4-IMPLEMENTATION-SPEC.md`](./LEVEL-4-IMPLEMENTATION-SPEC.md).
@@ -110,7 +110,7 @@ This file contains working audit checklists for the **Stellar Journey to Mastery
 
 ### Product Quality and Technical Standards
 - [x] Production deployment — [Aethyr Aid on Vercel](https://aethyr-pica.vercel.app/).
-- [x] Monitoring and analytics integration — privacy-constrained PostHog/Sentry instrumentation in [`src/lib/observability.ts`](../src/lib/observability.ts); dashboard screenshots remain operator evidence.
+- [x] Monitoring and analytics integration — privacy-constrained PostHog/Sentry instrumentation in [`src/lib/observability.ts`](../src/lib/observability.ts); dashboard screenshots are attached in the README evidence gallery.
 - [x] Optimized user experience — role-guided onboarding, deterministic local walkthroughs, accessible focus states, reduced-motion support, and route persistence.
 - [x] Proper project structure and documentation — [`README.md`](../README.md), [`docs/DEPLOYMENT.md`](./DEPLOYMENT.md), and [`docs/TESTNET-USER-WALKTHROUGH.md`](./TESTNET-USER-WALKTHROUGH.md).
 - [x] Smart contracts deployed on Stellar Testnet — hardened Aid contract and validation records in [`docs/DEPLOYMENT.md`](./DEPLOYMENT.md).
@@ -118,8 +118,8 @@ This file contains working audit checklists for the **Stellar Journey to Mastery
 - [x] Public GitHub repository — [`github.com/pablo-pica/aethyr`](https://github.com/pablo-pica/aethyr).
 
 ### Demo and Submission Evidence
-- [ ] Live demo video showing complete functionality (**operator evidence**; follow [`docs/GREEN-BELT-VIDEO-SCRIPT.md`](./GREEN-BELT-VIDEO-SCRIPT.md)).
-- [ ] Team review covers technical complexity, product quality, architecture quality, and real-world usefulness (**external RiseIn reviewer evaluation; README and demo coverage is prepared**).
+- [x] Live demo video showing complete functionality — [Aethyr Aid Level 4 demo on YouTube](https://youtu.be/yBHOUj8hG3k); recording guidance remains in [`docs/GREEN-BELT-VIDEO-SCRIPT.md`](./GREEN-BELT-VIDEO-SCRIPT.md).
+- [x] Review coverage prepared for technical complexity, product quality, architecture quality, and real-world usefulness — the README and published demo provide the evidence; RiseIn performs the external evaluation after submission.
 - [x] README with complete technical documentation — [`README.md`](../README.md).
 - [x] Live application link and contract deployment addresses — [`README.md`](../README.md#-live-demo--presentation) and [`docs/DEPLOYMENT.md`](./DEPLOYMENT.md).
 - [x] Screenshots of the product UI, mobile layout, and analytics or monitoring setup — current [desktop Aid workspace](../docs/assets/green-belt-aid-desktop.png), [mobile Aid workspace](../docs/assets/green-belt-aid-mobile.png), [PostHog events](../docs/assets/posthog-events.png), and [Sentry redacted error](../docs/assets/sentry-redacted-error.png).

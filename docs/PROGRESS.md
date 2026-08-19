@@ -7,8 +7,8 @@ This is a living document updated autonomously by agents at the end of each task
 ```yaml
 Current Task: "Green Belt release readiness"
 Assigned Agent: Parent
-Status: "Technical MVP complete — 99 Vitest tests, ESLint, TypeScript, production build, 19 Rust contract tests, 9 Playwright responsive/accessibility checks, 1 clean/disputed demo scenario, and 8 Aid visual baselines pass against the production server"
-Next Gate: "Record the final live clean/disputed video, then submit for RiseIn review"
+Status: "Level 4 package complete — technical MVP, user evidence, observability, screenshots, and final published demo are verified"
+Next Gate: "Submit the completed Level 4 package to RiseIn, then record the external reviewer decision"
 ```
 
 ---
@@ -34,11 +34,11 @@ Next Gate: "Record the final live clean/disputed video, then submit for RiseIn r
 | **Idea submission gate** | Approved | ✅ Complete |
 | **Implementation plan and acceptance criteria** | August 6, 2026 | ✅ Complete |
 | **Feature-complete Green Belt MVP** | August 20, 2026 | ✅ Complete |
-| **Production validation and 10-user evidence** | August 27, 2026 | ✅ Complete; final demo pending |
-| **Level 4 submission** | August 28, 2026 | ⏳ Waiting on operator evidence |
+| **Production validation and 10-user evidence** | August 27, 2026 | ✅ Complete; final demo attached |
+| **Level 4 submission** | August 28, 2026 | ✅ Package ready; operator submission pending |
 | **Review buffer / approval target** | August 29–31, 2026 | 📋 Reserved |
 
-*The code, validation, 10-user, feedback, observability, and current desktop/mobile screenshot gates are complete. Record the final video, then submit for the external RiseIn review.*
+*The code, validation, 10-user, feedback, observability, screenshot, and final-demo gates are complete. Submit the package for the external RiseIn review.*
 
 ---
 
@@ -127,13 +127,13 @@ Next Gate: "Record the final live clean/disputed video, then submit for RiseIn r
 - [x] Collect basic user feedback `[YOU]` — all 15 response rows and raw comments are preserved with aggregate ratings/themes in [`docs/GREEN-BELT-FEEDBACK-SUMMARY.md`](./GREEN-BELT-FEEDBACK-SUMMARY.md).
 - [x] Fix blocking usability, stability, and onboarding issues found during validation `[AI]` — browser-origin defaults now use `localhost`, avoiding Next.js development chunk 403s; production UI and visual checks are green.
 - [x] Update README, frontend plan, deployment notes, user guidance, and progress documentation for the Aid-first route structure `[AI]`
-- [ ] Record a live demo showing the complete clean and disputed delivery flows `[YOU]` — follow [`docs/GREEN-BELT-VIDEO-SCRIPT.md`](./GREEN-BELT-VIDEO-SCRIPT.md).
+- [x] Record a live demo showing the complete clean and disputed delivery flows `[YOU]` — [published Level 4 demo](https://youtu.be/yBHOUj8hG3k), recorded from the [`GREEN-BELT-VIDEO-SCRIPT.md`](./GREEN-BELT-VIDEO-SCRIPT.md) flow.
 
 ### 🟢 Phase 9: Green Belt Submission & Approval Buffer (August 28–31)
-- [x] Run the complete technical Level 4 checklist in [`BELT-REQUIREMENTS.md`](./BELT-REQUIREMENTS.md) `[AI]` — technical items are checked; operator-evidence items remain explicitly open.
+- [x] Run the complete technical Level 4 checklist in [`BELT-REQUIREMENTS.md`](./BELT-REQUIREMENTS.md) `[AI]` — technical, evidence, and final-demo items are complete; external RiseIn review remains.
 - [x] Verify 15+ meaningful commits, public repository, production URL, and Testnet contracts `[AI→YOU]` — 190 commits, public GitHub remote, Vercel URL, and hardened Aid deployment are documented.
 - [x] Attach analytics/monitoring screenshots and current desktop/mobile product screenshots `[AI→YOU]` — see [`README.md`](../README.md#green-belt-visual-showcase).
-- [ ] Attach final video `[AI→YOU]` — the RiseIn team performs the four-characteristic review after submission; no separate team-review notes are required.
+- [x] Attach final video `[AI→YOU]` — [YouTube demo](https://youtu.be/yBHOUj8hG3k); the RiseIn team performs the four-characteristic review after submission, with no separate team-review notes required.
 - [x] Record the complete 10-user wallet proof and feedback export `[AI→YOU]` — [`docs/GREEN-BELT-USER-TEST-RAW.csv`](./GREEN-BELT-USER-TEST-RAW.csv) plus [`docs/GREEN-BELT-FEEDBACK-SUMMARY.md`](./GREEN-BELT-FEEDBACK-SUMMARY.md).
 - [ ] Submit Level 4 by August 28 `[YOU]`
 - [ ] Reserve August 29–31 for reviewer questions or required corrections `[AI→YOU]`
@@ -158,7 +158,7 @@ Next Gate: "Record the final live clean/disputed video, then submit for RiseIn r
 
 ## ⚠️ Warning Logs
 
-- **Remaining operator evidence**: the repository still needs the final live demo. RiseIn reviewer evaluation follows submission; keep all supporting wallet/contact records privacy-safe.
+- **Remaining operator action**: submit the completed Level 4 package to RiseIn. Reviewer evaluation follows submission; keep all supporting wallet/contact records privacy-safe.
 - **Historical push warning**: older audit entries mention expired GitHub CLI credentials. The current checkout has a public `origin` remote; verify the remote branch is pushed before submitting.
 
 ---
@@ -166,8 +166,9 @@ Next Gate: "Record the final live clean/disputed video, then submit for RiseIn r
 ## 📜 Audit Logs
 
 ### 2026-08-22
+- **Parent / Checker**: Verified the final Green Belt demo is published at [YouTube](https://youtu.be/yBHOUj8hG3k) and linked it from the README and Level 4 checklist. The submission package is now ready for RiseIn; reviewer evaluation remains external.
 - **Parent / Checker**: Processed the deployed-site feedback export. It contains 15 distinct Stellar wallets, 12 reported live Testnet transactions, 11 valid transaction hashes, and 15 feedback responses. Added the complete [`GREEN-BELT-USER-TEST-RAW.csv`](./GREEN-BELT-USER-TEST-RAW.csv) plus [`GREEN-BELT-FEEDBACK-SUMMARY.md`](./GREEN-BELT-FEEDBACK-SUMMARY.md) with raw comments and aggregate ratings/themes; marked the 10-user and feedback gates complete.
-- **Parent / Checker**: Added PostHog and Sentry evidence screenshots plus fresh production desktop/mobile Aid and landing captures. The technical, user, observability, and screenshot gates are complete; only the final live demo remains before external RiseIn review.
+- **Parent / Checker**: Added PostHog and Sentry evidence screenshots plus fresh production desktop/mobile Aid and landing captures. The technical, user, observability, screenshot, and final-demo gates are complete; the package is ready for external RiseIn review.
 - **Parent**: Fixed the browser validation origin mismatch by making Playwright default to `http://localhost:3000` instead of `127.0.0.1`; Next.js development-origin protection had returned 403 for client chunks, which made interactive controls appear inert. Added `npm run test:ui`, `npm run test:demo`, and `npm run test:visual` for repeatable browser validation.
 - **Checker**: Verified `npm run test` (24 files / 99 tests), `npm run lint`, `npm run build`, `cargo test` (19 Rust tests), `npm run test:ui` (9 checks), `npm run test:demo` (clean and disputed walkthrough), and `npm run test:visual` (8 responsive Aid baselines) against the production server. All passed.
 
