@@ -1,10 +1,10 @@
 # 🏗️ Aethyr — System Architecture (ARCHITECTURE.md)
 
-This document separates the **implemented Level 3 foundation** from the **specified Level 4 Aethyr Aid architecture** approved in [`IDEA-SUBMISSION.md`](./IDEA-SUBMISSION.md). Planned components are not implementation claims. Their Phase 5 domain model, interfaces, invariants, acceptance scenarios, and evidence plan are defined in [`LEVEL-4-IMPLEMENTATION-SPEC.md`](./LEVEL-4-IMPLEMENTATION-SPEC.md).
+This document describes the **implemented Green Belt Aethyr Aid architecture** and the retained Level 3 foundation. The Aid MVP is deployed and validated on Stellar Testnet. Normative state models, authorization rules, accounting invariants, acceptance scenarios, and privacy boundaries are defined in [`LEVEL-4-IMPLEMENTATION-SPEC.md`](./LEVEL-4-IMPLEMENTATION-SPEC.md).
 
 ---
 
-## 🎯 Planned Level 4 Architecture: Aethyr Aid
+## 🟢 Implemented Level 4 Architecture: Aethyr Aid
 
 ### MVP Boundary
 
@@ -26,13 +26,13 @@ flowchart LR
     Dispute -->|one evidence revision| Review
 ```
 
-### Approved Contract Boundary
+### Implemented Contract Boundary
 
 Level 4 adds one new Soroban contract, provisionally named `aethyr-aid`. It owns campaign custody, the merchant registry, beneficiary case IDs, voucher reservations, evidence attestations, verifier decisions, payout, closure, and refunds.
 
 The Level 3 Router and Escrow remain deployed and unchanged for compatibility, but neither participates in the voucher lifecycle. In particular, aid funding does not use the Router's simulated swap behavior, and vouchers do not inherit the old Escrow's milestone auto-release semantics. The implementation may reuse proven wallet integration, Soroban authorization/event patterns, transaction status UI, fee sponsorship where compatible, tests, CI/CD, and Vercel deployment.
 
-### Approved State and Accounting Model
+### Implemented State and Accounting Model
 
 - Campaign: `Open → Closed`; voucher issuance moves available funds to reserved funds, and closure requires no remaining reservation.
 - Merchant: `Approved ↔ Suspended`.

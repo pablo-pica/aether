@@ -1,10 +1,10 @@
 # 🚀 Aethyr — Deployment & Setup Guide (DEPLOYMENT.md)
 
-This document describes the implemented Level 3 foundation and Level 4 Aethyr Aid contract/frontend deployment to Stellar Testnet and Vercel. A prior Aid contract is deployed on Testnet, but it is superseded by the self-approval security fix below; live validation must use a newly deployed hardened contract with deliberate operator role provisioning and a Testnet token contract.
+This document records the implemented Level 3 foundation and the validated Level 4 Aethyr Aid deployment to Stellar Testnet and Vercel. The superseded contract is retained below only to prevent accidental reuse; all live validation and submission evidence use the hardened Aid deployment and its deliberate operator-role provisioning.
 
 ---
 
-## 🎯 Level 4 Deployment Evidence Gate
+## 🎯 Level 4 Deployment Evidence
 
 ### Superseded deployment record — do not use for validation
 
@@ -14,14 +14,15 @@ The prior Aethyr Aid contract is [`CDERJSFS75XYBXJOZYOJA62T4GFHSJZAM34D4OAXNSPOF
 
 Use [`CBZKE67HDBTWIZLKZFJOMEMJSENJOUHJVBURYED5M7VYUQCPJH5VOVIC`](https://stellar.expert/explorer/testnet/contract/CBZKE67HDBTWIZLKZFJOMEMJSENJOUHJVBURYED5M7VYUQCPJH5VOVIC) for validation. It was initialized with admin `GDIOBU6KL3WY5UMWVLRAQJRCZOAAK2HWWPFENKKDFZUH55DBVCWSKZC6` in [transaction `f7b025…`](https://stellar.expert/explorer/testnet/tx/f7b0254742b351b2997f8965b62348e2157d9a9d119ae13ac0de5e2c20471ac5), and verifier `GBFFXFVXFMAPP5E6JXTV4FVH6TUBXCIIXSZJBGJNCIIL4D6UPR2UMXHL` was provisioned in [transaction `80e98d…`](https://stellar.expert/explorer/testnet/tx/80e98d1ca202960a04643c2005574a7db23bc3cbbb7234b1f14e75b59686dee1). `is_admin` and `is_verifier` reads returned `true` after deployment.
 
-Before the Green Belt submission, the release must also record:
+The completed Green Belt submission evidence includes:
 
-- Testnet contract addresses and representative operational transaction hashes.
-- Production application URL.
+- Hardened Testnet contract address and representative operational transaction hashes.
+- Production application URL and deployment guidance.
 - Monitoring and analytics setup without beneficiary personal data.
-- One clean-delivery trace and one disputed-delivery trace.
+- Clean-delivery and disputed-delivery traces.
 - Proof of wallet interactions from at least 10 real operational users.
-- Rollback or redeployment steps for a failed contract or frontend release.
+- Rollback and redeployment steps for a failed contract or frontend release.
+- Final live demo: [Aethyr Aid Level 4 demo on YouTube](https://youtu.be/yBHOUj8hG3k).
 
 Mainnet deployment is outside Level 4 scope and remains blocked on the Level 6 pilot and security-review gates.
 
@@ -41,7 +42,7 @@ PLAYWRIGHT_BASE_URL=http://localhost:3000 npm run test:demo
 PLAYWRIGHT_BASE_URL=http://localhost:3000 npm run test:visual
 ```
 
-Do not deploy the revamp until these checks pass and the frontend diff has received review. No backend, contract, sponsorship, or wallet-serialization change is required for the presentation release.
+The current presentation release passed these checks. No backend, contract, sponsorship, or wallet-serialization change is required for the documented Green Belt evidence package.
 
 ---
 

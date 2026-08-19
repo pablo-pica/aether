@@ -1,11 +1,14 @@
 # Aethyr Aid — Level 4 Implementation Specification
 
-**Status:** Approved for Phase 6 implementation  
-**Scope:** Green Belt voucher MVP on Stellar Testnet  
-**Decision date:** August 4, 2026  
+**Status:** Implemented and validated for Green Belt submission
+
+**Scope:** Green Belt voucher MVP on Stellar Testnet
+
+**Decision date:** August 4, 2026
+
 **Source:** Approved proposal in [`IDEA-SUBMISSION.md`](./IDEA-SUBMISSION.md)
 
-This specification is the Phase 5 contract between product intent, implementation, tests, and submission evidence. Phase 6 must write failing contract tests from these scenarios before adding contract code. Any change to the states, authorization rules, accounting, privacy boundary, or deferred scope requires an explicit documentation decision first.
+This specification is the normative contract between product intent, implementation, tests, and submission evidence. It records the approved Phase 5 decisions and the validated Level 4 implementation. Any future change to the states, authorization rules, accounting, privacy boundary, or deferred scope requires an explicit documentation decision.
 
 ## 1. Approved Architecture Decisions
 

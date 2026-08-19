@@ -33,7 +33,7 @@ The current implementation includes campaign funding and accounting, merchant ap
 - **Roles:** Donor, Coordinator/Admin, Merchant/Cooperative, and Verifier have guided routes at `/app/aid/*`; authorization remains enforced by the connected wallet and contract.
 - **Test safely:** Start in **Local demo**, then select **Live Testnet** and connect Freighter only when ready to sign. Never use Mainnet funds or enter real beneficiary data.
 - **Validation guide:** [`docs/TESTNET-USER-WALKTHROUGH.md`](./docs/TESTNET-USER-WALKTHROUGH.md) documents setup, clean and disputed flows, negative checks, and privacy-safe evidence collection.
-- **Implementation detail:** [`docs/LEVEL-4-IMPLEMENTATION-SPEC.md`](./docs/LEVEL-4-IMPLEMENTATION-SPEC.md) defines the state machines, authorization, accounting invariants, and privacy boundary. [`docs/PROGRESS.md`](./docs/PROGRESS.md) tracks remaining validation work.
+- **Implementation detail:** [`docs/LEVEL-4-IMPLEMENTATION-SPEC.md`](./docs/LEVEL-4-IMPLEMENTATION-SPEC.md) defines the state machines, authorization, accounting invariants, and privacy boundary. [`docs/PROGRESS.md`](./docs/PROGRESS.md) tracks submission and review status.
 
 ---
 
@@ -79,7 +79,6 @@ The current implementation includes campaign funding and accounting, merchant ap
 ## 🎬 Live Demo & Presentation
 
 * 🌐 **Live Application**: [Aethyr Aid on Vercel](https://aethyr-pica.vercel.app/)
-* 🎥 **Prior foundation walkthrough**: [YouTube](https://www.youtube.com/watch?v=F_bBEHbHh0A) | [Local MP4](./docs/assets/video_demo.mp4)
 * 🎬 **Final Green Belt demo**: [YouTube](https://youtu.be/yBHOUj8hG3k) | [`Recording script`](./docs/GREEN-BELT-VIDEO-SCRIPT.md) — covers complexity, product quality, architecture, and real-world usefulness.
 
 ---
@@ -137,7 +136,7 @@ aethyr/
 ├── docs/                    # Design documentation, architecture files, and submission assets
 │   ├── assets/              # Interface screenshots and project banners
 │   ├── IDEA-SUBMISSION.md   # Original approved product direction
-│   ├── ARCHITECTURE.md      # Historical foundation and architecture notes
+│   ├── ARCHITECTURE.md      # Current Aid architecture and retained foundation notes
 │   ├── LEVEL-4-IMPLEMENTATION-SPEC.md # Aid domain model, invariants, and test plan
 │   ├── TESTNET-USER-WALKTHROUGH.md # Current live-Testnet validation runbook
 │   ├── GREEN-BELT-USER-TEST-RAW.csv # Complete user-test export for submission evidence
@@ -326,7 +325,7 @@ Each belt section below maps **1:1** against the [Belt Requirements](./docs/BELT
 | **Milestone Activity timeline** — tracking status of released/pending milestones with transaction hashes | <img src="docs/assets/screen7.png" width="220" alt="Milestones Activity Timeline"> |
 | **GitHub Actions CI/CD** — green/passing build and test runs dashboard | <img src="docs/assets/screen8.png" width="220" alt="GitHub Actions CI/CD"> |
 | **Test suite output** — 11 Rust contract tests and 59 Vitest frontend tests passing in terminal | <img src="docs/assets/screen9.png" width="220" alt="Test Suite Output"> |
-| **Video walkthrough** | [Aethyr Walkthrough Video (YouTube)](https://www.youtube.com/watch?v=F_bBEHbHh0A) or [Local Walkthrough Video (MP4)](./docs/assets/video_demo.mp4) |
+| **Video walkthrough** | [Final Aethyr Aid Green Belt demo (YouTube)](https://youtu.be/yBHOUj8hG3k) |
 
 </details>
 
