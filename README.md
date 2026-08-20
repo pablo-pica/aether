@@ -366,6 +366,54 @@ The final production demo is published on [YouTube](https://youtu.be/yBHOUj8hG3k
 | **Architecture quality** | Contract-enforced authority, separated admin/merchant/verifier responsibilities, privacy-preserving off-chain records, Testnet deployment, observability, and automated validation. |
 | **Real-world usefulness** | A practical last-mile relief trail for donors, coordinators, merchants, verifiers, and beneficiary-serving organizations; 15 user responses from 15 distinct wallets, 12 reported live Testnet transactions, and 11 valid hashes are preserved in the evidence. |
 
+#### Core Tasks
+
+| # | Requirement | Status | Evidence |
+|:-:|:--|:------:|:--|
+| 1 | **Production-ready Aid MVP** — campaign funding, approved merchants, opaque beneficiary cases, vouchers, evidence attestations, freezes, verifier decisions, payout, and dispute release | ✅ | [Level 4 implementation spec](./docs/LEVEL-4-IMPLEMENTATION-SPEC.md) · [Aid contract](./contracts/aethyr-router/contracts/aethyr-aid/src/lib.rs) |
+| 2 | **Clean delivery lifecycle** — fund campaign → issue voucher → redeem with evidence → verifier approval → atomic payout | ✅ | [Verified clean Testnet run](./docs/TESTNET-USER-WALKTHROUGH.md#4-test-the-clean-testnet-delivery-flow) · [published demo](https://youtu.be/yBHOUj8hG3k) |
+| 3 | **Disputed delivery lifecycle** — freeze reservation → append one evidence revision → verifier rejection → release funds without merchant payout | ✅ | [Verified disputed Testnet run](./docs/TESTNET-USER-WALKTHROUGH.md#verified-disputed-testnet-run) · [negative checks](./docs/TESTNET-USER-WALKTHROUGH.md#6-required-negative-checks) |
+| 4 | **Real-user validation** — at least 10 Testnet participants with wallet interaction proof | ✅ | 15 distinct wallets, 12 reported live Testnet transactions, and 11 valid hashes in the [complete export](./docs/GREEN-BELT-USER-TEST-RAW.csv) |
+| 5 | **Feedback-led product validation** — collect and preserve user feedback | ✅ | 15 responses, ratings, raw comments, and improvement themes in the [feedback summary](./docs/GREEN-BELT-FEEDBACK-SUMMARY.md) |
+| 6 | **Product quality** — responsive UI, role-guided onboarding, deterministic local walkthroughs, loading/error/success states, and accessible interactions | ✅ | [UI tests](./scripts/ui.spec.ts) · [Aid visual tests](./scripts/aid-visual.spec.ts) · [Aid workspace](./src/components/workflows/aid/AidWorkspaceCards.tsx) |
+| 7 | **Observability** — privacy-constrained analytics and error monitoring | ✅ | [PostHog/Sentry instrumentation](./src/lib/observability.ts) · production evidence below |
+| 8 | **Live release and documentation** — deploy the validated product and document how to verify it | ✅ | [Live application](https://aethyr-pica.vercel.app/) · [deployment record](./docs/DEPLOYMENT.md) · [validation runbook](./docs/TESTNET-USER-WALKTHROUGH.md) |
+
+#### Codebase Requirements
+
+| Requirement | Status | Evidence |
+|:--|:------:|:--|
+| Public GitHub repository with a complete README | ✅ | [github.com/pablo-pica/aethyr](https://github.com/pablo-pica/aethyr) · this README |
+| Structured history with at least 15 meaningful commits | ✅ | 190+ conventional commits in the public repository |
+| Live production deployment | ✅ | [aethyr-pica.vercel.app](https://aethyr-pica.vercel.app/) |
+| No hardcoded secrets | ✅ | Environment-based configuration in [`.env.example`](./.env.example) · [pre-commit secret scan](./scripts/pre-commit.sh) |
+| Automated quality gates | ✅ | [GitHub Actions](./.github/workflows/ci.yml) runs lint, frontend tests, build, and Rust tests |
+| Standalone technical documentation | ✅ | [architecture](./docs/ARCHITECTURE.md) · [deployment](./docs/DEPLOYMENT.md) · [requirements](./docs/BELT-REQUIREMENTS.md) |
+
+#### On-Chain Proof
+
+All entries below are real Stellar Testnet evidence for the hardened Aid contract. The local clean and disputed walkthroughs are deterministic demonstrations only; the linked Explorer records are the on-chain proof.
+
+| Flow | Action | Testnet proof |
+|:--|:--|:--|
+| Deployment | Hardened Aid contract | [`CBZKE67…VIC`](https://stellar.expert/explorer/testnet/contract/CBZKE67HDBTWIZLKZFJOMEMJSENJOUHJVBURYED5M7VYUQCPJH5VOVIC) |
+| Deployment | Initialize admin | [`f7b025…`](https://stellar.expert/explorer/testnet/tx/f7b0254742b351b2997f8965b62348e2157d9a9d119ae13ac0de5e2c20471ac5) |
+| Deployment | Provision separate verifier | [`80e98d…`](https://stellar.expert/explorer/testnet/tx/80e98d1ca202960a04643c2005574a7db23bc3cbbb7234b1f14e75b59686dee1) |
+| Setup | Add AIDT trustline | [`e092b2…`](https://stellar.expert/explorer/testnet/tx/e092b26009f87da791b9ec5af887a6fe99486a94f847d2aac9e65db973852a87) |
+| **Clean delivery** | Campaign creation | [`1878c8…`](https://stellar.expert/explorer/testnet/tx/1878c8b802969a8efe1f4dc2f14b60e5a37dfbf68ceea46ee521dd53b0c2dbb9) |
+| Clean delivery | Campaign funding — 10 AIDT | [`185d22…`](https://stellar.expert/explorer/testnet/tx/185d2222ac478068d2573892bfeb1f90b5be1e71fc6b27ff34e7276924c943eb) |
+| Clean delivery | Merchant approval | [`f8f3a0…`](https://stellar.expert/explorer/testnet/tx/f8f3a0348953b1e6bbdf32827996b848ed8d579f98c567f4ab35f52fe6045892) |
+| Clean delivery | Beneficiary case creation | [`7f5a69…`](https://stellar.expert/explorer/testnet/tx/7f5a696e8d5ed0c8596a438f3e379b793ac06e58850b8f13012938fbbb497838) |
+| Clean delivery | Voucher issuance — 2 AIDT | [`14a880…`](https://stellar.expert/explorer/testnet/tx/14a8800382ee7648b2edf6dc8c880cc96a8b44f31ee25bc9e61e51c264b8b11e) |
+| Clean delivery | Merchant redemption with evidence | [`86bcdd…`](https://stellar.expert/explorer/testnet/tx/86bcdd8987428934be7f9800468c5b6d3c041f83694caa4763b226fb57d87a2b) |
+| Clean delivery | Verifier approval and atomic payout | [`ecfeef…`](https://stellar.expert/explorer/testnet/tx/ecfeef0f7ee193dc5b707be33fceb0cbd99d4c5f09a7fa72d01b5ca07510454c) |
+| **Disputed delivery** | Beneficiary case creation | [`ab415c…`](https://stellar.expert/explorer/testnet/tx/ab415c2654ad81ce899f273a183111c8f717e1aec26dd6f14ffeaa6c640c6b8d) |
+| Disputed delivery | Voucher issuance — 1 AIDT | [`f7dcac…`](https://stellar.expert/explorer/testnet/tx/f7dcacf68e7efd0842033d5c029a56d44358089937302f53805d2fbe3ccb133c) |
+| Disputed delivery | Merchant redemption with evidence | [`71dee0…`](https://stellar.expert/explorer/testnet/tx/71dee0c9f9f9ce9c787e896660158e93c82d9f41043b6d7fc85e922ba6e726f9) |
+| Disputed delivery | Admin freeze | [`776752…`](https://stellar.expert/explorer/testnet/tx/7767526c4298886417d910fd76bed99fdaf1b3701d999a574dded67407ec4313) |
+| Disputed delivery | Evidence revision | [`fa8663…`](https://stellar.expert/explorer/testnet/tx/fa8663d3d3208aa893ebe3772ba7fc378a09d8eb9fba8d26fbef3a69b4345306) |
+| Disputed delivery | Verifier rejection and reservation release | [`602891…`](https://stellar.expert/explorer/testnet/tx/6028913de139357a9aaa73a75e4893c548cfee908df8fa98c056c7aede0fdb42) |
+
 #### Submission Assets
 
 | Asset | Screenshot |
@@ -374,14 +422,6 @@ The final production demo is published on [YouTube](https://youtu.be/yBHOUj8hG3k
 | **Production landing page — mobile** | <img src="docs/assets/green-belt-landing-mobile.png" width="220" alt="Aethyr Aid production landing page mobile screenshot"> |
 | **Aid operational workspace — desktop** | <img src="docs/assets/green-belt-aid-desktop.png" width="360" alt="Aethyr Aid operational workspace desktop screenshot"> |
 | **Aid operational workspace — mobile** | <img src="docs/assets/green-belt-aid-mobile.png" width="220" alt="Aethyr Aid operational workspace mobile screenshot"> |
-| **Coordinator workspace — desktop** | <img src="docs/assets/green-belt-coordinator-desktop.png" width="360" alt="Aethyr Aid coordinator workspace desktop screenshot"> |
-| **Coordinator workspace — mobile** | <img src="docs/assets/green-belt-coordinator-mobile.png" width="220" alt="Aethyr Aid coordinator workspace mobile screenshot"> |
-| **Donor workspace — desktop** | <img src="docs/assets/green-belt-donor-desktop.png" width="360" alt="Aethyr Aid donor workspace desktop screenshot"> |
-| **Donor workspace — mobile** | <img src="docs/assets/green-belt-donor-mobile.png" width="220" alt="Aethyr Aid donor workspace mobile screenshot"> |
-| **Merchant workspace — desktop** | <img src="docs/assets/green-belt-merchant-desktop.png" width="360" alt="Aethyr Aid merchant workspace desktop screenshot"> |
-| **Merchant workspace — mobile** | <img src="docs/assets/green-belt-merchant-mobile.png" width="220" alt="Aethyr Aid merchant workspace mobile screenshot"> |
-| **Verifier workspace — desktop** | <img src="docs/assets/green-belt-verifier-desktop.png" width="360" alt="Aethyr Aid verifier workspace desktop screenshot"> |
-| **Verifier workspace — mobile** | <img src="docs/assets/green-belt-verifier-mobile.png" width="220" alt="Aethyr Aid verifier workspace mobile screenshot"> |
 | **PostHog production event capture** | <img src="docs/assets/posthog-events.png" width="360" alt="PostHog production event capture screenshot"> |
 | **Sentry redacted error monitoring** | <img src="docs/assets/sentry-redacted-error.png" width="360" alt="Sentry redacted error monitoring screenshot"> |
 
