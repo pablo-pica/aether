@@ -327,7 +327,7 @@ Events must include stable identifiers and non-sensitive state needed to reconst
 - Frontend tests verify no raw evidence URL or beneficiary data is serialized into contract arguments, analytics, monitoring context, or public activity records.
 - Manual validation confirms private evidence requires authorized access and public screenshots contain no personal data.
 
-## 11. Validation and Submission Evidence Plan
+## 11. Validation and Submission Evidence
 
 ### Ten real wallet users
 
@@ -388,6 +388,6 @@ Record one live demo covering both the clean and disputed flows. The disputed de
 Phase 6 may begin when:
 
 - This specification and its architecture decisions are approved.
-- Phase 5 checklist items in [`PROGRESS.md`](./PROGRESS.md) are complete.
+- The approved Level 4 acceptance and evidence items in [`BELT-REQUIREMENTS.md`](./BELT-REQUIREMENTS.md) are complete.
 - Contract tests are derived from Section 10 before implementation.
 - Any deviation is recorded in this file and the progress audit log before code changes.

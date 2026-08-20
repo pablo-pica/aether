@@ -1,9 +1,8 @@
-# Aethyr Aid Hero Banner
+# 🌌 Aethyr Aid — Verified Typhoon Relief Payments on Stellar
+
 <p align="center">
   <img src="docs/assets/banner.png" alt="Aethyr Aid banner" width="100%" />
 </p>
-
-<h1 align="center">🌌 Aethyr Aid</h1>
 <p align="center">
   <strong>Verified Typhoon Relief Payments on Stellar</strong>
 </p>
@@ -27,13 +26,33 @@ The current implementation includes campaign funding and accounting, merchant ap
 
 > **Status:** The Aid contract, Aid-first operational workspace, role-guided routes, Testnet workflow, production deployment, privacy-conscious telemetry, current desktop/mobile screenshots, 10+ user feedback gate, and final Green Belt demo are complete. The private deployed-site test collected 15 distinct wallet addresses, 12 reported live Testnet transactions, and 15 feedback responses; the complete response export and summary are documented in [`docs/GREEN-BELT-USER-TEST-RAW.csv`](./docs/GREEN-BELT-USER-TEST-RAW.csv) and [`docs/GREEN-BELT-FEEDBACK-SUMMARY.md`](./docs/GREEN-BELT-FEEDBACK-SUMMARY.md). The Level 4 package is ready for RiseIn submission; external reviewer evaluation follows submission. Mainnet, beneficiary wallets, identity/KYC, token conversion, and automatic payout are out of scope.
 
+## At a glance
+
+| Signal | Verified result |
+|:--|:--|
+| **Live product** | Production Aid workspace on Vercel with a hardened Soroban contract on Stellar Testnet. |
+| **End-to-end behavior** | Clean payout and disputed release paths are implemented, tested, and demonstrated. |
+| **User evidence** | 15 responses from 15 distinct wallets; 12 reported live Testnet transactions; 11 valid hashes preserved. |
+| **Quality evidence** | 99 Vitest tests, 19 Rust tests, responsive/accessibility checks, visual baselines, PostHog, and Sentry evidence. |
+| **Final demo** | [Published Level 4 video](https://youtu.be/yBHOUj8hG3k). |
+
+## Why Aethyr Aid matters
+
+Relief is not accountable merely because money moved. Donors and operators need a trustworthy path from funding to delivery, while beneficiary households should not have to manage crypto wallets or expose personal information on-chain.
+
+| Real-world challenge | Aethyr Aid response |
+|:--|:--|
+| **Where did the aid go?** | Campaign accounting, purpose-bound vouchers, merchant redemption, evidence, and a public transaction trail. |
+| **What if delivery is disputed?** | Admin freeze, one controlled evidence revision, independent verifier decision, and either atomic payout or reservation release. |
+| **How do we protect people?** | Beneficiary case references and fixed-width digests keep personal records and raw evidence off-chain. |
+
 ### Start here
 
 - **Public site:** [`/`](https://aethyr-pica.vercel.app/) explains the product; [`/app`](https://aethyr-pica.vercel.app/app) opens the operational workspace.
 - **Roles:** Donor, Coordinator/Admin, Merchant/Cooperative, and Verifier have guided routes at `/app/aid/*`; authorization remains enforced by the connected wallet and contract.
 - **Test safely:** Start in **Local demo**, then select **Live Testnet** and connect Freighter only when ready to sign. Never use Mainnet funds or enter real beneficiary data.
 - **Validation guide:** [`docs/TESTNET-USER-WALKTHROUGH.md`](./docs/TESTNET-USER-WALKTHROUGH.md) documents setup, clean and disputed flows, negative checks, and privacy-safe evidence collection.
-- **Implementation detail:** [`docs/LEVEL-4-IMPLEMENTATION-SPEC.md`](./docs/LEVEL-4-IMPLEMENTATION-SPEC.md) defines the state machines, authorization, accounting invariants, and privacy boundary. [`docs/PROGRESS.md`](./docs/PROGRESS.md) tracks submission and review status.
+- **Implementation detail:** [`docs/LEVEL-4-IMPLEMENTATION-SPEC.md`](./docs/LEVEL-4-IMPLEMENTATION-SPEC.md) defines the state machines, authorization, accounting invariants, and privacy boundary.
 
 ---
 
@@ -79,7 +98,7 @@ The current implementation includes campaign funding and accounting, merchant ap
 ## 🎬 Live Demo & Presentation
 
 * 🌐 **Live Application**: [Aethyr Aid on Vercel](https://aethyr-pica.vercel.app/)
-* 🎬 **Final Green Belt demo**: [YouTube](https://youtu.be/yBHOUj8hG3k) | [`Recording script`](./docs/GREEN-BELT-VIDEO-SCRIPT.md) — covers complexity, product quality, architecture, and real-world usefulness.
+* 🎬 **Final Green Belt demo**: [Watch on YouTube](https://youtu.be/yBHOUj8hG3k) — the published clean/disputed workflow demonstration.
 
 ---
 
@@ -137,15 +156,13 @@ aethyr/
 │   ├── assets/              # Interface screenshots and project banners
 │   ├── IDEA-SUBMISSION.md   # Original approved product direction
 │   ├── ARCHITECTURE.md      # Current Aid architecture and retained foundation notes
-│   ├── LEVEL-4-IMPLEMENTATION-SPEC.md # Aid domain model, invariants, and test plan
+│   ├── LEVEL-4-IMPLEMENTATION-SPEC.md # Aid domain model, invariants, and acceptance evidence
 │   ├── TESTNET-USER-WALKTHROUGH.md # Current live-Testnet validation runbook
 │   ├── GREEN-BELT-USER-TEST-RAW.csv # Complete user-test export for submission evidence
 │   ├── GREEN-BELT-FEEDBACK-SUMMARY.md # User-test ratings, raw comments, and summary
-│   ├── GREEN-BELT-VIDEO-SCRIPT.md # Final Level 4 recording checklist
 │   ├── DEPLOYMENT.md        # Hardened contract and deployment guidance
 │   ├── BELT-REQUIREMENTS.md # JTM belt submission checklists through Level 6
-│   ├── PROGRESS.md          # Living Level 4 validation tracker
-│   └── MASTERPLAN.md        # Product strategy, scope, and belt roadmap
+│   ├── LEVELS-4-7-REQUIREMENTS.md # Program source requirements
 ├── scripts/
 │   └── pre-commit.sh        # Git compliance hook (secret scanning + test runner)
 ├── src/
@@ -333,33 +350,53 @@ Each belt section below maps **1:1** against the [Belt Requirements](./docs/BELT
 
 ### 🟢 Green Belt — Level 4 submission evidence
 
-<details>
-<summary><strong>✅ Level 4 readiness and evidence — Click to expand</strong></summary>
+<details open>
+<summary><strong>✅ Final package — product, proof, and reviewer evidence</strong></summary>
 
-The technical Green Belt gate, 10+ user/feedback gate, observability evidence, and current desktop/mobile screenshot gate are complete. The hardened Aid contract is deployed on Testnet, the production workspace supports clean and disputed paths, and the validation suites pass.
+**Aethyr Aid** is a privacy-conscious Stellar Testnet workflow for accountable relief delivery. This package demonstrates a complete path from campaign funding to voucher delivery, merchant evidence, independent verification, and either atomic payout or safe dispute resolution.
 
-The final live clean/disputed walkthrough is published at [YouTube](https://youtu.be/yBHOUj8hG3k). RiseIn reviewers will evaluate technical complexity, product quality, architecture quality, and real-world usefulness from the README and demo; no separate team-review notes are required.
+The final production demo is published on [YouTube](https://youtu.be/yBHOUj8hG3k). The repository contains the implementation specification, deployment record, Testnet validation runbook, user-test export, feedback analysis, and final product screenshots needed to evaluate the work without relying on local files or hidden context.
 
-- **Observability evidence:** [PostHog events](./docs/assets/posthog-events.png) and [Sentry redacted error](./docs/assets/sentry-redacted-error.png)
-- **Product viewport evidence:** [desktop/mobile visual showcase](#green-belt-visual-showcase)
-- **User-test export:** [`docs/GREEN-BELT-USER-TEST-RAW.csv`](./docs/GREEN-BELT-USER-TEST-RAW.csv)
-- **Feedback summary:** [`docs/GREEN-BELT-FEEDBACK-SUMMARY.md`](./docs/GREEN-BELT-FEEDBACK-SUMMARY.md)
-- **Submission checklist:** [`docs/BELT-REQUIREMENTS.md`](./docs/BELT-REQUIREMENTS.md), [`docs/PROGRESS.md`](./docs/PROGRESS.md), and [`docs/GREEN-BELT-VIDEO-SCRIPT.md`](./docs/GREEN-BELT-VIDEO-SCRIPT.md)
+#### What the submission demonstrates
 
-</details>
+| Review focus | Evidence in this repository |
+|:--|:--|
+| **Technical complexity** | Multi-role campaign and voucher lifecycle, reservations, merchant redemption, evidence revision after freeze, independent verifier decisions, atomic payout, and safe reservation release. |
+| **Product quality** | Role-guided onboarding, clear signing boundaries, responsive desktop/mobile layouts, visible loading/error/success states, and feedback-led improvements. |
+| **Architecture quality** | Contract-enforced authority, separated admin/merchant/verifier responsibilities, privacy-preserving off-chain records, Testnet deployment, observability, and automated validation. |
+| **Real-world usefulness** | A practical last-mile relief trail for donors, coordinators, merchants, verifiers, and beneficiary-serving organizations; 15 user responses from 15 distinct wallets, 12 reported live Testnet transactions, and 11 valid hashes are preserved in the evidence. |
 
----
+#### Submission Assets
 
-<a id="green-belt-visual-showcase"></a>
-### 🖼️ Visual Showcase — Desktop & Mobile Viewports
+| Asset | Screenshot |
+|:--|:--:|
+| **Production landing page — desktop** | <img src="docs/assets/green-belt-landing-desktop.png" width="360" alt="Aethyr Aid production landing page desktop screenshot"> |
+| **Production landing page — mobile** | <img src="docs/assets/green-belt-landing-mobile.png" width="220" alt="Aethyr Aid production landing page mobile screenshot"> |
+| **Aid operational workspace — desktop** | <img src="docs/assets/green-belt-aid-desktop.png" width="360" alt="Aethyr Aid operational workspace desktop screenshot"> |
+| **Aid operational workspace — mobile** | <img src="docs/assets/green-belt-aid-mobile.png" width="220" alt="Aethyr Aid operational workspace mobile screenshot"> |
+| **Coordinator workspace — desktop** | <img src="docs/assets/green-belt-coordinator-desktop.png" width="360" alt="Aethyr Aid coordinator workspace desktop screenshot"> |
+| **Coordinator workspace — mobile** | <img src="docs/assets/green-belt-coordinator-mobile.png" width="220" alt="Aethyr Aid coordinator workspace mobile screenshot"> |
+| **Donor workspace — desktop** | <img src="docs/assets/green-belt-donor-desktop.png" width="360" alt="Aethyr Aid donor workspace desktop screenshot"> |
+| **Donor workspace — mobile** | <img src="docs/assets/green-belt-donor-mobile.png" width="220" alt="Aethyr Aid donor workspace mobile screenshot"> |
+| **Merchant workspace — desktop** | <img src="docs/assets/green-belt-merchant-desktop.png" width="360" alt="Aethyr Aid merchant workspace desktop screenshot"> |
+| **Merchant workspace — mobile** | <img src="docs/assets/green-belt-merchant-mobile.png" width="220" alt="Aethyr Aid merchant workspace mobile screenshot"> |
+| **Verifier workspace — desktop** | <img src="docs/assets/green-belt-verifier-desktop.png" width="360" alt="Aethyr Aid verifier workspace desktop screenshot"> |
+| **Verifier workspace — mobile** | <img src="docs/assets/green-belt-verifier-mobile.png" width="220" alt="Aethyr Aid verifier workspace mobile screenshot"> |
+| **PostHog production event capture** | <img src="docs/assets/posthog-events.png" width="360" alt="PostHog production event capture screenshot"> |
+| **Sentry redacted error monitoring** | <img src="docs/assets/sentry-redacted-error.png" width="360" alt="Sentry redacted error monitoring screenshot"> |
 
-<details>
-<summary><strong>📱 Click to view desktop and mobile screenshots</strong></summary>
+#### Submission Links
 
-| Surface | Desktop viewport | Mobile viewport |
-|:--|:--:|:--:|
-| **Landing page** | <img src="docs/assets/green-belt-landing-desktop.png" width="360" alt="Aethyr landing page desktop screenshot"> | <img src="docs/assets/green-belt-landing-mobile.png" width="220" alt="Aethyr landing page mobile screenshot"> |
-| **Aid workspace** | <img src="docs/assets/green-belt-aid-desktop.png" width="360" alt="Aethyr Aid workspace desktop screenshot"> | <img src="docs/assets/green-belt-aid-mobile.png" width="220" alt="Aethyr Aid workspace mobile screenshot"> |
+| Artifact | Link |
+|:--|:--|
+| **Final demo** | [Aethyr Aid — Level 4 video demonstration](https://youtu.be/yBHOUj8hG3k) |
+| **Live application** | [aethyr-pica.vercel.app](https://aethyr-pica.vercel.app/) |
+| **Hardened Aid contract** | [Stellar Expert — Testnet contract](https://stellar.expert/explorer/testnet/contract/CBZKE67HDBTWIZLKZFJOMEMJSENJOUHJVBURYED5M7VYUQCPJH5VOVIC) |
+| **Testnet validation** | [`docs/TESTNET-USER-WALKTHROUGH.md`](./docs/TESTNET-USER-WALKTHROUGH.md) |
+| **Deployment record** | [`docs/DEPLOYMENT.md`](./docs/DEPLOYMENT.md) |
+| **User-test export** | [`docs/GREEN-BELT-USER-TEST-RAW.csv`](./docs/GREEN-BELT-USER-TEST-RAW.csv) |
+| **Feedback analysis** | [`docs/GREEN-BELT-FEEDBACK-SUMMARY.md`](./docs/GREEN-BELT-FEEDBACK-SUMMARY.md) |
+| **Level 4 requirements** | [`docs/BELT-REQUIREMENTS.md`](./docs/BELT-REQUIREMENTS.md) |
 
 </details>
 
@@ -433,7 +470,7 @@ npm run test:visual
 |:-----|:-------|:--------|:------:|
 | ⚪–🟠 Levels 1–3 | July 2026 | Wallet, contracts, PWA, tests, CI/CD, relayer, and demo foundation | ✅ Complete |
 | 💡 Idea gate | July 2026 | Aethyr Aid direction approved | ✅ Complete |
-| 🟢 Level 4 definition | Aug 3–6 | Domain model, implementation specification, acceptance criteria, and evidence plan | ✅ Complete |
+| 🟢 Level 4 definition | Aug 3–6 | Domain model, implementation specification, acceptance criteria, and evidence package | ✅ Complete |
 | 🟢 Level 4 contracts | Aug 7–14 | Tested campaign, voucher, registry, evidence, verification, and dispute logic on Testnet | ✅ Complete |
 | 🟢 Level 4 product | Aug 15–20 | Complete donor/admin, merchant, and verifier workflows | ✅ Complete |
 | 🟢 Level 4 validation | Aug 21–27 | Production deployment, monitoring/analytics, 10-user proof, feedback, and demo | ✅ Technical/evidence/demo complete; submission pending |
@@ -441,7 +478,7 @@ npm run test:visual
 | 🔵 Level 5 | After Level 4 | 50 Testnet users, feedback-led improvements, verification thresholds, donor traceability, pricing checks, receipt, pitch, and demo | Future |
 | ⚫ Level 6 | After Level 5 | Security review, local pilot, Mainnet, 20 verified users, public launch, and ecosystem contribution | Future |
 
-See [`docs/PROGRESS.md`](./docs/PROGRESS.md) for the acceptance checklist and [`docs/BELT-REQUIREMENTS.md`](./docs/BELT-REQUIREMENTS.md) for the program requirements.
+See [`docs/BELT-REQUIREMENTS.md`](./docs/BELT-REQUIREMENTS.md) for the program requirements and submission checklist.
 
 ---
 

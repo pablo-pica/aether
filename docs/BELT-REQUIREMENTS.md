@@ -118,7 +118,7 @@ This file contains working audit checklists for the **Stellar Journey to Mastery
 - [x] Public GitHub repository — [`github.com/pablo-pica/aethyr`](https://github.com/pablo-pica/aethyr).
 
 ### Demo and Submission Evidence
-- [x] Live demo video showing complete functionality — [Aethyr Aid Level 4 demo on YouTube](https://youtu.be/yBHOUj8hG3k); recording guidance remains in [`docs/GREEN-BELT-VIDEO-SCRIPT.md`](./GREEN-BELT-VIDEO-SCRIPT.md).
+- [x] Live demo video showing complete functionality — [Aethyr Aid Level 4 demo on YouTube](https://youtu.be/yBHOUj8hG3k).
 - [x] Review coverage prepared for technical complexity, product quality, architecture quality, and real-world usefulness — the README and published demo provide the evidence; RiseIn performs the external evaluation after submission.
 - [x] README with complete technical documentation — [`README.md`](../README.md).
 - [x] Live application link and contract deployment addresses — [`README.md`](../README.md#-live-demo--presentation) and [`docs/DEPLOYMENT.md`](./DEPLOYMENT.md).
