@@ -513,9 +513,9 @@ npm run test:visual
 | 🟢 Level 4 definition | Aug 3–6 | Domain model, implementation specification, acceptance criteria, and evidence package | ✅ Complete |
 | 🟢 Level 4 contracts | Aug 7–14 | Tested campaign, voucher, registry, evidence, verification, and dispute logic on Testnet | ✅ Complete |
 | 🟢 Level 4 product | Aug 15–20 | Complete donor/admin, merchant, and verifier workflows | ✅ Complete |
-| 🟢 Level 4 validation | Aug 21–27 | Production deployment, monitoring/analytics, 10-user proof, feedback, and demo | ✅ Technical/evidence/demo complete; submission pending |
-| 🟢 Level 4 submission | Aug 28 | Green Belt package submitted with Aug 29–31 review buffer | 🎯 Operator gate |
-| 🔵 Level 5 | After Level 4 | 50 Testnet users, feedback-led improvements, verification thresholds, donor traceability, pricing checks, receipt, pitch, and demo | Future |
+| 🟢 Level 4 validation | Aug 21–22 | Production deployment, monitoring/analytics, 10-user proof, feedback, and demo | ✅ Complete |
+| 🟢 Level 4 submission | Aug 22 | Submit the Green Belt package to RiseIn tonight; external evaluation follows submission | 🎯 Ready tonight |
+| 🔵 Level 5 | After Level 4 evaluation | 50 Testnet users, feedback-led improvements, verification thresholds, donor traceability, pricing checks, receipt, pitch, and demo | Future |
 | ⚫ Level 6 | After Level 5 | Security review, local pilot, Mainnet, 20 verified users, public launch, and ecosystem contribution | Future |
 
 See [`docs/BELT-REQUIREMENTS.md`](./docs/BELT-REQUIREMENTS.md) for the program requirements and submission checklist.
