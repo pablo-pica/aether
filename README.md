@@ -26,11 +26,18 @@ The current implementation includes campaign funding and accounting, merchant ap
 
 > **Status:** The Aid contract, Aid-first operational workspace, role-guided routes, Testnet workflow, production deployment, privacy-conscious telemetry, current desktop/mobile screenshots, 10+ user feedback gate, and final Green Belt demo are complete. The private deployed-site test collected 15 distinct wallet addresses, 12 reported live Testnet transactions, and 15 feedback responses; the complete response export and summary are documented in [`docs/GREEN-BELT-USER-TEST-RAW.csv`](./docs/GREEN-BELT-USER-TEST-RAW.csv) and [`docs/GREEN-BELT-FEEDBACK-SUMMARY.md`](./docs/GREEN-BELT-FEEDBACK-SUMMARY.md). The Level 4 package is ready for RiseIn submission; external reviewer evaluation follows submission. Mainnet, beneficiary wallets, identity/KYC, token conversion, and automatic payout are out of scope.
 
+<p align="center">
+  <a href="https://aethyr-pica.vercel.app/">
+    <img src="docs/assets/green-belt-landing-desktop.png" alt="Aethyr Aid production landing page" width="820" />
+  </a>
+</p>
+<p align="center"><em>Production landing page — <a href="https://aethyr-pica.vercel.app/">open the live product</a></em></p>
+
 ## At a glance
 
 | Signal | Verified result |
 |:--|:--|
-| **Live product** | Production Aid workspace on Vercel with a hardened Soroban contract on Stellar Testnet. |
+| **Live product** | [Production Aid workspace on Vercel](https://aethyr-pica.vercel.app/) with a hardened Soroban contract on Stellar Testnet. |
 | **End-to-end behavior** | Clean payout and disputed release paths are implemented, tested, and demonstrated. |
 | **User evidence** | 15 responses from 15 distinct wallets; 12 reported live Testnet transactions; 11 valid hashes preserved. |
 | **Quality evidence** | 99 Vitest tests, 19 Rust tests, responsive/accessibility checks, visual baselines, PostHog, and Sentry evidence. |
