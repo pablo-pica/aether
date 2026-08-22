@@ -366,6 +366,19 @@ The final production demo is published on [YouTube](https://youtu.be/yBHOUj8hG3k
 | **Architecture quality** | Contract-enforced authority, separated admin/merchant/verifier responsibilities, privacy-preserving off-chain records, Testnet deployment, observability, and automated validation. |
 | **Real-world usefulness** | A practical last-mile relief trail for donors, coordinators, merchants, verifiers, and beneficiary-serving organizations; 15 user responses from 15 distinct wallets, 12 reported live Testnet transactions, and 11 valid hashes are preserved in the evidence. |
 
+#### 15-Response Feedback Summary
+
+The deployed-site test collected **15 responses from 15 distinct wallets**. **12 participants reported signing live Testnet transactions**, including **11 valid transaction hashes**; 2 connected without signing and 1 explored the site without connecting. Overall satisfaction averaged **4.47/5** (8 ratings of 5/5 and 7 ratings of 4/5).
+
+| Signal | Result |
+|:--|:--|
+| **Experience quality** | Website performance: 10 Excellent / 5 Good; wallet connection: 8 Excellent / 7 Good. |
+| **What users valued** | Fast Testnet execution, clear role-guided flows, mobile responsiveness, loading states, and the accountability trail. |
+| **Most common requests** | Fee previews, clearer demo/live labels, Explorer and copy links, richer activity filtering, evidence-hash guidance, and easier role switching. |
+| **Product response** | Onboarding and signing-safety guidance, deterministic local walkthroughs, explicit transaction states, responsive/accessibility checks, and privacy-safe evidence instructions. |
+
+The complete [raw export](./docs/GREEN-BELT-USER-TEST-RAW.csv), coded themes, verbatim comments, and detailed action mapping are preserved in the [feedback summary](./docs/GREEN-BELT-FEEDBACK-SUMMARY.md).
+
 #### Core Tasks
 
 | # | Requirement | Status | Evidence |
