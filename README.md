@@ -355,7 +355,7 @@ Each belt section below maps **1:1** against the [Belt Requirements](./docs/BELT
 
 ---
 
-### 🟢 Green Belt — Level 4 submission evidence
+### 🟢 Green Belt — Aethyr Aids!
 
 <details open>
 <summary><strong>✅ Final package — product, proof, and reviewer evidence</strong></summary>
